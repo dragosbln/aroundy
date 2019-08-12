@@ -7,12 +7,12 @@
  */
 
 import React from 'react';
-import Login from './modules/Login'
+import AppContainer from './navigation'
 
 
 const App = () => {
   return (
-    <Login />
+    <AppContainer />
   );
 };
 
