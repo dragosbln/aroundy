@@ -6,7 +6,7 @@ export default (props) => {
 
     return(
         <TouchableOpacity style={styles.base}>
-            <Text style={styles.text}>{props.children}</Text>
+            <Text style={[styles.text, props.customStyle]}>{props.children}</Text>
         </TouchableOpacity>
     )
 }

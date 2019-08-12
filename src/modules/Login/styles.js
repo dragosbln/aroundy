@@ -8,14 +8,14 @@ export default StyleSheet.create({
         alignItems: 'center'
     },
     inputsContainer:{
-        height: '20%',
+        height: '25%',
         width: '80%',
         justifyContent: 'space-between',
-        alignItems: 'flex-end'
+        alignItems: 'flex-end',
     },
     input: {
         width: '100%',
-        height: '30%',
+        height: 50,
     },
     textBtn: {
         width: '30%',
@@ -23,5 +23,13 @@ export default StyleSheet.create({
         position: 'absolute',
         top: '105%',
         
+    },
+    textBtnTxt: {
+        color: '#8C8C8C'
+    },
+    btnContainer: {
+        width: 226,
+        height: 55,
+        marginTop: 50, 
     }
 })

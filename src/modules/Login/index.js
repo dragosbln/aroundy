@@ -4,6 +4,7 @@ import {loginBg} from '../../assets/images'
 import styles from './styles'
 import Input from '../../components/Input'
 import TextButton from '../../components/Buttons/TextButton'
+import Button from '../../components/Buttons/BaseButton'
 import {passwordIcon, emailIcon} from '../../assets/images'
 
 export default class Login extends React.Component {
@@ -21,8 +22,11 @@ export default class Login extends React.Component {
                         <Input placeholder='Password' icon={passwordIcon} />
                     </View>
                     <View style={styles.textBtn}>
-                        <TextButton>forgot pass?</TextButton>
+                        <TextButton customStyle={styles.textBtnTxt}>forgot pass?</TextButton>
                     </View>
+                </View>
+                <View style={styles.btnContainer}>
+                    <Button label='Log in' />
                 </View>
                 
             </ImageBackground>

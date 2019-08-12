@@ -8,7 +8,7 @@ export default StyleSheet.create({
     textInput:{
         width: '100%',
         height: '100%',
-        fontSize: 22,
+        fontSize: 18,
         paddingLeft: '15%',
         color: '#fff'
     },
@@ -17,8 +17,8 @@ export default StyleSheet.create({
         top: '23%',
         left: '3%',
         resizeMode: 'contain',
-        height: '50%',
-        width: '10%'
+        height: 24,
+        width: 24
     },
     underline: {
         width: '100%',
