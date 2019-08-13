@@ -5,7 +5,7 @@ import styles from "./styles";
 export default props => {
   return (
     <View style={styles.base}>
-      <Image style={styles.icon} source={props.icon} />{" "}
+      <Image style={styles.icon} source={props.icon} />
     </View>
   );
 };

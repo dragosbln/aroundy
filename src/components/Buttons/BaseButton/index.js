@@ -7,9 +7,9 @@ export default (props) => {
 
     return (
         <TouchableOpacity style={[styles.base, props.customStyle]}>
-            <LinearGradient style={styles.gradient} colors={['#F9D213', '#F84100']}>
+            <LinearGradient style={styles.gradient} start={{x: 0.5, y: -1}} end={{ x:0.5, y: 1.8}} colors={['#F9D213', '#F84100']}>
                 <Text style={[styles.text, props.customTextStyle]}>{props.label}</Text>
             </LinearGradient>
         </TouchableOpacity>
     )
-}
+}   
