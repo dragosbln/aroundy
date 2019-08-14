@@ -1,6 +1,7 @@
 import React from "react";
 import { createBottomTabNavigator } from "react-navigation";
 import HomeScreen from "../../modules/Home";
+import CalendarScreen from '../../modules/Calendar'
 import TabBarIcon from "../../components/tabBarIcon";
 import {
   globe,
@@ -14,10 +15,11 @@ import {
 export default createBottomTabNavigator(
   {
     Home: HomeScreen,
-    Fly: HomeScreen,
+    Calendar: CalendarScreen,
     Profile: HomeScreen
   },
   {
+    initialRouteName: 'Calendar',
     defaultNavigationOptions: ({ navigation }) => {
       return {
         tabBarIcon: ({ focused }) => {
@@ -31,7 +33,7 @@ export default createBottomTabNavigator(
                 icon = globeActive;
               }
               break;
-            case "Fly":
+            case "Calendar":
               icon = rocket;
               if (focused) {
                 icon = rocketActive;
@@ -52,7 +54,7 @@ export default createBottomTabNavigator(
     },
     tabBarOptions: {
       style: {
-        height: 75,
+        height: 92,
         borderRadius: 100,
         shadowRadius: 3,
         shadowOpacity: 0.2,

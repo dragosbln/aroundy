@@ -1,5 +1,5 @@
 import React from 'react';
-import { ImageBackground, View, TouchableHighlight } from 'react-native';
+import { ImageBackground, View, Text } from 'react-native';
 import {loginBg} from '../../assets/images'
 import styles from './styles'
 import Input from '../../components/Input'
@@ -14,6 +14,9 @@ export default class Login extends React.Component {
     render(){
         return(
             <ImageBackground source={loginBg} style={styles.base}>
+                <View style={styles.logoContainer}>
+                    <Text>Logo</Text>
+                </View>
                 <View style={styles.inputsContainer}>
                     <View style={styles.input}>
                         <Input placeholder='Email' icon={emailIcon} />
@@ -26,7 +29,7 @@ export default class Login extends React.Component {
                     </View>
                 </View>
                 <View style={styles.btnContainer}>
-                    <Button label='Log in' />
+                    <Button label='LOGIN' />
                 </View>
                 
             </ImageBackground>

@@ -7,8 +7,14 @@ export default StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
+    logoContainer: {
+        height: '12%',
+        width: '15%',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
     inputsContainer:{
-        height: '25%',
+        height: '20%',
         width: '80%',
         justifyContent: 'space-between',
         alignItems: 'flex-end',
@@ -19,9 +25,9 @@ export default StyleSheet.create({
     },
     textBtn: {
         width: '30%',
-        height: '10%',
+        height: '15%',
         position: 'absolute',
-        top: '105%',
+        top: '102%',
         
     },
     textBtnTxt: {
@@ -30,6 +36,6 @@ export default StyleSheet.create({
     btnContainer: {
         width: 226,
         height: 55,
-        marginTop: 50, 
+        marginTop: 30, 
     }
 })

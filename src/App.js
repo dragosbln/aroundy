@@ -9,6 +9,7 @@
 import React from 'react';
 import AppContainer from './navigation'
 
+console.disableYellowBox=true
 
 const App = () => {
   return (
