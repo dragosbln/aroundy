@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import colors from '../../../../../assets/theme/colors'
 
 export default StyleSheet.create({
   
@@ -16,7 +17,7 @@ export default StyleSheet.create({
 
   },
   text:{
-    color: '#FF7534'
+    color: colors.orange
   }
   
 });

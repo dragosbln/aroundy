@@ -1,7 +1,7 @@
 import React from "react";
 import { createBottomTabNavigator } from "react-navigation";
 import HomeScreen from "../../modules/Home";
-import CalendarScreen from '../../modules/Calendar'
+import CalendarScreen from '../../modules/Leave/CalendarScreen'
 import TabBarIcon from "../../components/tabBarIcon";
 import {
   globe,

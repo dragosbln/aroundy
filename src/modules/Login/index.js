@@ -4,7 +4,7 @@ import {loginBg} from '../../assets/images'
 import styles from './styles'
 import Input from '../../components/Input'
 import TextButton from '../../components/Buttons/TextButton'
-import Button from '../../components/Buttons/BaseButton'
+import Button from '../../components/Buttons/PrimaryButton'
 import {passwordIcon, emailIcon} from '../../assets/images'
 
 export default class Login extends React.Component {

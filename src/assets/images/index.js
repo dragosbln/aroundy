@@ -11,3 +11,5 @@ export const helmetActive = require('./helmet-active.png')
 
 export const homeBgTop = require('./home-bg-top.png')
 export const headerBg = require('./header-bg.png')
+
+export const dracu = require('./dracu.png')

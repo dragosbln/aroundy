@@ -1,20 +1,25 @@
 import { StyleSheet } from 'react-native';
+import colors from '../../../assets/theme/colors'
 
 export default StyleSheet.create({
     base: {
-        flex: 1,
-        padding: '5%',
-    },
-    gradient: {
         width: '100%',
         height: '100%',
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 50
-
+        backgroundColor: '#fff',
+        borderColor: colors.gray_primary,
+        borderRadius: 50,
+        shadowRadius: 3,
+        shadowOpacity: 0.2,
+        shadowOffset: {
+          height: 1,
+          width: 1
+        },
+        elevation: 1,
     },
     text: {
-        color: '#fff',
+        color: colors.gray_primary,
         fontSize: 18
     }
 })
