@@ -4,8 +4,8 @@ import LoginScreen from '../modules/Login'
 import TabNavigator from './tab'
 
 const switchNav = createSwitchNavigator({
-    Login: LoginScreen,
-    Home: TabNavigator
+    Login: TabNavigator,
+    Home: LoginScreen
 }, {
     initialRouteName: 'Home'
 })
