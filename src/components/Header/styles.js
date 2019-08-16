@@ -13,5 +13,15 @@ export default StyleSheet.create({
     },
     text: {
         fontFamily: 'Montserrat-Medium'
+    },
+    optionContainer: {
+        position: 'absolute',
+        right: '4%',
+        bottom: '25%',
+        padding: 5,
+    },
+    icon:{
+        width: 32,
+        height: 32
     }
 })

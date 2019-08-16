@@ -10,7 +10,7 @@ export default props => {
       contentContainerStyle={styles.base}
       data={data}
       renderItem={({ item, index }) => <ListItem id={index} />}
-      ItemSeparatorComponent={()=><View style={{height: 15}}/>}
+      ItemSeparatorComponent={()=><View style={{height: 7}}/>}
     />
   );
 };

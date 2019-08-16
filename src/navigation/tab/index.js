@@ -1,7 +1,7 @@
 import React from "react";
 import { createBottomTabNavigator } from "react-navigation";
 import HomeScreen from "../../modules/HR/Home";
-import TeamScreen from "../../modules/HR/Team";
+import TeamScreen from "../../modules/HR/Team/TeamListScreen";
 import CalendarScreen from "../../modules/Employee/Leave/SuccessScreen";
 import ProfeileScreen from "../../modules/Employee/Profile";
 import TabBarIcon from "../../components/tabBarIcon";
@@ -24,7 +24,7 @@ export default createBottomTabNavigator(
     Profile: ProfeileScreen
   },
   {
-    initialRouteName: "Home",
+    initialRouteName: "Team",
     defaultNavigationOptions: ({ navigation }) => {
       return {
         tabBarIcon: ({ focused }) => {

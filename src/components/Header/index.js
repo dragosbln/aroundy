@@ -1,10 +1,16 @@
 import React from "react";
-import { ImageBackground, View } from "react-native";
+import { ImageBackground, View, Image, TouchableOpacity } from "react-native";
 import { headerBg } from "../../assets/images";
 import HeadingText from "../Text/HeadingText";
 import styles from "./styles";
 
 export default props => {
+  const optionView = (
+    <TouchableOpacity style={styles.optionContainer}>
+      <Image source={props.option} style={styles.icon} />
+    </TouchableOpacity>
+  )
+
   return (
     <ImageBackground
       borderBottomLeftRadius={55}
@@ -17,6 +23,7 @@ export default props => {
           {props.title}
         </HeadingText>
       </View>
+      {props.option ? optionView : null}
     </ImageBackground>
   );
 };

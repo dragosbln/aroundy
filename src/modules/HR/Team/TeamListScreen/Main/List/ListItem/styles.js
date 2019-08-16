@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import colors from "../../../../../../assets/theme/colors";
+import colors from "../../../../../../../assets/theme/colors";
 
 export default StyleSheet.create({
   
@@ -8,12 +8,16 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    borderBottomWidth: 1,
-    borderBottomColor: '#e8e8e8',
-    borderTopWidth: 1,
-    borderTopColor: '#e8e8e8',
-    paddingTop: 15,
-    paddingBottom: 5
+    borderWidth: 1,
+    borderColor: '#e8e8e8',
+    borderRadius: 20,
+    paddingVertical: 25,
+    backgroundColor: '#fff',
+    
+  },
+  checkedContainer: {
+    height: '100%',
+    marginRight: 5
   },
   imageContainer:{
 
@@ -25,28 +29,24 @@ export default StyleSheet.create({
     borderColor: colors.orange
   },
   infoContainer: {
-    width: '50%',
+    width: '35%',
     marginLeft: '2%'
   },
   nameTxt: {
     color: colors.gray_primary,
+    fontSize: 18,
     fontFamily: 'Montserrat-Medium'
   }, 
   descriptionTxt: {
-    color: '#000'
-  }, 
-  dateHighlightTxt:{
-    fontFamily: 'Montserrat-Medium',
-  },
-  timeTxt: {
-    color: colors.gray_primary,
     fontFamily: 'Montserrat-Light',
+    color: '#000',
     fontSize: 12
-  },
+  }, 
+  
   buttonsContainer:{
   },
   btnContainer:{
-    width: 105,
+    width: 122,
     height: 36,
     marginVertical: 2
 
@@ -54,9 +54,5 @@ export default StyleSheet.create({
   approveBtnTxt: {
     fontSize: 16,
   },
-  rejectButtonTxt: {
-    color: colors.orange,
-    fontSize: 16,
-  }
   
 });

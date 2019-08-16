@@ -29,3 +29,6 @@ export const profilePic = require('./profile-pic.png')
 export const statusPending = require('./status-pending.png')
 export const statusAppropved = require('./status-approved.png')
 export const statusRejected = require('./status-rejected.png')
+
+export const teamHeaderBg = require('./team-header-bg.png')
+export const filter = require('./filter.png')
