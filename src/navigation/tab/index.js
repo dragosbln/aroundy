@@ -1,26 +1,30 @@
 import React from "react";
 import { createBottomTabNavigator } from "react-navigation";
-import HomeScreen from "../../modules/Employee/Home";
-import CalendarScreen from '../../modules/Employee/Leave/SuccessScreen'
-import ProfeileScreen from '../../modules/Employee/Profile'
+import HomeScreen from "../../modules/HR/Home";
+import TeamScreen from "../../modules/HR/Team";
+import CalendarScreen from "../../modules/Employee/Leave/SuccessScreen";
+import ProfeileScreen from "../../modules/Employee/Profile";
 import TabBarIcon from "../../components/tabBarIcon";
 import {
   globe,
   helmet,
   rocket,
+  astronaut,
   globeActive,
   helmetActive,
-  rocketActive
+  rocketActive,
+  astronautActive
 } from "../../assets/images";
 
 export default createBottomTabNavigator(
   {
     Home: HomeScreen,
     Calendar: CalendarScreen,
+    Team: TeamScreen,
     Profile: ProfeileScreen
   },
   {
-    initialRouteName: 'Profile',
+    initialRouteName: "Home",
     defaultNavigationOptions: ({ navigation }) => {
       return {
         tabBarIcon: ({ focused }) => {
@@ -30,7 +34,7 @@ export default createBottomTabNavigator(
           switch (routeName) {
             case "Home":
               icon = globe;
-              if (focused) {  
+              if (focused) {
                 icon = globeActive;
               }
               break;
@@ -38,6 +42,12 @@ export default createBottomTabNavigator(
               icon = rocket;
               if (focused) {
                 icon = rocketActive;
+              }
+              break;
+            case "Team":
+              icon = astronaut;
+              if (focused) {
+                icon = astronautActive;
               }
               break;
             case "Profile":
