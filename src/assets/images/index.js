@@ -22,6 +22,9 @@ export const scale = require('./scale.png')
 
 export const checked = require('./checked.png')
 export const checkedActive = require('./checked-active.png')
+export const checkedActiveWhite = require('./checked-active-white.png')
+export const checkedSquare = require('./checked-square.png')
+export const checkedSquareActive = require('./checked-square-active.png')
 
 export const profileBg = require('./profile-bg.png')
 export const profilePic = require('./profile-pic.png')
@@ -32,3 +35,4 @@ export const statusRejected = require('./status-rejected.png')
 
 export const teamHeaderBg = require('./team-header-bg.png')
 export const filter = require('./filter.png')
+export const calendar = require('./calendar.png')

@@ -74,7 +74,7 @@ export default createBottomTabNavigator(
           width: 1
         },
         elevation: 1,
-        paddingHorizontal: 20
+        paddingHorizontal: 20,
       },
       showLabel: false
     }

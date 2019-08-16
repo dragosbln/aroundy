@@ -16,4 +16,12 @@ export default StyleSheet.create({
     width: "100%",
     height: "100%",
   },
+  filterContainer: {
+    position: 'absolute',
+    height: '85%',
+    width: '100%',
+    bottom: -50,
+    zIndex: 1000,
+    backgroundColor: 'red'
+  }
 });

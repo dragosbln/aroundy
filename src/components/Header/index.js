@@ -6,7 +6,7 @@ import styles from "./styles";
 
 export default props => {
   const optionView = (
-    <TouchableOpacity style={styles.optionContainer}>
+    <TouchableOpacity onPress={props.onOptionPressed} style={styles.optionContainer}>
       <Image source={props.option} style={styles.icon} />
     </TouchableOpacity>
   )
