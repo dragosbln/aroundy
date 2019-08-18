@@ -35,4 +35,5 @@ export const statusRejected = require('./status-rejected.png')
 
 export const teamHeaderBg = require('./team-header-bg.png')
 export const filter = require('./filter.png')
+export const filterActive = require('./filter-active.png')
 export const calendar = require('./calendar.png')

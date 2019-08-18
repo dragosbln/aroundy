@@ -12,19 +12,23 @@ export default class Home extends React.Component {
   state={modal: false}
   
 
- showModal = () => {
+  onModalOpen = () => {
    this.setState({modal: true})
+ }
+
+ onModalClose = () => {
+  this.setState({modal: false})
  }
 
   render() {
     return (
       <View style={styles.base}>
-        <Header bg={teamHeaderBg} title="My Team" onOptionPressed={this.showModal} option={filter} />
+        <Header bg={teamHeaderBg} title="My Team" onOptionPressed={this.onModalOpen} option={filter} />
         <View style={styles.mainContainer}>
           <Main />
         </View>
         <Modal animationType='fade' visible={this.state.modal}>
-          <Filter />
+          <Filter onModalClose={this.onModalClose}/>
         </Modal>
       </View>
     );

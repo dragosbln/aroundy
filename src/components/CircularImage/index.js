@@ -8,7 +8,15 @@ export default props => {
       source={props.source}
       style={[
         styles.base,
-        props.customStyle
+        props.customStyle,
+        props.border && {
+          borderWidth: 4,
+          borderColor: props.border
+        },
+        props.radius && {
+          width: props.radius * 2,
+          height: props.radius * 2
+        }
       ]}
     />
   );

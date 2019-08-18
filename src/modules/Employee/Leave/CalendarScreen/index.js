@@ -5,6 +5,7 @@ import Header from "../../../components/Header";
 import Button from "../../../components/Buttons/BaseButton";
 import { dracu } from "../../../assets/images";
 import Calendar from './Calendar'
+//TODO: get legend from components
 import Legend from './Legend'
 
 export default class CalendarSCREEN extends React.Component {
@@ -28,6 +29,7 @@ export default class CalendarSCREEN extends React.Component {
         </View>
 
         <View style={styles.legendContainer}>
+        
           <Legend />
         </View>
       </View>
