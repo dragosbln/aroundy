@@ -5,10 +5,10 @@ import { VictoryPie } from "victory-native";
 import colors from "../../../../assets/theme/colors";
 import Legend from "../../../../components/Legend";
 import Header from "../../../../components/Header";
-import Text from '../../../../components/Text/BaseText'
-import { teamHeaderBg } from "../../../../assets/images";
-import Icon from 'react-native-vector-icons/Ionicons'
-import Main from './Main'
+import Text from "../../../../components/Text/BaseText";
+import { teamHeaderBg, profilePic } from "../../../../assets/images";
+import Icon from "react-native-vector-icons/Ionicons";
+import Main from "./Main";
 
 const screenW = Dimensions.get("window").width;
 
@@ -31,25 +31,24 @@ export default class Home extends React.Component {
   render() {
     return (
       <View style={styles.base}>
-        <Header bg={teamHeaderBg} title="My Team" />
+        <Header bg={teamHeaderBg} title="Ann Andria" picture={profilePic} />
         <View style={styles.headingContainer}>
           <Text customStyle={styles.headingTxt}>BOOK DAYS OFF</Text>
-          <Icon style={styles.chart} name='ios-download' />
+          <Icon style={styles.chart} name="ios-download" />
         </View>
         <View style={styles.chartContainer}>
           <VictoryPie
-            data={[{ y: 35 }, { y: 40 }, { y: 55 }]}
+            data={[{ x: 35, y: 35 }, { x: 40, y: 40 }, { x: 55, y: 55 }]}
             colorScale={[
               colors.pink,
               colors.yellow,
-              colors.orange,
               colors.green
             ]}
-            labels={() => null}
-            innerRadius={75}
-            style={styles.chart}
-            width={screenW / 1.5}
-            height={screenW / 1.5}
+            innerRadius={screenW / 6.8}
+            labelRadius={screenW / 5}
+            style={{labels: { fill: '#fff', fontSize: 20}}}
+            width={screenW / 1.7}
+            height={screenW / 1.7}
             padding={0}
           />
         </View>
@@ -57,7 +56,7 @@ export default class Home extends React.Component {
           <Legend data={dummy} />
         </View>
         <View style={styles.mainContainer}>
-          <Main/>
+          <Main />
         </View>
       </View>
     );

@@ -12,12 +12,12 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '85%',
-    marginVertical: 20,
+    marginVertical: 10,
     alignItems: 'flex-end'
   },
   headingTxt:{
     color: colors.orange,
-    fontSize: 22
+    fontSize: 18
   },
   chartContainer:{
   },
