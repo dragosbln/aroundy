@@ -1,7 +1,7 @@
 //TODO - pod install
 import { createSwitchNavigator, createAppContainer } from 'react-navigation'
 import LoginScreen from '../modules/Login'
-import TabNavigator from './tab'
+import TabNavigator from './HR/root'
 
 const switchNav = createSwitchNavigator({
     Login: LoginScreen,
