@@ -26,10 +26,15 @@ export default class Login extends React.Component {
     };
   }
 
-  componentDidMount(){
-    console.log('====================================');
-    console.log(this.props);
-    console.log('====================================');
+  componentDidUpdate(){
+    if(this.props.user){
+      if( this.props.user.Roles.find(el => el.name === 'human-resources')){
+        this.props.navigation.navigate('HR')
+      }
+      if( this.props.user.Roles.find(el => el.name === 'employee')){
+        this.props.navigation.navigate('Employee')
+      }
+    }
   }
 
   onTextChanged = key => value => {
@@ -65,7 +70,7 @@ export default class Login extends React.Component {
     return (
       <ImageBackground source={loginBg} style={styles.base}>
         <View style={styles.logoContainer}>
-          <Text>{this.props.user && this.props.user.firstName}</Text>
+          <Text>{this.props.user!==null && this.props.user.firstName}</Text>
         </View>
         <View style={styles.inputsContainer}>
           {form}
@@ -76,7 +81,7 @@ export default class Login extends React.Component {
           </View>
         </View>
         <View style={styles.btnContainer}>
-          <Button label="LOGIN" />
+          <Button label="LOGIN" onPress={this.onSubmit} />
         </View>
       </ImageBackground>
     );

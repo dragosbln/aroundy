@@ -5,7 +5,7 @@ import styles from './styles'
 export default (props) => {
 
     return (
-        <TouchableOpacity style={[styles.base, props.customStyle]}>
+        <TouchableOpacity onPress={props.onPress} style={[styles.base, props.customStyle]}>
                 <Text style={[styles.text, props.customTextStyle]}>{props.label}</Text>
         </TouchableOpacity>
     )
