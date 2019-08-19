@@ -9,6 +9,30 @@ export default StyleSheet.create({
     },
     headingContainer: {
         marginBottom: '8%',
-        marginLeft: '7%'
+        marginLeft: '7%',
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    text: {
+        fontFamily: 'Montserrat-Medium'
+    },
+    optionContainer: {
+        position: 'absolute',
+        right: '4%',
+        bottom: '25%',
+        padding: 5,
+    },
+    icon:{
+        width: 32,
+        height: 32
+    },
+    pictureView: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginRight: 4
+    },
+    backContainer: {
+        padding: 5,
+        paddingRight: 0,
     }
 })

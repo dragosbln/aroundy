@@ -19,10 +19,10 @@ export default class Login extends React.Component {
                 </View>
                 <View style={styles.inputsContainer}>
                     <View style={styles.input}>
-                        <Input placeholder='Email' icon={emailIcon} />
+                        <Input gradient placeholder='Email' icon={emailIcon} />
                     </View>
                     <View style={styles.input}>
-                        <Input placeholder='Password' icon={passwordIcon} />
+                        <Input gradient placeholder='Password' icon={passwordIcon} />
                     </View>
                     <View style={styles.textBtn}>
                         <TextButton customStyle={styles.textBtnTxt}>forgot pass?</TextButton>

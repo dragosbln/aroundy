@@ -1,7 +1,5 @@
 import React from "react";
-import { ImageBackground, View } from "react-native";
-import { headerBg } from "../../assets/images";
-import HeadingText from "../Text/HeadingText";
+import { View } from "react-native";
 import styles from "./styles";
 
 export default props => {

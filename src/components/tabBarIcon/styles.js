@@ -9,6 +9,6 @@ export default StyleSheet.create({
     },
     icon: {
         width: 28,
-        height: 28
+        height: 28,
     }
 })

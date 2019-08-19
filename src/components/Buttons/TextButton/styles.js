@@ -6,7 +6,6 @@ export default StyleSheet.create({
         height: '100%',
         justifyContent: 'center',
         alignItems: 'center',
-        padding: '5%'
     },
     text: {
         color: '#fff',
