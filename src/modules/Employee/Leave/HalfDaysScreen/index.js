@@ -1,9 +1,9 @@
 import React from "react";
 import { View } from "react-native";
 import styles from "./styles";
-import Header from "../../../components/Header";
-import Heading from "../../../components/Text/HeadingText";
-import Button from "../../../components/Buttons/BaseButton";
+import Header from "../../../../components/Header";
+import Heading from "../../../../components/Text/HeadingText";
+import Button from "../../../../components/Buttons/BaseButton";
 import { ScrollView } from "react-native-gesture-handler";
 import DaySwitch from "./daySwitch";
 

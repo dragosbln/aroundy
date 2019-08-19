@@ -1,9 +1,9 @@
 import React from "react";
 import { View, Image } from "react-native";
 import styles from "./styles";
-import Header from "../../../components/Header";
-import Button from "../../../components/Buttons/BaseButton";
-import { dracu } from "../../../assets/images";
+import Header from "../../../../components/Header";
+import Button from "../../../../components/Buttons/BaseButton";
+import { dracu } from "../../../../assets/images";
 import Calendar from './Calendar'
 //TODO: get legend from components
 import Legend from './Legend'

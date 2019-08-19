@@ -7,7 +7,7 @@ import List from './List'
 export default props => {
     return (
       <View style={styles.base}>
-        <View style={styles.headingContainer}>
+        <View {...props.panHandlers} style={styles.headingContainer}>
           <HeadingText customStyle={styles.headingTxt}>History</HeadingText>
         </View>
         <View style={styles.listContainer}>

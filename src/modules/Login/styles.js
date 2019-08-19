@@ -37,6 +37,6 @@ export default StyleSheet.create({
     btnContainer: {
         width: 226,
         height: 55,
-        marginTop: 30, 
+        marginTop: 50, 
     }
 })

@@ -55,6 +55,7 @@ export default class Home extends React.Component {
           bg={profileBg}
           customStyle={styles.header}
           textContainerStyle={styles.textContainerStyle}
+          textStyle={styles.headerTextStyle}
         />
         <View style={styles.profilePicContainer}>
           <CircularImage source={profilePic} />
@@ -79,7 +80,7 @@ export default class Home extends React.Component {
           <PrimaryButton label="REQUEST A DAY OFF" />
         </View>
         <Animated.View
-          {...this.panResponder.panHandlers}
+          
           style={[
             styles.mainContainer,
             {
@@ -87,7 +88,7 @@ export default class Home extends React.Component {
             }
           ]}
         >
-          <Main />
+          <Main panHandlers={this.panResponder.panHandlers} />
         </Animated.View>
       </View>
     );

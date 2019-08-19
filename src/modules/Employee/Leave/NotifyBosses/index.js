@@ -1,11 +1,11 @@
 import React from "react";
 import { View, TextInput } from "react-native";
 import styles from "./styles";
-import Header from "../../../components/Header";
-import Heading from "../../../components/Text/HeadingText";
+import Header from "../../../../components/Header";
+import Heading from "../../../../components/Text/HeadingText";
 import List from './List'
-import Button from '../../../components/Buttons/BaseButton'
-import PrimaryButton from '../../../components/Buttons/PrimaryButton'
+import Button from '../../../../components/Buttons/BaseButton'
+import PrimaryButton from '../../../../components/Buttons/PrimaryButton'
 
 export default class CalendarSCREEN extends React.Component {
   render() {

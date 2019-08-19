@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Image } from "react-native";
 import styles from "./styles";
-import Text from "../../../../components/Text/BaseText";
+import Text from "../../../../../components/Text/BaseText";
 import SwitchSelector from "react-native-switch-selector";
 
 const options = [

@@ -1,9 +1,9 @@
 import React from "react";
 import { View } from "react-native";
 import styles from "./styles";
-import Dot from "../../../../components/Dot";
-import Text from "../../../../components/Text/BaseText";
-import colors from "../../../../assets/theme/colors";
+import Dot from "../../../../../components/Dot";
+import Text from "../../../../../components/Text/BaseText";
+import colors from "../../../../../assets/theme/colors";
 
 export default props => {
   return (

@@ -1,8 +1,8 @@
 import React from "react";
 import { View, Image } from "react-native";
 import styles from "./styles";
-import Text from "../../../../../components/Text/BaseText";
-import { checked, checkedActive } from '../../../../../assets/images'
+import Text from "../../../../../../components/Text/BaseText";
+import { checked, checkedActive } from '../../../../../../assets/images'
 
 export default props => {
   return (

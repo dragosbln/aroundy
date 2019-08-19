@@ -1,10 +1,10 @@
 import React from "react";
 import { View } from "react-native";
 import styles from "./styles";
-import Header from "../../../components/Header";
-import Heading from "../../../components/Text/HeadingText";
+import Header from "../../../../components/Header";
+import Heading from "../../../../components/Text/HeadingText";
 import { WheelPicker } from "react-native-wheel-picker-android";
-import Button from "../../../components/Buttons/BaseButton";
+import Button from "../../../../components/Buttons/BaseButton";
 
 const wheelPickerData = [
   "FAMILY EMERGENCY",
