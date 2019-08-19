@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import colors from '../../assets/theme/colors'
 
 export default StyleSheet.create({
     base: {
@@ -31,7 +32,7 @@ export default StyleSheet.create({
         
     },
     textBtnTxt: {
-        color: '#8C8C8C'
+        color: colors.gray_primary
     },
     btnContainer: {
         width: 226,
