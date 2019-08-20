@@ -23,6 +23,7 @@ export default class Home extends React.Component {
       moveTop: new Animated.Value(0),
       dragging: false
     };
+    //TODO: get pan creator out of constructor, reinitialize after every touch
     this.panResponder = PanResponder.create({
       onStartShouldSetPanResponder: () => {
         return true

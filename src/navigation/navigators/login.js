@@ -1,2 +1,2 @@
-import LoginScreen from '../../modules/Login'
+import LoginScreen from '../../modules/Login/container'
 export default LoginScreen

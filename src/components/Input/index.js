@@ -7,6 +7,8 @@ export default props => {
   return (
     <View style={styles.base}>
       <TextInput
+        value={props.value}
+        onChangeText={props.onChangeText}
         style={[styles.textInput, !props.icon && { paddingLeft: 0 }]}
         placeholder={props.placeholder}
         placeholderTextColor="#fff"

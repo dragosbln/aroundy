@@ -1,7 +1,7 @@
 import React from "react";
 import { createBottomTabNavigator } from "react-navigation";
 import EmployeeHome from './EmployeeHome'
-import HRHome from './HRHome'
+import Home from './HRHome'
 import Leave from './Leave'
 import Profile from './Profile'
 import Team from './Team'
@@ -20,13 +20,13 @@ import {
 
 export default createBottomTabNavigator(
   {
-    Home: HRHome,
+    Home,
     Leave,
     Team,
     Profile
   },
   {
-    initialRouteName: "Leave",
+    initialRouteName: "Home",
     defaultNavigationOptions: ({ navigation }) => {
       return {
         tabBarIcon: ({ focused }) => {

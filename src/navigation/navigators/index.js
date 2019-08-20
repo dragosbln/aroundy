@@ -1,11 +1,13 @@
 import {createSwitchNavigator} from 'react-navigation'
 
-import Main from './tabBar'
+import HR from './tabBar/HR'
+import Employee from './tabBar/employee'
 import Login from './login'
 
 const switchNavigator = createSwitchNavigator({
     Login,
-    Main 
+    HR,
+    Employee
 },{
     initialRouteName: 'Login'
 })

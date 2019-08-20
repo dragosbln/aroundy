@@ -1,25 +1,27 @@
 import React from "react";
 import { createBottomTabNavigator } from "react-navigation";
-import HomeScreen from "../../modules/Home";
-import CalendarScreen from '../../modules/Leave/LeaveTypeScreen'
-import TabBarIcon from "../../components/tabBarIcon";
+import Home from './EmployeeHome'
+import Leave from './Leave'
+import Profile from './Profile'
+import TabBarIcon from "../../../components/tabBarIcon";
 import {
   globe,
   helmet,
   rocket,
   globeActive,
   helmetActive,
-  rocketActive
-} from "../../assets/images";
+  rocketActive,
+} from "../../../assets/images";
+
 
 export default createBottomTabNavigator(
   {
-    Home: CalendarScreen,
-    Calendar: HomeScreen,
-    Profile: HomeScreen
+    Home,
+    Leave,
+    Profile
   },
   {
-    initialRouteName: 'Calendar',
+    initialRouteName: "Home",
     defaultNavigationOptions: ({ navigation }) => {
       return {
         tabBarIcon: ({ focused }) => {
@@ -33,10 +35,16 @@ export default createBottomTabNavigator(
                 icon = globeActive;
               }
               break;
-            case "Calendar":
+            case "Leave":
               icon = rocket;
               if (focused) {
                 icon = rocketActive;
+              }
+              break;
+            case "Team":
+              icon = astronaut;
+              if (focused) {
+                icon = astronautActive;
               }
               break;
             case "Profile":
@@ -63,7 +71,7 @@ export default createBottomTabNavigator(
           width: 1
         },
         elevation: 1,
-        paddingHorizontal: 20
+        paddingHorizontal: 20,
       },
       showLabel: false
     }
