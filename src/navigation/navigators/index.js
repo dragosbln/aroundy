@@ -9,7 +9,7 @@ const switchNavigator = createSwitchNavigator({
     HR,
     Employee
 },{
-    initialRouteName: 'Login'
+    initialRouteName: 'Employee'
 })
 
 export default switchNavigator
