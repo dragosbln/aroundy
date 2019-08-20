@@ -1,2 +1,2 @@
-import Home from '../../../../modules/Employee/Home'
+import Home from '../../../../modules/Employee/Home/container'
 export default Home

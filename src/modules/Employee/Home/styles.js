@@ -9,6 +9,13 @@ export default StyleSheet.create({
     width: "100%",
     height: "30%"
   },
+  topImageBackground:{
+    width: "100%",
+    height: "100%",
+    resizeMode: "cover",
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   topImage: {
     width: "100%",
     height: "100%",
@@ -50,7 +57,8 @@ export default StyleSheet.create({
     height: "100%",
     backgroundColor: "#fff",
     borderTopLeftRadius: 60,
-    borderTopRightRadius: 60
+    borderTopRightRadius: 60,
+    alignItems: 'center'
   },
   balanceContainer: {
     height: 30,
@@ -76,5 +84,17 @@ export default StyleSheet.create({
       color: '#fff',
       fontSize: 18,
       marginBottom: 2
+  },
+  headingContainer:{
+    marginTop: 30,
+    width: '80%'
+  },
+  headingTxt:{
+    color: '#646464',
+    fontFamily: 'Montserrat-medium'
+  },
+  listContainer: {
+    marginBottom: 92,
+    height: '50%'
   }
 });
