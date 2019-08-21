@@ -3,7 +3,8 @@ import userActions from '../../redux/user/actions'
 import {connect} from 'react-redux'
 
 const mapStateToProps = (state) => ({
-    user: state.user.data
+    user: state.user.data,
+    error: state.user.apiState.error
 })
 
 const mapDispatchToProps = (dispatch) => ({

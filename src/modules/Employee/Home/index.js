@@ -37,6 +37,8 @@ export default class Home extends React.Component {
   };
 
   componentDidMount() {
+    console.log('employee home probs', this.props);
+    
     this.props.getHolidays();
     this.props.getCachedCountdownHoliday();
     this.updateCounter();
@@ -57,7 +59,7 @@ export default class Home extends React.Component {
           </ImageBackground>
         </View>
         <View style={styles.bgCardContainer}>
-          <BalanceCard days={14} />
+          <BalanceCard days={this.props.balance} />
         </View>
         <View style={styles.mainContainer}>
           <View style={styles.headingContainer}>

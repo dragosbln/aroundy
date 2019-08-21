@@ -38,5 +38,10 @@ export default StyleSheet.create({
         width: 226,
         height: 55,
         marginTop: 50, 
+    },
+    errorTxt: {
+        color: colors.red,
+        fontSize: 14,
+        fontFamily: 'Montserrat-Medium'
     }
 })

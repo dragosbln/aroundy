@@ -27,6 +27,7 @@ const getCachedCountdownHoliday = () => async (dispatch, getState) => {
 }
 
 const setCountdownHoliday = (holiday) => (dispatch, getState) => {
+    holidaysService.setCountdownHoliday(holiday)
     dispatch(holidaysAC.setCountdownHoliday(holiday))
 }
 

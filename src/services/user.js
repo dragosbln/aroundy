@@ -1,4 +1,5 @@
 import axios from 'axios'
+import mock from '../utils/mockData'
 
 class AuthService{
     static _rootPath = 'https://aroundy-03.democlient.info'
@@ -32,7 +33,8 @@ class AuthService{
                 if(userResponse.data.success){
                     return{
                         token,
-                        ...userResponse.data.data
+                        ...userResponse.data.data,
+                        Requests: mock.requests.filter(el => el.user_id === userResponse.data.data.id)
                     }
                 } else{
                     //TODO: handle errorse
@@ -44,16 +46,13 @@ class AuthService{
             
             return response.data
         } catch (e) {
-            log('errr!')
-            if(e.response.status === 401) {
-                return e.response.data
-            }
+            console.log('error ub auth user service', e);
+            
             throw e
         }
         
     }
 }
 
-AuthService.login('admin@aroundy.com', 'asd')
 
 export default AuthService
