@@ -5,8 +5,9 @@ export default StyleSheet.create({
     base: {
         width: '100%',
         height: 30,
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         alignItems: 'center',
+        paddingTop: 2
       },
       selectedDay:{
           backgroundColor: colors.green
@@ -18,5 +19,20 @@ export default StyleSheet.create({
       endingDay: {
           borderTopRightRadius: 30,
           borderBottomRightRadius: 30
+      },
+      circle: {
+        width: 5,
+        height: 5,
+        borderRadius: 5,
+      },
+      dayText: {
+        
+      },
+      unfocusedDaysText:{
+        color: colors.gray_light,
+      },
+      thisDayText:{
+        color: colors.orange,
+        fontFamily: 'Montserrat-Medium',
       }
 })

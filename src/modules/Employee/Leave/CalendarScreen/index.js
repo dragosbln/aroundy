@@ -5,10 +5,11 @@ import Header from "../../../../components/Header";
 import Button from "../../../../components/Buttons/BaseButton";
 import { dracu } from "../../../../assets/images";
 import { Calendar, LocaleConfig } from "react-native-calendars";
-import colors from '../../../../assets/theme/colors'
+import colors from "../../../../assets/theme/colors";
 //TODO: get legend from components
 import Legend from "./Legend";
-import Day from './Day'
+import Day from "./Day";
+import moment from 'moment'
 
 LocaleConfig.locales["custom"] = {
   ...LocaleConfig.locales[""],
@@ -23,7 +24,12 @@ export default class CalendarSCREEN extends React.Component {
     this.state = {
       animation: {
         buttonsBottom: new Animated.Value(-60)
-      }
+      },
+      calendar: {
+        currentMonth: new Date().getMonth() + 1,
+        markedDates: {}
+      },
+      upd: false
     };
   }
 
@@ -33,10 +39,53 @@ export default class CalendarSCREEN extends React.Component {
     }).start();
   };
 
+  initMarkedDates = () => {
+    const markedDates = {}
+    //the request is consideret having the status 'processed' if it was either approved or rejected by the HR
+    this.props.requests.filter(el => el.status !== 'canceled').forEach(el => {
+      let dotColor;
+      if(el.status === 'processing' || el.status === 'pending') {
+        dotColor = colors.yellow
+      } else {
+        //find HR's approval
+        const approval = el.requestApprovals.find(rapp => rapp.type === 'hr')
+        dotColor = approval.status === 'approved' ? colors.green : colors.pink
+      }
+      let currentDate = moment(el.from)
+      const stopDate = moment(el.to)
+      while(currentDate <= stopDate){
+        const dateKey = moment(currentDate).format('YYYY-MM-DD')
+        markedDates[dateKey] = {
+          marked: true,
+          dotColor 
+        }
+        currentDate = moment(currentDate).add(1, 'days')
+      }
+    })
+    console.log(markedDates);
+    
+    this.setState(state => ({
+      ...state,
+      upd: !state.upd,
+      calendar: {
+        ...state.calendar,
+        markedDates
+      }
+    }))
+  }
+
   componentDidMount() {
-    // console.log("====================================");
-    // console.log(this.props);
-    // console.log("====================================");
+    this.initMarkedDates()
+  }
+
+  onMonthChange = async (date) => {
+    this.setState(state => ({
+      ...state,
+      calendar: {
+        ...state.calendar,
+        currentMonth: date.month
+      }
+    }))
   }
 
   render() {
@@ -50,38 +99,16 @@ export default class CalendarSCREEN extends React.Component {
           <Calendar
             onDayPress={date => console.log(date)}
             monthFormat="MMMM"
-            markedDates={{
-              "2019-08-15": {
-                // selected: true,
-                dots: [{
-                  key: 'vaca',
-                  color: 'red'
-                }]
-              },
-              "2019-08-18": {
-                selected: true,
-                marked: true,
-                startingDay: true,
-                color: colors.green
-              },
-              "2019-08-19": {
-                selected: true,
-                marked: true,
-                color: colors.green
-              },
-              "2019-08-20": {
-                selected: true,
-                marked: true,
-                endingDay: true,
-                color: colors.green
-              }
-            }}
-            dayComponent={(dateObj) => {
-              console.log('day '+dateObj.date.day, dateObj.marking);
-              
-              return(
-                <Day {...dateObj} />
-              )
+            markedDates={this.state.calendar.markedDates}
+            onMonthChange={this.onMonthChange}
+            dayComponent={dateObj => {
+              return (
+                <Day
+                  {...dateObj}
+                  currentMonth={this.state.calendar.currentMonth}
+                  upd={this.state.upd}
+                />
+              );
             }}
             theme={{
               "stylesheet.calendar.header": {
@@ -101,7 +128,8 @@ export default class CalendarSCREEN extends React.Component {
             {
               bottom: this.state.animation.buttonsBottom
             }
-          ]}>
+          ]}
+        >
           <View style={styles.buttonView}>
             <Button label="CANCEL" />
           </View>

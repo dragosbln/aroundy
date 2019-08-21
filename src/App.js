@@ -10,7 +10,7 @@ import React from 'react';
 import AppContainer from './navigation'
 import {Provider} from 'react-redux'
 import store from './redux/store'
-// import sandbox from './sandbox'
+import sandbox from './sandbox'
 
 console.disableYellowBox=true
 

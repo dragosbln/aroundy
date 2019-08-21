@@ -1,8 +1,5 @@
-import actions from './redux/auth/actions'
-import store from './redux/store'
-
-console.log('======dsad==============================');
-console.log(actions);
-console.log('====================================');
-
-store.dispatch(actions.login('admin@aroundy.com','abcd'))
+// [1,2,3,4,5,6].(el => {
+//     if(el > 3) 
+//     console.log('el',el);
+    
+// })
