@@ -230,7 +230,7 @@ const loggedUser = {
     UserId: 1
   },
   Contract: null,
-  Requests: [],
+  Requests: [...requests.filter(el => el.user_id === 1)],
   RequestApprovals: [],
   Teams: [],
   Comments: []

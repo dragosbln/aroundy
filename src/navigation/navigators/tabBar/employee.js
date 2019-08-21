@@ -21,7 +21,7 @@ export default createBottomTabNavigator(
     Profile
   },
   {
-    initialRouteName: "Home",
+    initialRouteName: "Leave",
     defaultNavigationOptions: ({ navigation }) => {
       return {
         tabBarIcon: ({ focused }) => {

@@ -31,6 +31,8 @@ class AuthService{
                 })
                 console.log('user resp',userResponse);
                 if(userResponse.data.success){
+                    console.log('user mock', mock);
+                    
                     return{
                         token,
                         ...userResponse.data.data,

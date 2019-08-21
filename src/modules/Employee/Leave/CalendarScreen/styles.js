@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import colors from '../../../../assets/theme/colors'
 
 export default StyleSheet.create({
   base: {
@@ -31,7 +32,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     height: 55,
     position: 'absolute',
-    bottom: 40,
+    bottom: '6%',
     zIndex: 10000,
     justifyContent: 'space-between',
   },
@@ -49,5 +50,25 @@ export default StyleSheet.create({
   dracu: {
     width: '100%',
     height: '100%'
-  }
+  },
+  header: {
+    flexDirection: "row",
+    justifyContent: "center",
+    marginBottom: 30
+  },
+  monthText: {
+    width: 150,
+    fontSize: 24,
+    textAlign: "center",
+    marginTop: 1,
+    color: colors.gray_primary,
+    fontFamily: "Montserrat-Regular"
+  },
+  dayHeader: {
+    color: colors.orange,
+    fontSize: 18,
+    fontFamily: "Montserrat-Medium",
+    marginBottom: 20
+  },
+  
 });
