@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import colors from '../../assets/theme/colors'
 
 export default StyleSheet.create({
     base: {
@@ -26,5 +27,9 @@ export default StyleSheet.create({
         backgroundColor: '#fff',
         position: 'absolute',
         bottom: 0
+    },
+    errorText: {
+        color: colors.red,
+        fontSize: 14
     }
 })

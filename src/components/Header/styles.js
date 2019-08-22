@@ -5,7 +5,7 @@ export default StyleSheet.create({
         width: '100%',
         height: 120,
         resizeMode: 'cover',
-        justifyContent: 'flex-end'
+        justifyContent: 'flex-end', 
     },
     headingContainer: {
         marginBottom: '8%',

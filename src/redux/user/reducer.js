@@ -1,7 +1,8 @@
 import types from './types'
+import mock from '../../utils/mockData'
 
 const initialState = {
-    data: null,
+    data: mock.loggedUser,
     apiState: {
         pending: false,
         success: false,
@@ -11,7 +12,7 @@ const initialState = {
 
 const updateApiState = (key='', value=null) => ({
     ...initialState.apiState,
-    key: value
+    [key]: value
 })
 
 const reducer = (state = initialState, action) => {

@@ -1,11 +1,12 @@
 import React from "react";
-import { ImageBackground, View, Text } from "react-native";
+import { ImageBackground, View } from "react-native";
 import { loginBg } from "../../assets/images";
 import styles from "./styles";
 import Input from "../../components/Input";
 import TextButton from "../../components/Buttons/TextButton";
 import Button from "../../components/Buttons/PrimaryButton";
 import { passwordIcon, emailIcon } from "../../assets/images";
+import Text from '../../components/Text/BaseText'
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -15,44 +16,109 @@ export default class Login extends React.Component {
         email: {
           value: "",
           placeholder: "Email",
-          icon: emailIcon
+          icon: emailIcon,
+          valid: true,
+          touched: false,
+          validation: {
+            required: true,
+            email: true
+          }
         },
         password: {
           value: "",
           placeholder: "Password",
-          icon: passwordIcon
+          icon: passwordIcon,
+          valid: true,
+          touched: false,
+          validation: {
+            required: true
+          }
         }
-      }
+      },
+      triedSubmit: false
     };
   }
 
-  componentDidUpdate(){
-    if(this.props.user){
-      if( this.props.user.Roles.find(el => el.name === 'human-resources')){
-        this.props.navigation.navigate('HR')
-      }
-      if( this.props.user.Roles.find(el => el.name === 'employee')){
-        this.props.navigation.navigate('Employee')
-      }
+  componentDidUpdate(prevProps, prevState) {
+    
+    if(prevProps === this.props) return
+
+    console.log('got in update');
+    
+    if(this.props.error){
+      console.log('====================================');
+      console.log(this.props.error);
+      console.log('====================================');
+    }
+    if (!this.props.user) {
+      return
+    }
+    if (!this.props.user.Roles) {
+      return
+    }
+    if (this.props.user.Roles.find(el => el.name === "human-resources")) {
+      return this.props.navigation.navigate("HR");
+    }
+    if (this.props.user.Roles.find(el => el.name === "employee")) {
+      return this.props.navigation.navigate("Employee");
     }
   }
 
-  onTextChanged = key => value => {
-    this.setState(state => ({
+  checkInput = (key, value) => {
+    let valid = true;
+    const elememntConfig = this.state.formConfig[key];
+    if (elememntConfig.validation.required) {
+      valid = valid && value !== "";
+    }
+    if(elememntConfig.validation.email) {
+      valid = valid && /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)
+    }
+
+    return valid;
+  };
+
+  checkForm = () => {
+    const formConfig = this.state.formConfig
+    let validForm = true
+    for(let key in formConfig){
+      if(!formConfig[key].valid){
+        validForm = false
+      }
+    }
+    return validForm
+  }
+
+  onTextChanged = key => async value => {
+    await this.setState(state => ({
       ...state,
       formConfig: {
         ...state.formConfig,
         [key]: {
           ...state.formConfig[key],
-          value: value
+          value: value,
+          touched: true,
+          valid: this.checkInput(key, value)
         }
       }
-    }))
+    }));
+    
   };
 
-  onSubmit = () => {
-    this.props.login(this.state.formConfig.email.value, this.state.formConfig.password.value)
-  }
+  onSubmit = async () => {
+    if(!this.state.triedSubmit){
+      await this.setState(state => ({
+        ...state,
+        triedSubmit: true
+      }))
+    }
+    if(!this.checkForm()) {
+      return
+    }
+    this.props.login(
+      this.state.formConfig.email.value,
+      this.state.formConfig.password.value
+    );
+  };
 
   render() {
     const formConfig = this.state.formConfig;
@@ -64,14 +130,21 @@ export default class Login extends React.Component {
           gradient
           placeholder={formConfig[key].placeholder}
           icon={formConfig[key].icon}
+          valid={this.state.triedSubmit ? (formConfig[key].valid || !formConfig[key].touched) : true}
         />
       </View>
     ));
+    const errorMsg = (
+      <View>
+          <Text customStyle={styles.errorTxt}>Invalid user/password!</Text>
+      </View>
+    )
     return (
       <ImageBackground source={loginBg} style={styles.base}>
         <View style={styles.logoContainer}>
-          <Text>{this.props.user!==null && this.props.user.firstName}</Text>
+          <Text>logo</Text>
         </View>
+        {this.props.error && errorMsg}
         <View style={styles.inputsContainer}>
           {form}
           <View style={styles.textBtn}>

@@ -1,4 +1,4 @@
-import actions from './redux/auth/actions'
-import store from './redux/store'
+// import moment from 'moment'
 
-store.dispatch(actions.login('admin@aroundy.com','abcd'))
+// console.log('moment test', moment('2019-08-18').format('ddd'), moment('2019-08-18').day());
+
