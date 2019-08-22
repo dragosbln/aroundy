@@ -44,6 +44,7 @@ export default class Home extends React.Component {
               colors.yellow,
               colors.green
             ]}
+            padAngle={2}
             innerRadius={screenW / 6.8}
             labelRadius={screenW / 5}
             style={{labels: { fill: '#fff', fontSize: 20}}}

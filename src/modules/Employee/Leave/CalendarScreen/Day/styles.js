@@ -5,12 +5,17 @@ export default StyleSheet.create({
     base: {
         width: '100%',
         height: 30,
+        
+      },
+      dayContainer: {
+        width: '100%',
+        height: '100%',
         justifyContent: 'flex-start',
         alignItems: 'center',
-        paddingTop: 2
+        paddingTop: 2,
       },
       selectedDay:{
-          backgroundColor: colors.green
+          backgroundColor: colors.green_dark
       },
       startingDay: {
         borderTopLeftRadius: 30,
@@ -30,6 +35,9 @@ export default StyleSheet.create({
       },
       unfocusedDaysText:{
         color: colors.gray_light,
+      },
+      weekendDayText:{
+        color: colors.gray_primary
       },
       thisDayText:{
         color: colors.orange,

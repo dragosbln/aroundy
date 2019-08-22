@@ -1,5 +1,4 @@
-// [1,2,3,4,5,6].(el => {
-//     if(el > 3) 
-//     console.log('el',el);
-    
-// })
+// import moment from 'moment'
+
+// console.log('moment test', moment('2019-08-18').format('ddd'), moment('2019-08-18').day());
+

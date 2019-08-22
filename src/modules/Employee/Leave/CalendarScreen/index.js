@@ -9,7 +9,8 @@ import colors from "../../../../assets/theme/colors";
 //TODO: get legend from components
 import Legend from "./Legend";
 import Day from "./Day";
-import moment from 'moment'
+import moment from "moment";
+import utils from "../../../../utils";
 
 LocaleConfig.locales["custom"] = {
   ...LocaleConfig.locales[""],
@@ -26,10 +27,9 @@ export default class CalendarSCREEN extends React.Component {
         buttonsBottom: new Animated.Value(-60)
       },
       calendar: {
-        currentMonth: new Date().getMonth() + 1,
+        focusedMonth: new Date().getMonth() + 1,
         markedDates: {}
-      },
-      upd: false
+      }
     };
   }
 
@@ -40,53 +40,173 @@ export default class CalendarSCREEN extends React.Component {
   };
 
   initMarkedDates = () => {
-    const markedDates = {}
+    const markedDates = {};
     //the request is consideret having the status 'processed' if it was either approved or rejected by the HR
-    this.props.requests.filter(el => el.status !== 'canceled').forEach(el => {
-      let dotColor;
-      if(el.status === 'processing' || el.status === 'pending') {
-        dotColor = colors.yellow
-      } else {
-        //find HR's approval
-        const approval = el.requestApprovals.find(rapp => rapp.type === 'hr')
-        dotColor = approval.status === 'approved' ? colors.green : colors.pink
-      }
-      let currentDate = moment(el.from)
-      const stopDate = moment(el.to)
-      while(currentDate <= stopDate){
-        const dateKey = moment(currentDate).format('YYYY-MM-DD')
-        markedDates[dateKey] = {
-          marked: true,
-          dotColor 
+    this.props.requests
+      .filter(el => el.status !== "canceled")
+      .forEach(el => {
+        let dotColor;
+        let type;
+        if (el.status === "processing" || el.status === "pending") {
+          dotColor = colors.yellow;
+          type = "pending";
+        } else {
+          //find HR's approval
+          const approval = el.requestApprovals.find(rapp => rapp.type === "hr");
+          dotColor =
+            approval.status === "approved" ? colors.green : colors.pink;
+          type = approval.status;
         }
-        currentDate = moment(currentDate).add(1, 'days')
-      }
-    })
-    console.log(markedDates);
-    
-    this.setState(state => ({
-      ...state,
-      upd: !state.upd,
-      calendar: {
-        ...state.calendar,
-        markedDates
-      }
-    }))
-  }
 
-  componentDidMount() {
-    this.initMarkedDates()
-  }
+        utils.getDatesInterval(el.from, el.to).forEach(date => {
+          markedDates[date] = {
+            marked: true,
+            dotColor,
+            type
+          };
+        });
+      });
 
-  onMonthChange = async (date) => {
     this.setState(state => ({
       ...state,
       calendar: {
         ...state.calendar,
-        currentMonth: date.month
+        markedDates: {
+          ...state.calendar.markedDates,
+          ...markedDates
+        }
       }
-    }))
-  }
+    }));
+  };
+
+  componentDidMount = () => {
+    this.initMarkedDates();
+  };
+
+  onMonthChange = async date => {
+    await this.setState(state => ({
+      ...state,
+      calendar: {
+        ...state.calendar,
+        focusedMonth: date.month,
+        markedDates: {
+          //spreading marked dates (uselessly), just so calendar will update when switching months
+          ...state.calendar.markedDates
+        }
+      }
+    }));
+  };
+
+  componentDidUpdate = (prevProps, prevState) => {
+    if (prevProps.selectedPeriods !== this.props.selectedPeriods) {
+      this.updateSelected();
+    }
+  };
+
+  updateSelected = () => {
+    let newMarkedDates = {
+      ...this.state.calendar.markedDates
+    };
+    if (this.props.selectedPeriods.length === 0) {
+      console.log("GOT IIIIN!");
+
+      newMarkedDates = {};
+      const currentMarkedDates = this.state.calendar.markedDates;
+      for (let key in currentMarkedDates) {
+        if (currentMarkedDates[key].selected) {
+          if (currentMarkedDates[key].marked) {
+            newMarkedDates[key] = {
+              ...currentMarkedDates[key],
+              selected: false,
+              startingDay: false,
+              endingDay: false
+            };
+          }
+        } else {
+          newMarkedDates[key] = currentMarkedDates[key];
+        }
+      }
+    }
+    this.props.selectedPeriods.forEach(period => {
+      console.log(period);
+
+      if (!period.to) {
+        newMarkedDates[period.from] = {
+          ...this.state.calendar.markedDates[period.from],
+          selected: true,
+          startingDay: true
+        };
+        return;
+      }
+      const dates = utils.getDatesInterval(period.from, period.to);
+
+      dates.forEach((date, i) => {
+        newMarkedDates[date] = {
+          ...this.state.calendar.markedDates[date],
+          selected: true
+        };
+        if (i === 0) {
+          newMarkedDates[date].startingDay = true;
+        }
+        if (i === dates.length - 1) {
+          newMarkedDates[date].endingDay = true;
+        }
+      });
+    });
+    this.setState(state => ({
+      ...state,
+      calendar: {
+        ...state.calendar,
+        markedDates: newMarkedDates
+      }
+    }));
+  };
+
+  onDayPress = date => {
+    if (
+      moment(date) <= moment() ||
+      (!this.props.selectStopPeriod &&
+        this.state.calendar.markedDates[date] &&
+        (this.state.calendar.markedDates[date].type === "approved" ||
+          this.state.calendar.markedDates[date].selected))
+    ) {
+      return;
+    }
+
+    if (this.props.selectStopPeriod) {
+      const selectedDates = utils.getDatesInterval(
+        this.props.selectedPeriods[this.props.selectedPeriods.length - 1].from,
+        date
+      );
+      const markedDates = this.state.calendar.markedDates;
+      const newlySelectedDates = selectedDates.filter(
+        date => (!markedDates[date] || markedDates[date].type !== "approved") && ![0,6].includes(moment(date).day())
+      );
+      const intervalsToSave = utils.makeDatesInterval(newlySelectedDates);
+      intervalsToSave.forEach((interval, i) => {
+        if (i === 0) {
+          this.props.setTo(interval.to);
+        } else {
+          this.props.setFrom(interval.from);
+          this.props.setTo(interval.to);
+        }
+      });
+
+      if (this.state.animation.buttonsBottom._value === -60) {
+        this.showButtons();
+      }
+      return;
+    }
+    return this.props.setFrom(date);
+  };
+
+  onCancelPressed = () => {
+    this.props.clear();
+  };
+
+  onProceedPressed = () => {
+    this.props.navigation.navigate({ routeName: "LeaveTypeScreen" });
+  };
 
   render() {
     return (
@@ -97,16 +217,16 @@ export default class CalendarSCREEN extends React.Component {
             <Image source={dracu} style={styles.dracu} />
           </View>
           <Calendar
-            onDayPress={date => console.log(date)}
             monthFormat="MMMM"
             markedDates={this.state.calendar.markedDates}
             onMonthChange={this.onMonthChange}
+            firstDay={1}
             dayComponent={dateObj => {
               return (
                 <Day
                   {...dateObj}
-                  currentMonth={this.state.calendar.currentMonth}
-                  upd={this.state.upd}
+                  onPress={() => this.onDayPress(dateObj.date.dateString)}
+                  focusedMonth={this.state.calendar.focusedMonth}
                 />
               );
             }}
@@ -128,13 +248,12 @@ export default class CalendarSCREEN extends React.Component {
             {
               bottom: this.state.animation.buttonsBottom
             }
-          ]}
-        >
+          ]}>
           <View style={styles.buttonView}>
-            <Button label="CANCEL" />
+            <Button onPress={this.onCancelPressed} label="CANCEL" />
           </View>
           <View style={styles.buttonView}>
-            <Button label="PROCEED" />
+            <Button onPress={this.onProceedPressed} label="PROCEED" />
           </View>
         </Animated.View>
 
