@@ -5,16 +5,20 @@ import Header from "../../../../components/Header";
 import Heading from "../../../../components/Text/HeadingText";
 import { WheelPicker } from "react-native-wheel-picker-android";
 import Button from "../../../../components/Buttons/BaseButton";
+import appData from '../../../../utils/appData'
 
-const wheelPickerData = [
-  "FAMILY EMERGENCY",
-  "SCICKNESS",
-  "VACATION",
-  "PARENTAL LEAVE",
-  "TRAINING DAY",
-  "friday"
-];
 export default class CalendarSCREEN extends React.Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      currentPerdiod: 0
+    }
+  }
+
+  formatPeriods = () => {
+    
+  }
+
   render() {
     return (
       <View style={styles.base}>
@@ -29,7 +33,7 @@ export default class CalendarSCREEN extends React.Component {
             selectedItemTextSize={20}
             selectedItemTextFontFamily='Montserrat-Medium'
             itemTextSize={18}
-            data={wheelPickerData}
+            data={Object.values(appData.leaveTypes)}
             selectedItem={2}
             hideIndicator
           />

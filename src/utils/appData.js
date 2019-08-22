@@ -12,3 +12,7 @@ const leaveTypes = {
     paternat: 'PATERNAL',
     trainingDay: 'TRAINING DAY'
 }
+
+export default {
+    leaveTypes
+}

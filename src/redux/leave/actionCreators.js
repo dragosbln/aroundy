@@ -14,8 +14,17 @@ const clear = () => ({
     type: types.CLEAR
 })
 
+const setType = (id, type='') => ({
+    type: types.SET_TYPE,
+    payload: {
+        id,
+        type
+    }
+})
+
 export default {
     setFrom,
     setTo,
-    clear
+    clear,
+    setType
 }

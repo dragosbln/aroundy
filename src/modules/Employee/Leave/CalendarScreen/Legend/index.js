@@ -5,21 +5,31 @@ import Dot from "../../../../../components/Dot";
 import Text from "../../../../../components/Text/BaseText";
 import colors from "../../../../../assets/theme/colors";
 
+const data = [
+  {
+    label: 'Approved',
+    color: colors.green
+  },
+  {
+    label: 'Waiting',
+    color: colors.yellow
+  },
+  {
+    label: 'Rejected',
+    color: colors.red
+  }
+]
+
 export default props => {
   return (
     <View style={styles.base}>
-      <View style={styles.legendSubContainer}>
-        <Dot color={colors.green} />
-        <Text customStyle={styles.legendText}>Approved</Text>
-      </View>
-      <View style={styles.legendSubContainer}>
-        <Dot color={colors.yellow} />
-        <Text customStyle={styles.legendText}>Waiting</Text>
-      </View>
-      <View style={styles.legendSubContainer}>
-        <Dot color={colors.pink} />
-        <Text customStyle={styles.legendText}>Rejected</Text>
-      </View>
+      {props.data && props.data.map(el => (
+        <View style={styles.legendSubContainer}>
+          <Dot color={el.color} />
+          <Text customStyle={styles.legendText}>{el.label}</Text>
+        </View>
+      ))}
+      
     </View>
   );
 };

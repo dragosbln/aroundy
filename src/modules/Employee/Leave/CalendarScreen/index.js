@@ -7,7 +7,7 @@ import { dracu } from "../../../../assets/images";
 import { Calendar, LocaleConfig } from "react-native-calendars";
 import colors from "../../../../assets/theme/colors";
 //TODO: get legend from components
-import Legend from "./Legend";
+import Legend from "../../../../components/Legend";
 import Day from "./Day";
 import moment from "moment";
 import utils from "../../../../utils";
@@ -79,8 +79,33 @@ export default class CalendarSCREEN extends React.Component {
     }));
   };
 
+  initHolidaysMarkers = () => {
+    console.log("hoooollyyy", this.props.holidays);
+    const newMarkedDates = { ...this.state.calendar.markedDates };
+    this.props.holidays.data.forEach(holiday => {
+      newMarkedDates[holiday.date.iso] = {
+        ...this.state.calendar.markedDates[holiday.date.iso],
+        marked: true,
+        type: "holiday",
+        dotColor: colors.blue
+      };
+    });
+    this.setState(state => ({
+      ...state,
+      calendar: {
+        ...state.calendar,
+        markedDates: newMarkedDates
+      }
+    }));
+  };
+
   componentDidMount = () => {
     this.initMarkedDates();
+    if (!this.props.holidays.data) {
+      this.props.getHolidays();
+    } else {
+      this.initHolidaysMarkers();
+    }
   };
 
   onMonthChange = async date => {
@@ -100,6 +125,9 @@ export default class CalendarSCREEN extends React.Component {
   componentDidUpdate = (prevProps, prevState) => {
     if (prevProps.selectedPeriods !== this.props.selectedPeriods) {
       this.updateSelected();
+    }
+    if (prevProps.holidays.data !== this.props.holidays.data) {
+      this.initHolidaysMarkers();
     }
   };
 
@@ -168,6 +196,7 @@ export default class CalendarSCREEN extends React.Component {
       (!this.props.selectStopPeriod &&
         this.state.calendar.markedDates[date] &&
         (this.state.calendar.markedDates[date].type === "approved" ||
+          this.state.calendar.markedDates[date].type === "holiday" ||
           this.state.calendar.markedDates[date].selected))
     ) {
       return;
@@ -180,7 +209,11 @@ export default class CalendarSCREEN extends React.Component {
       );
       const markedDates = this.state.calendar.markedDates;
       const newlySelectedDates = selectedDates.filter(
-        date => (!markedDates[date] || markedDates[date].type !== "approved") && ![0,6].includes(moment(date).day())
+        date =>
+          (!markedDates[date] ||
+            (markedDates[date].type !== "approved" &&
+              markedDates[date].type !== "holiday")) &&
+          ![0, 6].includes(moment(date).day())
       );
       const intervalsToSave = utils.makeDatesInterval(newlySelectedDates);
       intervalsToSave.forEach((interval, i) => {
@@ -258,7 +291,26 @@ export default class CalendarSCREEN extends React.Component {
         </Animated.View>
 
         <View style={styles.legendContainer}>
-          <Legend />
+          <Legend
+            data={[
+              {
+                label: "Approved",
+                color: colors.green
+              },
+              {
+                label: "Waiting",
+                color: colors.yellow
+              },
+              {
+                label: "Rejected",
+                color: colors.red
+              },
+              {
+                label: "Holiday",
+                color: colors.blue
+              }
+            ]}
+          />
         </View>
       </View>
     );

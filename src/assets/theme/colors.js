@@ -6,5 +6,6 @@ export default {
     green_dark: '#288223',
     yellow: '#F8C822',
     pink: '#FC4850',
-    red: '#de2626'
+    red: '#de2626',
+    blue: '#1618a8'
 }
