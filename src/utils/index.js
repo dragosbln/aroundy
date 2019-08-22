@@ -27,26 +27,34 @@ const makeDatesInterval = (dates = []) => {
       i++;
     }
     currentInterval.to = dates[i];
-    intervals.push(currentInterval)
+    intervals.push(currentInterval);
     i++;
   }
-  return intervals
+  return intervals;
 };
 
 const formatInterval = (interval = {}) => {
-  const from = moment(interval.from)
-  const to = moment(interval.to)
-  if(from.month() === to.month()){
-    return `${from.date()} - ${to.date()} ${from.format('MMMM')} ${from.year()}`
-  } else if(from.year() === to.year()){
-    return `${from.date()} ${from.format('MMM')} - ${to.date()} ${to.format('MMM')} ${from.year()}`
-  } else {
-    //having the same interval between 2 years is impossible, New Year's Eve will separate them
-    return ``
+  const from = moment(interval.from);
+  const to = moment(interval.to);
+  if (from.valueOf() === to.valueOf()) {
+    return `${from.date()} ${from.format("MMMM")} ${from.year()}`;
   }
-}
+  if (from.month() === to.month() && from.year() === to.year()) {
+    return `${from.date()} - ${to.date()} ${from.format(
+      "MMMM"
+    )} ${from.year()}`;
+  }
+  if (from.year() === to.year()) {
+    return `${from.date()} ${from.format("MMM")} - ${to.date()} ${to.format(
+      "MMM"
+    )} ${from.year()}`;
+  }
+  //having the same interval between 2 years is impossible, New Year's Eve will separate them
+  return ``;
+};
 
 export default {
   getDatesInterval,
-  makeDatesInterval
+  makeDatesInterval,
+  formatInterval
 };

@@ -9,12 +9,21 @@ export default StyleSheet.create({
     justifyContent: 'flex-start'
   },
   headingContainer: {
-    width: '80%',
+    width: '100%',
     height: 40,
+    justifyContent: 'center',
+    marginTop: 60,
+    flexDirection: 'row'
+  },
+  headingRunningContainer: {
+    width: '80%',
+    height: '100%',
+    position: 'absolute',
     alignItems: 'center',
-    marginTop: 60
+    justifyContent: 'center'
   },
   heading: {
+    position: 'absolute',
     color: colors.orange,
     fontSize: 20,
   },
