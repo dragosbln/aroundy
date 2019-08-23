@@ -1,4 +1,4 @@
-// import store from './redux/store'
-// import actions from './redux/leave/actionCreators'
+// import moment from 'moment'
 
-// store.dispatch(actions.setType(1,'leave'))
+// console.log('sanncds', moment.duration(moment('2019-08-15').diff(moment('2019-08-12'))).asDays() + 1);
+

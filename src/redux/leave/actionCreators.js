@@ -30,10 +30,22 @@ const setHalfDay = (id, halfDay) => ({
     }
 })
 
+const setBosses = (bosses) => ({
+    type: types.SET_BOSSES,
+    payload: bosses
+})
+
+const setComment = (comment) => ({
+    type: types.SET_COMMENT,
+    payload: comment
+})
+
 export default {
     setFrom,
     setTo,
     clear,
     setType,
-    setHalfDay
+    setHalfDay,
+    setBosses,
+    setComment
 }

@@ -236,7 +236,27 @@ const loggedUser = {
   Comments: []
 };
 
+bosses = [
+  {
+    id: 1,
+    name: 'Florina Vasile'
+  },
+  {
+    id: 2,
+    name: 'Big Shaq'
+  },
+  {
+    id: 3,
+    name: 'Alexis Sanchez'
+  },
+  {
+    id: 4,
+    name: 'Milo Yannoupoulos'
+  },
+]
+
 export default {
   requests,
-  loggedUser
+  loggedUser,
+  bosses
 };

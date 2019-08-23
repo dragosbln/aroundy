@@ -15,7 +15,7 @@ const stackNavigator = createStackNavigator({
     NotifyBossesScreen,
     SuccessScreen
 },{
-    initialRouteName: 'HalfDaysScreen',
+    initialRouteName: 'NotifyBossesScreen',
     headerMode: 'none'
 
 })

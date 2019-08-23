@@ -1,7 +1,7 @@
 import types from "./types";
 
 const mockData = [
-  { id: 0, from: "2019-08-23", to: "2019-08-23" },
+  { id: 0, from: "2019-08-23", to: "2019-08-23", halfDay: true },
   { id: 1, from: "2019-09-02", to: "2019-09-05" },
   { id: 2, from: "2019-09-10", to: "2019-09-11" },
   { id: 3, from: "2019-09-13", to: "2019-09-13" }
@@ -48,7 +48,7 @@ const reducer = (state = initialState, action) => {
       };
     case types.SET_TYPE: {
       const newState = { ...state };
-      newState.periods = [ ...state.periods ];
+      newState.periods = [...state.periods];
       newState.periods[action.payload.id] = {
         ...newState.periods[action.payload.id],
         type: action.payload.type
@@ -57,14 +57,26 @@ const reducer = (state = initialState, action) => {
     }
     case types.SET_HALF_DAY: {
       const newState = { ...state };
-      newState.periods = [ ...state.periods ];
+      newState.periods = [...state.periods];
       newState.periods[action.payload.id] = {
         ...newState.periods[action.payload.id],
         halfDay: action.payload.halfDay
       };
+
       return newState;
     }
 
+    case types.SET_BOSSES:
+      return {
+        ...state,
+        bosses: action.payload
+      };
+
+    case types.SET_COMMENT:
+      return {
+        ...state,
+        comment: action.payload
+      };
     default:
       return state;
   }

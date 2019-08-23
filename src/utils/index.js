@@ -1,5 +1,9 @@
 import moment from "moment";
-import { StackActions, NavigationAction, NavigationActions } from 'react-navigation'
+import {
+  StackActions,
+  NavigationAction,
+  NavigationActions
+} from "react-navigation";
 
 const getDatesInterval = (from, to) => {
   let currentDate = moment(from);
@@ -57,16 +61,27 @@ const formatInterval = (interval = {}) => {
 const resetNavigation = (navigation, routeName) => {
   const resetAction = StackActions.reset({
     index: 0,
-    actions: [
-      NavigationActions.navigate({routeName})
-    ]
-  })
-  navigation.dispatch(resetAction)
-}
+    actions: [NavigationActions.navigate({ routeName })]
+  });
+  navigation.dispatch(resetAction);
+};
+
+const calculateDaysTotal = (intervals = []) => {
+  return intervals.reduce(
+    (acc, currentVal) =>
+      acc + (currentVal.halfDay
+        ? 0.5
+        : moment
+            .duration(moment(currentVal.to).diff(moment(currentVal.from)))
+            .asDays() + 1),
+    0
+  );
+};
 
 export default {
   getDatesInterval,
   makeDatesInterval,
   formatInterval,
-  resetNavigation
+  resetNavigation,
+  calculateDaysTotal
 };

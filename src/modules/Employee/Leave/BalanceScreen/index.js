@@ -6,15 +6,33 @@ import Heading from "../../../../components/Text/HeadingText";
 import Text from "../../../../components/Text/BaseText";
 import Button from "../../../../components/Buttons/BaseButton";
 import { scale, askQuestion } from "../../../../assets/images";
+import utils from '../../../../utils'
 
 export default class CalendarSCREEN extends React.Component {
+
+  componentDidMount(){
+    console.log(this.props);
+  }
+
+  onProceedPress = () => {
+    this.props.navigation.navigate('NotifyBossesScreen')
+  }
+
+  onPressCancel = () => {
+    this.props.clear()
+    utils.resetNavigation(this.props.navigation, 'CalendarScreen')
+  }
+
   render() {
     return (
       <View style={styles.base}>
         <Header title="Your Balance" />
         <View style={styles.headingContainer}>
           <Heading customStyle={styles.heading}>
-            24,26,27 - 28 August 2019
+            {utils.formatInterval({
+              from: this.props.periods[0].from,
+              to: this.props.periods[this.props.periods.length - 1].to
+            })}
           </Heading>
         </View>
         <View style={styles.balanceContainer}>
@@ -24,7 +42,7 @@ export default class CalendarSCREEN extends React.Component {
               <Text customStyle={styles.rowNameTxt}>Balance</Text>
             </View>
 
-            <Text customStyle={styles.daysTxt}>3.5 Days</Text>
+            <Text customStyle={styles.daysTxt}>{this.props.balance} Days</Text>
           </View>
           <View style={styles.row}>
             <View style={styles.rowName}>
@@ -32,15 +50,15 @@ export default class CalendarSCREEN extends React.Component {
               <Text customStyle={styles.rowNameTxt}>Requested</Text>
             </View>
 
-            <Text customStyle={styles.daysTxt}>4 Days</Text>
+            <Text customStyle={styles.daysTxt}>{utils.calculateDaysTotal(this.props.periods)} Days</Text>
           </View>
         </View>
         <View style={styles.buttonsContainer}>
           <View style={styles.buttonView}>
-            <Button label="CANCEL" />
+            <Button onPress={this.onPressCancel} label="CANCEL" />
           </View>
           <View style={styles.buttonView}>
-            <Button label="PROCEED" />
+            <Button onPress={this.onProceedPress} label="PROCEED" />
           </View>
         </View>
       </View>

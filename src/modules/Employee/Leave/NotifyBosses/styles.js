@@ -20,7 +20,8 @@ export default StyleSheet.create({
   },
   inputContainer: {
     width: "90%",
-    marginTop: "5%"
+    marginTop: "5%",
+    height: 50,
   },
   input: {
     fontSize: 18,
