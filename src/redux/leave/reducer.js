@@ -45,17 +45,16 @@ const reducer = (state = initialState, action) => {
         ...state,
         periods: []
       };
-    case types.SET_TYPE:
-      {
-        const newState = { ...state };
-        newState.periods = { ...state.periods };
-        newState.periods[action.payload.id] = {
-          ...newState.periods[action.payload.id],
-          type: action.payload.type
-        };
-      }
+    case types.SET_TYPE: {
+      const newState = { ...state };
+      newState.periods = [ ...state.periods ];
+      newState.periods[action.payload.id] = {
+        ...newState.periods[action.payload.id],
+        type: action.payload.type
+      };
+      return newState;
+    }
 
-      return;
     default:
       return state;
   }
