@@ -7,7 +7,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    setType: (id, type) => dispatch(leaveAC.setType(id, type))
+    setType: (id, type) => dispatch(leaveAC.setType(id, type)),
+    clear: () => dispatch(leaveAC.clear())
 })
  
 export default connect(mapStateToProps, mapDispatchToProps)(LeaveTypeScreen)

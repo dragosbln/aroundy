@@ -43,7 +43,8 @@ const reducer = (state = initialState, action) => {
     case types.CLEAR:
       return {
         ...state,
-        periods: []
+        periods: [],
+        selectStopPeriod: false
       };
     case types.SET_TYPE: {
       const newState = { ...state };

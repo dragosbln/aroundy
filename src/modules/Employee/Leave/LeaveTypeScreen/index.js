@@ -59,6 +59,11 @@ export default class CalendarSCREEN extends React.Component {
     }));
   };
 
+  onPressCancel = () => {
+    this.props.clear()
+    utils.resetNavigation(this.props.navigation, 'CalendarScreen')
+  }
+
   switchHeadings = () => {
     Animated.parallel([
       Animated.timing(this.state.animations.hidingContainer, {
@@ -84,10 +89,6 @@ export default class CalendarSCREEN extends React.Component {
           duration: 0
         })
       ]).start();
-      console.log(
-        "perieds + 2 = ",
-        this.props.periods[this.state.currentPerdiod + 2]
-      );
 
       this.setState(state => ({
         ...state,
@@ -149,7 +150,7 @@ export default class CalendarSCREEN extends React.Component {
         </View>
         <View style={styles.buttonsContainer}>
           <View style={styles.buttonView}>
-            <Button label="CANCEL" />
+            <Button onPress={this.onPressCancel} label="CANCEL" />
           </View>
           <View style={styles.buttonView}>
             <Button onPress={this.onProceedPress} label="PROCEED" />

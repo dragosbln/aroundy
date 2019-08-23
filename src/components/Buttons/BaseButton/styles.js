@@ -21,5 +21,8 @@ export default StyleSheet.create({
     text: {
         color: colors.gray_primary,
         fontSize: 18
+    },
+    disabledTxt: {
+        color: colors.gray_light
     }
 })
