@@ -14,15 +14,15 @@ const screenW = Dimensions.get("window").width;
 
 const dummy = [
   {
-    name: "Leave",
+    label: "Leave",
     color: colors.green
   },
   {
-    name: "idk",
+    label: "idk",
     color: colors.yellow
   },
   {
-    name: "idk2",
+    label: "idk2",
     color: colors.pink
   }
 ];

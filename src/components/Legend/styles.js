@@ -2,16 +2,17 @@ import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
   base:{
-    flex: 1,
     flexDirection: 'row',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    flexWrap: 'wrap',
   },
   legendSubContainer: {
     flexDirection: 'row',
     marginHorizontal: 5,
+    padding: 2,
     alignItems: 'center',
-    flex: 1,
-    justifyContent: 'center'
+    flex: -1,
+    justifyContent: 'space-between'
   },
   legendText:{
     marginLeft: 3

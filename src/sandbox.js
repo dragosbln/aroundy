@@ -1,4 +1,4 @@
-// import moment from 'moment'
+// import store from './redux/store'
+// import actions from './redux/leave/actionCreators'
 
-// console.log('moment test', moment('2019-08-18').format('ddd'), moment('2019-08-18').day());
-
+// store.dispatch(actions.setType(1,'leave'))
