@@ -3,7 +3,7 @@ import NotifyBosses from './'
 import leaveAC from '../../../../redux/leave/actionCreators'
 
 const mapStateToProps = (state) => ({
-
+    periods: state.leave.periods
 })
 
 const mapDispatchToProps = (dispatch) => ({

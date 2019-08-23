@@ -16,7 +16,7 @@ LocaleConfig.locales["custom"] = {
   ...LocaleConfig.locales[""],
   dayNamesShort: ["S", "M", "T", "W", "T", "F", "S"]
 };
-
+//TODO: set same gray colors
 LocaleConfig.defaultLocale = "custom";
 
 export default class CalendarSCREEN extends React.Component {

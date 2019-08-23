@@ -6,6 +6,7 @@ import Text from "../../../../components/Text/BaseText";
 import Button from "../../../../components/Buttons/BaseButton";
 import TextButton from "../../../../components/Buttons/TextButton";
 import { scale, askQuestion } from "../../../../assets/images";
+import utils from '../../../../utils'
 
 export default class CalendarSCREEN extends React.Component {
   render() {
@@ -31,7 +32,9 @@ export default class CalendarSCREEN extends React.Component {
           </View>
         </View>
         <View style={styles.summaryContainer}>
-          <Text customStyle={styles.summaryTxt}>You requested 24 - 28 Aug off days for Vacation.</Text>
+          <Text customStyle={styles.summaryTxt}>
+            You requested {this.props.periods.map(period => utils.formatInterval(period.from, period.to)).join(', ')} off days for Vacation.
+          </Text>
         </View>
         <View style={styles.fingersCrossedContainer}>
           <Text customStyle={styles.fingersCrossedText}>Fingers crossed!</Text>

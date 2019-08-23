@@ -7,7 +7,7 @@ import { WheelPicker } from "react-native-wheel-picker-android";
 import Button from "../../../../components/Buttons/BaseButton";
 import appData from "../../../../utils/appData";
 import utils from "../../../../utils";
-
+//TODO: add arrows
 export default class CalendarSCREEN extends React.Component {
   constructor(props) {
     super(props);
