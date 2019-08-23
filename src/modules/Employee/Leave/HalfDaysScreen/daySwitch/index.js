@@ -18,12 +18,13 @@ const options = [
 export default props => {
   return (
     <View style={styles.base}>
-      <Text customStyle={styles.dateTxt}>26 August</Text>
+      <Text customStyle={styles.dateTxt}>{props.date}</Text>
       <SwitchSelector
         style={styles.switchContainer}
         textStyle={styles.switchTextStyle}
         selectedTextStyle={styles.switchSelectedTextStyle}
         options={options}
+        onPress={props.onPress}
       />
     </View>
   );

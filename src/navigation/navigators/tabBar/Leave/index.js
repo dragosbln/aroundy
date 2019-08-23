@@ -2,10 +2,10 @@ import {createStackNavigator} from 'react-navigation'
 
 import CalendarScreen from '../../../../modules/Employee/Leave/CalendarScreen/container'
 import LeaveTypeScreen from '../../../../modules/Employee/Leave/LeaveTypeScreen/container'
-import HalfDaysScreen from '../../../../modules/Employee/Leave/HalfDaysScreen'
-import BalanceScreen from '../../../../modules/Employee/Leave/BalanceScreen'
-import NotifyBossesScreen from '../../../../modules/Employee/Leave/NotifyBosses'
-import SuccessScreen from '../../../../modules/Employee/Leave/SuccessScreen'
+import HalfDaysScreen from '../../../../modules/Employee/Leave/HalfDaysScreen/container'
+import BalanceScreen from '../../../../modules/Employee/Leave/BalanceScreen/container'
+import NotifyBossesScreen from '../../../../modules/Employee/Leave/NotifyBosses/container'
+import SuccessScreen from '../../../../modules/Employee/Leave/SuccessScreen/container'
 
 const stackNavigator = createStackNavigator({
     CalendarScreen,
@@ -15,7 +15,7 @@ const stackNavigator = createStackNavigator({
     NotifyBossesScreen,
     SuccessScreen
 },{
-    initialRouteName: 'LeaveTypeScreen',
+    initialRouteName: 'HalfDaysScreen',
     headerMode: 'none'
 
 })

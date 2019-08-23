@@ -38,7 +38,7 @@ const formatInterval = (interval = {}) => {
   const from = moment(interval.from);
   const to = moment(interval.to);
   if (from.valueOf() === to.valueOf()) {
-    return `${from.date()} ${from.format("MMMM")} ${from.year()}`;
+    return `${from.date()} ${from.format("MMM")} ${from.year()}`;
   }
   if (from.month() === to.month() && from.year() === to.year()) {
     return `${from.date()} - ${to.date()} ${from.format(

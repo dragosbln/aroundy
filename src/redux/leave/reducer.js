@@ -55,6 +55,15 @@ const reducer = (state = initialState, action) => {
       };
       return newState;
     }
+    case types.SET_HALF_DAY: {
+      const newState = { ...state };
+      newState.periods = [ ...state.periods ];
+      newState.periods[action.payload.id] = {
+        ...newState.periods[action.payload.id],
+        halfDay: action.payload.halfDay
+      };
+      return newState;
+    }
 
     default:
       return state;

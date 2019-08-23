@@ -22,9 +22,18 @@ const setType = (id, type='') => ({
     }
 })
 
+const setHalfDay = (id, halfDay) => ({
+    type: types.SET_HALF_DAY,
+    payload: {
+        id,
+        halfDay
+    }
+})
+
 export default {
     setFrom,
     setTo,
     clear,
-    setType
+    setType,
+    setHalfDay
 }

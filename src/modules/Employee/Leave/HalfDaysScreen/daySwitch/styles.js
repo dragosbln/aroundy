@@ -15,7 +15,16 @@ export default StyleSheet.create({
   switchContainer: {
     height: 40,
     width: 150,
+    backgroundColor: '#fff',
+    borderRadius: 20,
     justifyContent: 'center',
+    shadowRadius: 1,
+    shadowOpacity: 0.3, 
+    shadowOffset: {
+      width: 0,
+      height:1
+    },
+    elevation: 1
     
   },
   switchTextStyle: {
