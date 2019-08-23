@@ -1,4 +1,5 @@
 import moment from "moment";
+import { StackActions, NavigationAction, NavigationActions } from 'react-navigation'
 
 const getDatesInterval = (from, to) => {
   let currentDate = moment(from);
@@ -37,7 +38,7 @@ const formatInterval = (interval = {}) => {
   const from = moment(interval.from);
   const to = moment(interval.to);
   if (from.valueOf() === to.valueOf()) {
-    return `${from.date()} ${from.format("MMMM")} ${from.year()}`;
+    return `${from.date()} ${from.format("MMM")} ${from.year()}`;
   }
   if (from.month() === to.month() && from.year() === to.year()) {
     return `${from.date()} - ${to.date()} ${from.format(
@@ -53,8 +54,19 @@ const formatInterval = (interval = {}) => {
   return ``;
 };
 
+const resetNavigation = (navigation, routeName) => {
+  const resetAction = StackActions.reset({
+    index: 0,
+    actions: [
+      NavigationActions.navigate({routeName})
+    ]
+  })
+  navigation.dispatch(resetAction)
+}
+
 export default {
   getDatesInterval,
   makeDatesInterval,
-  formatInterval
+  formatInterval,
+  resetNavigation
 };

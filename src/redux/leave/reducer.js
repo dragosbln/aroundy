@@ -43,7 +43,8 @@ const reducer = (state = initialState, action) => {
     case types.CLEAR:
       return {
         ...state,
-        periods: []
+        periods: [],
+        selectStopPeriod: false
       };
     case types.SET_TYPE: {
       const newState = { ...state };
@@ -51,6 +52,15 @@ const reducer = (state = initialState, action) => {
       newState.periods[action.payload.id] = {
         ...newState.periods[action.payload.id],
         type: action.payload.type
+      };
+      return newState;
+    }
+    case types.SET_HALF_DAY: {
+      const newState = { ...state };
+      newState.periods = [ ...state.periods ];
+      newState.periods[action.payload.id] = {
+        ...newState.periods[action.payload.id],
+        halfDay: action.payload.halfDay
       };
       return newState;
     }

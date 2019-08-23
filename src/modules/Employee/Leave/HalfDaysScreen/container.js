@@ -1,5 +1,5 @@
 import {connect} from 'react-redux'
-import LeaveTypeScreen from './'
+import HalfDayScreen from './'
 import leaveAC from '../../../../redux/leave/actionCreators'
 
 const mapStateToProps = (state) => ({
@@ -7,8 +7,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    setType: (id, type) => dispatch(leaveAC.setType(id, type)),
+    setHalfDay: (id, ishalfDay) => dispatch(leaveAC.setHalfDay(id, ishalfDay)),
     clear: () => dispatch(leaveAC.clear())
 })
- 
-export default connect(mapStateToProps, mapDispatchToProps)(LeaveTypeScreen)
+
+export default connect(mapStateToProps, mapDispatchToProps)(HalfDayScreen)

@@ -29,7 +29,8 @@ export default class CalendarSCREEN extends React.Component {
       calendar: {
         focusedMonth: new Date().getMonth() + 1,
         markedDates: {}
-      }
+      },
+      proceedDisabled: true
     };
   }
 
@@ -202,35 +203,44 @@ export default class CalendarSCREEN extends React.Component {
       return;
     }
 
-    if (this.props.selectStopPeriod) {
-      const selectedDates = utils.getDatesInterval(
-        this.props.selectedPeriods[this.props.selectedPeriods.length - 1].from,
-        date
-      );
-      const markedDates = this.state.calendar.markedDates;
-      const newlySelectedDates = selectedDates.filter(
-        date =>
-          (!markedDates[date] ||
-            (markedDates[date].type !== "approved" &&
-              markedDates[date].type !== "holiday")) &&
-          ![0, 6].includes(moment(date).day())
-      );
-      const intervalsToSave = utils.makeDatesInterval(newlySelectedDates);
-      intervalsToSave.forEach((interval, i) => {
-        if (i === 0) {
-          this.props.setTo(interval.to);
-        } else {
-          this.props.setFrom(interval.from);
-          this.props.setTo(interval.to);
-        }
-      });
-
-      if (this.state.animation.buttonsBottom._value === -60) {
-        this.showButtons();
-      }
-      return;
+    if (!this.props.selectStopPeriod) {
+      this.setState(state => ({
+        ...state,
+        proceedDisabled: true
+      }))
+      return this.props.setFrom(date);
     }
-    return this.props.setFrom(date);
+    const selectedDates = utils.getDatesInterval(
+      this.props.selectedPeriods[this.props.selectedPeriods.length - 1].from,
+      date
+    );
+    const markedDates = this.state.calendar.markedDates;
+    const newlySelectedDates = selectedDates.filter(
+      date =>
+        (!markedDates[date] ||
+          (markedDates[date].type !== "approved" &&
+            markedDates[date].type !== "holiday")) &&
+        ![0, 6].includes(moment(date).day())
+    );
+    const intervalsToSave = utils.makeDatesInterval(newlySelectedDates);
+    intervalsToSave.forEach((interval, i) => {
+      if (i === 0) {
+        this.props.setTo(interval.to);
+      } else {
+        this.props.setFrom(interval.from);
+        this.props.setTo(interval.to);
+      }
+    });
+
+    this.setState(state => ({
+      ...state,
+      proceedDisabled: false
+    }))
+
+    if (this.state.animation.buttonsBottom._value === -60) {
+      this.showButtons();
+    }
+    return;
   };
 
   onCancelPressed = () => {
@@ -286,7 +296,7 @@ export default class CalendarSCREEN extends React.Component {
             <Button onPress={this.onCancelPressed} label="CANCEL" />
           </View>
           <View style={styles.buttonView}>
-            <Button onPress={this.onProceedPressed} label="PROCEED" />
+            <Button disabled={this.state.proceedDisabled} onPress={this.onProceedPressed} label="PROCEED" />
           </View>
         </Animated.View>
 
