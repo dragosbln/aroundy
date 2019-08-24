@@ -32,10 +32,7 @@ export default class AnimatedHeading extends React.Component {
         duration: 500
       })
     ]).start(async () => {
-      console.log("before update:", this.props.showingContainer);
        this.props.updateShowingContainer();
-      console.log("after update:", this.props.showingContainer);
-
       Animated.parallel([
         Animated.timing(this.state.hidingContainerRight, {
           toValue: 2 * this.screenWidth,

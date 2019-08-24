@@ -7,8 +7,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    setBosses: (bosses) => dispatch(leaveAC.setBosses(bosses)),
-    setComment: (comment) => dispatch(leaveAC.setComment(comment))
+    setBosses: (id,bosses) => dispatch(leaveAC.setBosses(id,bosses)),
+    setComment: (id,comment) => dispatch(leaveAC.setComment(id,comment))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(NotifyBosses)

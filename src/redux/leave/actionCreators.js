@@ -30,14 +30,20 @@ const setHalfDay = (id, halfDay) => ({
     }
 })
 
-const setBosses = (bosses) => ({
+const setBosses = (id, bosses) => ({
     type: types.SET_BOSSES,
-    payload: bosses
+    payload: {
+        id,
+        bosses
+    }
 })
 
-const setComment = (comment) => ({
+const setComment = (id, comment) => ({
     type: types.SET_COMMENT,
-    payload: comment
+    payload: {
+        id,
+        comment
+    }
 })
 
 const pending = () => ({

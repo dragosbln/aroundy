@@ -8,13 +8,19 @@ import PrimaryButton from "../../../../components/Buttons/PrimaryButton";
 import ListItem from "./ListItem";
 import mockData from "../../../../utils/mockData";
 import utils from "../../../../utils";
+import AnimatedHeading from "../../../../components/AnimatedHeading";
 
 export default class CalendarSCREEN extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       bosses: [],
-      comment: ""
+      comment: "",
+      currentPerdiod: 0,
+      showingContainer: "",
+      hidingContainer: "",
+      triggerAnimation: true,
+      showNextButton: true
     };
   }
 
@@ -25,7 +31,11 @@ export default class CalendarSCREEN extends React.Component {
     }));
     this.setState(state => ({
       ...state,
-      bosses
+      bosses,
+      showingContainer: utils.formatInterval(this.props.periods[0]),
+      hidingContainer: this.props.periods[1]
+        ? utils.formatInterval(this.props.periods[1])
+        : null
     }));
   };
 
@@ -50,12 +60,65 @@ export default class CalendarSCREEN extends React.Component {
     }));
   };
 
-  onPressProceed = () => {
+  // onPressProceed = () => {
+  //   this.props.setBosses(
+  //     this.state.bosses.filter(boss => boss.active).map(boss => boss.id)
+  //   );
+  //   this.props.setComment(this.state.comment);
+  // this.props.navigation.navigate("SuccessScreen");
+  // };
+
+  nextScreen = () => {
+    return this.props.navigation.navigate("SuccessScreen");
+  };
+
+  onProceedPress = () => {
     this.props.setBosses(
+      this.props.periods[this.state.currentPerdiod].id,
       this.state.bosses.filter(boss => boss.active).map(boss => boss.id)
     );
-    this.props.setComment(this.state.comment);
-    this.props.navigation.navigate("SuccessScreen");
+    this.props.setComment(
+      this.props.periods[this.state.currentPerdiod].id,
+      this.state.comment
+    );
+    this.setState(state => ({
+      ...state,
+      comment: 0,
+      bosses: state.bosses.map(boss => ({ ...boss, active: false }))
+    }));
+    if (this.state.currentPerdiod >= this.props.periods.length - 2) {
+      this.setState(state => ({
+        ...state,
+        showNextButton: false
+      }));
+    }
+    if (this.state.currentPerdiod >= this.props.periods.length - 1) {
+      return this.nextScreen();
+    }
+    this.setState(state => ({
+      ...state,
+      triggerAnimation: !state.triggerAnimation
+    }));
+  };
+
+  updateShowingContainer = () => {
+    return new Promise(async res => {
+      await this.setState(state => ({
+        ...state,
+        showingContainer: state.hidingContainer
+      }));
+      res();
+    });
+  };
+
+  nextStep = () => {
+    return this.setState(state => ({
+      ...state,
+      hidingContainer: this.props.periods[state.currentPerdiod + 2]
+        ? utils.formatInterval(this.props.periods[state.currentPerdiod + 2])
+        : null,
+      currentPerdiod: state.currentPerdiod + 1
+    }));
   };
 
   onBackPressed = () => {
@@ -67,12 +130,13 @@ export default class CalendarSCREEN extends React.Component {
       <View style={styles.base}>
         <Header title="Send to bosses" />
         <View style={styles.headingContainer}>
-          <Heading customStyle={styles.heading}>
-            {utils.formatInterval({
-              from: this.props.periods[0].from,
-              to: this.props.periods[this.props.periods.length - 1].to
-            })}
-          </Heading>
+          <AnimatedHeading
+            updateShowingContainer={this.updateShowingContainer}
+            nextStep={this.nextStep}
+            showingContainer={this.state.showingContainer}
+            hidingContainer={this.state.hidingContainer}
+            triggerAnimation={this.state.triggerAnimation}
+          />
         </View>
         <View style={styles.inputContainer}>
           <TextInput
@@ -102,12 +166,18 @@ export default class CalendarSCREEN extends React.Component {
               <Button onPress={this.onBackPressed} label="BACK" />
             </View>
             <View style={styles.backBtn}>
-              <Button onPress={this.onBackPressed} label="NEXT" />
+              {this.state.showNextButton && (
+                <Button onPress={this.onProceedPress} label="NEXT" />
+              )}
             </View>
           </View>
 
           <View style={styles.setMeFreeBtn}>
-            <PrimaryButton onPress={this.onPressProceed} label="SET ME FREE" />
+            <PrimaryButton
+              disabled={this.state.showNextButton}
+              onPress={this.onProceedPress}
+              label="SET ME FREE"
+            />
           </View>
         </View>
       </View>

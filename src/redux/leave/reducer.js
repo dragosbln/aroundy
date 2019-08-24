@@ -71,17 +71,27 @@ const reducer = (state = initialState, action) => {
       return newState;
     }
 
-    case types.SET_BOSSES:
-      return {
-        ...state,
-        bosses: action.payload
+    case types.SET_BOSSES:{
+      const newState = { ...state };
+      newState.periods = [...state.periods];
+      newState.periods[action.payload.id] = {
+        ...newState.periods[action.payload.id],
+        bosses: action.payload.bosses
       };
 
-    case types.SET_COMMENT:
-      return {
-        ...state,
-        comment: action.payload
+      return newState;
+    }
+
+    case types.SET_COMMENT:{
+      const newState = { ...state };
+      newState.periods = [...state.periods];
+      newState.periods[action.payload.id] = {
+        ...newState.periods[action.payload.id],
+        comment: action.payload.comment
       };
+
+      return newState;
+    }
     case types.PENDING:
       return {
         ...state,

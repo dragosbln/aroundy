@@ -15,14 +15,12 @@ export default class CalendarSCREEN extends React.Component {
     this.pickerOptions = appData.leaveTypes;
     this.state = {
       currentPerdiod: 0,
-      animations: {
-        showingContainer: new Animated.Value(this.screenWidth / 10),
-        hidingContainer: new Animated.Value(2 * this.screenWidth)
-      },
       showingContainer: "",
       hidingContainer: "",
+      triggerAnimation: true,
       pickerSelectedIndex: 5,
-      triggerAnimation: true
+      proceedButtonText: 'NEXT'
+
     };
   }
 
@@ -51,6 +49,12 @@ export default class CalendarSCREEN extends React.Component {
       this.props.periods[this.state.currentPerdiod].id,
       Object.keys(this.pickerOptions)[this.state.pickerSelectedIndex]
     );
+    if(this.state.currentPerdiod >= this.props.periods.length - 2){
+      this.setState(state => ({
+        ...state,
+        proceedButtonText: 'PROCEED'
+      }))
+    }
     if (this.state.currentPerdiod >= this.props.periods.length - 1) {
       return this.nextScreen();
     }
@@ -125,7 +129,7 @@ export default class CalendarSCREEN extends React.Component {
             <Button onPress={this.onPressCancel} label="CANCEL" />
           </View>
           <View style={styles.buttonView}>
-            <Button onPress={this.onProceedPress} label="PROCEED" />
+            <Button onPress={this.onProceedPress} label={this.state.proceedButtonText} />
           </View>
         </View>
       </View>
