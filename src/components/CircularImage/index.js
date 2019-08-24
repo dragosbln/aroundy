@@ -1,11 +1,12 @@
 import React from "react";
-import { Image, View } from "react-native";
+import { Image } from "react-native";
 import styles from "./styles";
+import {profilePic} from '../../assets/images'
 
 export default props => {
   return (
     <Image
-      source={props.source}
+      source={props.source ? {uri: props.source} : profilePic}
       style={[
         styles.base,
         props.customStyle,

@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import colors from '../../assets/theme/colors'
 
 export default StyleSheet.create({
   
@@ -16,6 +17,18 @@ export default StyleSheet.create({
     fontFamily: 'Montserrat-medium'
   },
   listContainer: {
-    height: '50%',
+    height: '80%',
   },
+  panHandlerView: {
+    position: 'absolute',
+    top: 0,
+    width: '100%',
+    height: 50,
+    zIndex: 100,
+  },
+  separator: {
+    height: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.gray_light
+  }
 });
