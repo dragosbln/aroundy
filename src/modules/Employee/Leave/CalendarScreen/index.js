@@ -36,11 +36,11 @@ export default class CalendarSCREEN extends React.Component {
 
   showButtons = () => {
     Animated.spring(this.state.animation.buttonsBottom, {
-      toValue: 40,
+      toValue: 40
     }).start();
   };
 
-  initMarkedDates = () => {
+  initMarkedDates = async () => {
     const markedDates = {};
     //the request is consideret having the status 'processed' if it was either approved or rejected by the HR
     this.props.requests
@@ -67,8 +67,12 @@ export default class CalendarSCREEN extends React.Component {
           };
         });
       });
-
-    this.setState(state => ({
+      
+    console.log('state before setting: ', this.state);
+    console.log('markedDats before setting: ', markedDates);
+    
+      
+    await this.setState(state => ({
       ...state,
       calendar: {
         ...state.calendar,
@@ -78,6 +82,8 @@ export default class CalendarSCREEN extends React.Component {
         }
       }
     }));
+    console.log('just set state: ', this.state);
+    
   };
 
   initHolidaysMarkers = () => {
@@ -94,12 +100,16 @@ export default class CalendarSCREEN extends React.Component {
       ...state,
       calendar: {
         ...state.calendar,
-        markedDates: newMarkedDates
+        markedDates: {
+          ...state.calendar.markedDates,
+          ...newMarkedDates
+        }
       }
     }));
   };
 
   componentDidMount = () => {
+    
     this.initMarkedDates();
     if (!this.props.holidays.data) {
       this.props.getHolidays();
@@ -136,7 +146,6 @@ export default class CalendarSCREEN extends React.Component {
       ...this.state.calendar.markedDates
     };
     if (this.props.selectedPeriods.length === 0) {
-
       newMarkedDates = {};
       const currentMarkedDates = this.state.calendar.markedDates;
       for (let key in currentMarkedDates) {
@@ -155,7 +164,6 @@ export default class CalendarSCREEN extends React.Component {
       }
     }
     this.props.selectedPeriods.forEach(period => {
-
       if (!period.to) {
         newMarkedDates[period.from] = {
           ...this.state.calendar.markedDates[period.from],
@@ -191,11 +199,10 @@ export default class CalendarSCREEN extends React.Component {
   onDayPress = date => {
     if (
       moment(date) <= moment() ||
-      (!this.props.selectStopPeriod &&
-        this.state.calendar.markedDates[date] &&
+      [0, 6].includes(moment(date).day()) ||
+      (this.state.calendar.markedDates[date] &&
         (this.state.calendar.markedDates[date].type === "approved" ||
-          this.state.calendar.markedDates[date].type === "holiday" ||
-          this.state.calendar.markedDates[date].selected))
+          this.state.calendar.markedDates[date].type === "holiday"))
     ) {
       return;
     }
@@ -204,7 +211,7 @@ export default class CalendarSCREEN extends React.Component {
       this.setState(state => ({
         ...state,
         proceedDisabled: true
-      }))
+      }));
       return this.props.setFrom(date);
     }
     const selectedDates = utils.getDatesInterval(
@@ -232,7 +239,7 @@ export default class CalendarSCREEN extends React.Component {
     this.setState(state => ({
       ...state,
       proceedDisabled: false
-    }))
+    }));
 
     if (this.state.animation.buttonsBottom._value === -60) {
       this.showButtons();
@@ -262,11 +269,18 @@ export default class CalendarSCREEN extends React.Component {
             onMonthChange={this.onMonthChange}
             firstDay={1}
             dayComponent={dateObj => {
+              const disabled =
+                moment(dateObj.date.dateString) <= moment() ||
+                [0, 6].includes(moment(dateObj.date.dateString).day()) ||
+                (this.state.calendar.markedDates[dateObj.date.dateString] &&
+                  (this.state.calendar.markedDates[dateObj.date.dateString].type === "approved" ||
+                    this.state.calendar.markedDates[dateObj.date.dateString].type === "holiday"));
               return (
                 <Day
                   {...dateObj}
                   onPress={() => this.onDayPress(dateObj.date.dateString)}
                   focusedMonth={this.state.calendar.focusedMonth}
+                  disabled={disabled}
                 />
               );
             }}
@@ -288,12 +302,17 @@ export default class CalendarSCREEN extends React.Component {
             {
               bottom: this.state.animation.buttonsBottom
             }
-          ]}>
+          ]}
+        >
           <View style={styles.buttonView}>
             <Button onPress={this.onCancelPressed} label="CANCEL" />
           </View>
           <View style={styles.buttonView}>
-            <Button disabled={this.state.proceedDisabled} onPress={this.onProceedPressed} label="PROCEED" />
+            <Button
+              disabled={this.state.proceedDisabled}
+              onPress={this.onProceedPressed}
+              label="PROCEED"
+            />
           </View>
         </Animated.View>
 

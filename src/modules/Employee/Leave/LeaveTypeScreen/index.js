@@ -30,7 +30,8 @@ export default class CalendarSCREEN extends React.Component {
       showingContainer: utils.formatInterval(this.props.periods[0]),
       hidingContainer: this.props.periods[1]
         ? utils.formatInterval(this.props.periods[1])
-        : null
+        : null,
+      proceedButtonText: this.props.periods.length > 1 ? 'NEXT' : 'PROCEED'
     }));
   };
 

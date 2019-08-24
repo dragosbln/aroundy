@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Image } from "react-native";
+import { View, Image, ActivityIndicator } from "react-native";
 import styles from "./styles";
 import Header from "../../../../components/Header";
 import Text from "../../../../components/Text/BaseText";
@@ -7,12 +7,29 @@ import Button from "../../../../components/Buttons/BaseButton";
 import TextButton from "../../../../components/Buttons/TextButton";
 import { scale, askQuestion } from "../../../../assets/images";
 import utils from "../../../../utils";
+import colors from '../../../../assets/theme/colors'
 
 export default class CalendarSCREEN extends React.Component {
+  componentDidMount() {
+    this.sendRequests()
+  }
+
+  sendRequests = () => {
+    this.props.sendRequests();
+  }
+
+  onBackPressed = () => {
+    utils.resetNavigation(this.props.navigation, 'CalendarScreen')
+  }
+
+  onCancelRequests = () => {
+    this.props.cancelRequests()
+    utils.resetNavigation(this.props.navigation, 'CalendarScreen')
+  }
 
   render() {
-    return (
-      <View style={styles.base}>
+    let toRender = (
+      <>
         <Header title="Success" />
         <View style={styles.balanceContainer}>
           <View style={styles.row}>
@@ -29,7 +46,9 @@ export default class CalendarSCREEN extends React.Component {
               <Text customStyle={styles.rowNameTxt}>Requested</Text>
             </View>
 
-            <Text customStyle={styles.daysTxt}>{utils.calculateDaysTotal(this.props.periods)} Days</Text>
+            <Text customStyle={styles.daysTxt}>
+              {utils.calculateDaysTotal(this.props.periods)} Days
+            </Text>
           </View>
         </View>
         <View style={styles.summaryContainer}>
@@ -47,12 +66,30 @@ export default class CalendarSCREEN extends React.Component {
           <Text customStyle={styles.fingersCrossedText}>Fingers crossed!</Text>
         </View>
         <View style={styles.cancelContainer}>
-          <TextButton customStyle={styles.cancelTxt}>Cancel request</TextButton>
+          <TextButton onPress={this.onCancelRequests} customStyle={styles.cancelTxt}>Cancel request</TextButton>
         </View>
         <View style={styles.buttonView}>
-          <Button label="BACK TO PLANNET EARTH" />
+          <Button onPress={this.onBackPressed} label="BACK TO PLANNET EARTH" />
         </View>
-      </View>
+      </>
     );
+
+    if (this.props.pending) {
+      toRender= (
+        <View style={styles.contentContainer}>
+          <ActivityIndicator size='large' color={colors.orange} />
+        </View>
+      )
+    }
+    if(this.props.error) {
+      toRender = (
+        <View style={styles.contentContainer}>
+          <Text>Something went wrong!</Text>
+          <Button onPress={this.sendRequests} label='TRY AGAIN' />
+        </View>
+      )
+    }
+
+    return <View style={styles.base}>{toRender}</View>;
   }
 }

@@ -1,4 +1,5 @@
 import types from "./types";
+import utils from '../../utils'
 
 const mockData = [
   { id: 0, from: "2019-08-23", to: "2019-08-23", halfDay: true },
@@ -8,7 +9,7 @@ const mockData = [
 ];
 
 const initialState = {
-  periods: mockData,
+  periods: [],
   selectStopPeriod: false,
   apiState: {
     pending: false,

@@ -47,7 +47,7 @@ const formatInterval = (interval = {}, noYear = false) => {
   }
   if (from.month() === to.month() && from.year() === to.year()) {
     return `${from.date()} - ${to.date()} ${from.format(
-      "MMMM"
+      "MMM"
     )}${noYear ? `` : ` ${from.year()}`}`;
   }
   if (from.year() === to.year()) {

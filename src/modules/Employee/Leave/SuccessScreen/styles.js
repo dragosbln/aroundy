@@ -10,6 +10,12 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start'
   },
+  contentContainer: {
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },  
   headingContainer: {
     width: '80%',
     height: 40,

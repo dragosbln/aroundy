@@ -1,14 +1,17 @@
 import {connect} from 'react-redux'
-import NotifyBosses from './'
-import leaveAC from '../../../../redux/leave/actionCreators'
+import SuccessScreen from './'
+import actions from '../../../../redux/leave/actions'
 
 const mapStateToProps = (state) => ({
     periods: state.leave.periods,
-    balance: state.user.data.Balance.remaining
+    pending: state.leave.apiState.pending,
+    success: state.leave.apiState.success,
+    error: state.leave.apiState.error
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    
+    sendRequests: () => dispatch(actions.sendRequest()),
+    cancelRequests: () => dispatch(actions.cancelRequests())
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(NotifyBosses)
+export default connect(mapStateToProps, mapDispatchToProps)(SuccessScreen)

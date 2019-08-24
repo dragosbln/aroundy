@@ -5,14 +5,11 @@ import Text from "../../../../../components/Text/BaseText";
 import moment from 'moment'
 
 export default props => {
-  const currentDate = new Date();
-  const isThisDay =
-    currentDate.getDate() === props.date.day &&
-    currentDate.getMonth() + 1 === props.date.month &&
-    currentDate.getFullYear() === props.date.year;
-
+  const today = moment();
+  const currentDate = moment(props.date.dateString);
+  const isThisDay = today.format('YYYY MMM D') === currentDate.format('YYYY MMM D')
   return (
-    <TouchableOpacity onPress={props.onPress} style={styles.base}>
+    <TouchableOpacity disabled={props.disabled} onPress={props.onPress} style={styles.base}>
       <View
         style={[
           styles.dayContainer,
@@ -23,9 +20,10 @@ export default props => {
         <Text
           customStyle={[
             styles.dayText,
-            // [0,6].includes(moment(props.date.dateString).day()) && styles.weekendDayText,
-            ([0,6].includes(moment(props.date.dateString).day()) || props.date.month !== props.focusedMonth) && styles.unfocusedDaysText,
-            isThisDay && styles.thisDayText
+            [0,6].includes(moment(props.date.dateString).day()) && styles.weekendDayText,
+            (currentDate.month() + 1 !== props.focusedMonth) && styles.unfocusedDaysText,
+            isThisDay && styles.thisDayText,
+            props.marking.selected && styles.selectedText
           ]}>
           {props.date.day}
         </Text>
