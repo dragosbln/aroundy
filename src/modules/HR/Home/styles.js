@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import colors from '../../../assets/theme/colors'
 
 export default StyleSheet.create({
   base: {
@@ -8,6 +9,10 @@ export default StyleSheet.create({
   topImageContainer: {
     width: "100%",
     height: "30%"
+  },
+  counterContainer:{
+    height: '30%',
+    marginBottom: 20
   },
   topImage: {
     width: "100%",
@@ -21,12 +26,6 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: 20
-  },
-  counterHeading: {
-    marginBottom: 3
-  },
-  counterFooter: {
-    color: '#C2C2C3'
   },
   bgCardContainer: {
     width: "100%",
@@ -48,6 +47,7 @@ export default StyleSheet.create({
     top: "38%",
     width: "100%",
     height: "100%",
+    alignItems: 'center',
     backgroundColor: "#fff",
     borderTopLeftRadius: 60,
     borderTopRightRadius: 60
@@ -76,5 +76,21 @@ export default StyleSheet.create({
       color: '#fff',
       fontSize: 18,
       marginBottom: 2
+  },
+  headingContainer:{
+    marginTop: 30,
+    width: '80%'
+  },
+  headingTxt:{
+    color: colors.gray_primary,
+    fontFamily: 'Montserrat-medium',
+    marginBottom: 30
+  },
+  listContainer: {
+    marginBottom: 92,
+    height: '50%'
+  },
+  separator: { 
+    height: 15 
   }
 });
