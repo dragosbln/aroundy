@@ -37,13 +37,61 @@ const requests = [
     from: "2019-09-26",
     to: "2019-09-26",
     period: 7,
-    type: "emergency",
+    type: "compensatedFreeTime",
     status: "pending",
     requestApprovals: [
       {
         id: 1,
         type: "hr",
         status: "pending"
+      }
+    ]
+  },
+  {
+    id: 10,
+    user_id: 1,
+    from: "2019-07-26",
+    to: "2019-07-26",
+    period: 7,
+    type: "anual",
+    status: "processed",
+    requestApprovals: [
+      {
+        id: 1,
+        type: "hr",
+        status: "not-approved"
+      }
+    ]
+  },
+  {
+    id: 11,
+    user_id: 1,
+    from: "2019-08-06",
+    to: "2019-08-12",
+    period: 7,
+    type: "anual",
+    status: "processed",
+    requestApprovals: [
+      {
+        id: 1,
+        type: "hr",
+        status: "approved"
+      }
+    ]
+  },
+  {
+    id: 12,
+    user_id: 1,
+    from: "2019-06-26",
+    to: "2019-07-02",
+    period: 7,
+    type: "anual",
+    status: "processed",
+    requestApprovals: [
+      {
+        id: 1,
+        type: "hr",
+        status: "not-approved"
       }
     ]
   },
@@ -150,7 +198,7 @@ const loggedUser = {
   id: 1,
   firstName: "Admin",
   lastName: "Istrator",
-  image: null,
+  image: 'https://t2.ea.ltmcdn.com/en/images/6/8/9/happy_dog_names_male_and_female_2986_600.jpg',
   email: "admin@aroundy.com",
   status: "active",
   createdAt: "2019-08-13T11:45:14.504Z",

@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import colors from '../../../../../../assets/theme/colors'
+import colors from '../../../assets/theme/colors'
 
 export default StyleSheet.create({
   
@@ -17,6 +17,19 @@ export default StyleSheet.create({
   },
   text:{
     color: colors.orange
+  },
+  dateContainer: {
+    flex: 2,
+    alignItems: 'flex-start',
+    paddingRight: 15
+  },
+  typeContainer: {
+    flex: 2,
+    alignItems: 'flex-start',
+  },
+  statusContainer: {
+    flex: 1,
+    alignItems: 'flex-end'
   }
   
 });

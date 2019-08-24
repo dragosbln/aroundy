@@ -7,46 +7,18 @@ import ListItem from "./ListItem";
 import ListHeader from "./ListHeader";
 import { homeBgTop } from "../../../assets/images";
 import Counter from "../../../components/Counter";
-import moment from "moment";
 
 export default class Home extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      counter: null
-    };
-  }
-
-  updateCounter = () => {
-    setInterval(() => {
-      const currentTime = moment().valueOf();
-      const holidayTime = moment(this.props.countdownHoliday.date.iso);
-      const duration = moment.duration(holidayTime - currentTime);
-      const counter = `${
-        duration.months() > 0 ? `${duration.months()}m` : ""
-      } ${duration.weeks() > 0 ? `${duration.weeks()}w` : ""} ${
-        duration.days() > 0 ? `${duration.days()}d` : ""
-      } ${duration.hours() > 0 ? `${duration.hours()}h` : ""} ${
-        duration.minutes() > 0 ? `${duration.minutes()}m` : ""
-      } ${duration.seconds() > 0 ? `${duration.seconds()}s` : ""}`;
-      this.setState(state => ({
-        ...state,
-        counter
-      }));
-    }, 1000);
-  };
-
   componentDidMount() {
-    console.log('employee home probs', this.props);
-    
+    console.log("employee home probs", this.props);
+
     this.props.getHolidays();
     this.props.getCachedCountdownHoliday();
-    this.updateCounter();
   }
 
-  onListItemPressed = (i) => {
-    this.props.setCountdownHoliday(this.props.holidays[i])
-  }
+  onListItemPressed = i => {
+    this.props.setCountdownHoliday(this.props.holidays[i]);
+  };
 
   render() {
     return (
@@ -54,7 +26,16 @@ export default class Home extends React.Component {
         <View style={styles.topImageContainer}>
           <ImageBackground source={homeBgTop} style={styles.topImageBackground}>
             <View style={styles.counterContainer}>
-              <Counter counter={this.state.counter} until={this.props.countdownHoliday && this.props.countdownHoliday.name} />
+              <Counter
+                toDate={
+                  this.props.countdownHoliday &&
+                  this.props.countdownHoliday.date.iso
+                }
+                name={
+                  this.props.countdownHoliday &&
+                  this.props.countdownHoliday.name
+                }
+              />
             </View>
           </ImageBackground>
         </View>
@@ -71,7 +52,12 @@ export default class Home extends React.Component {
             <FlatList
               data={this.props.holidays}
               renderItem={({ item, index }) => (
-                <ListItem onPress={() => this.onListItemPressed(index)} name={item.name} date={item.date.iso} id={index} />
+                <ListItem
+                  onPress={() => this.onListItemPressed(index)}
+                  name={item.name}
+                  date={item.date.iso}
+                  id={index}
+                />
               )}
               ListHeaderComponent={<ListHeader />}
               stickyHeaderIndices={[0]}
@@ -80,6 +66,5 @@ export default class Home extends React.Component {
         </View>
       </View>
     );
-    
   }
 }

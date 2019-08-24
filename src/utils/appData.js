@@ -3,7 +3,7 @@ const leaveTypes = {
     sickDay: 'SICK DAY',
     emergency: 'EMERGENCY',
     bloodDonation: 'BLOOD DONATION',
-    compensatedFreetTime: 'COMPENSATED FREE TIME',
+    compensatedFreeTime: 'COMPENSATED FREE TIME',
     anual: 'ANUAL',
     delegation: 'DELEGATION',
     bereavement: 'BEREAVEMENT',
