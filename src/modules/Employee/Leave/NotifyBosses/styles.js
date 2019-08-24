@@ -42,9 +42,14 @@ export default StyleSheet.create({
     zIndex: 10000,
     justifyContent: "space-between"
   },
+  firstBtnRowContainer: {
+    height: 55,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
   backBtn: {
     width: 154,
-    height: 55
+    height: '100%'
   },
   setMeFreeBtn:{
     width: '100%',

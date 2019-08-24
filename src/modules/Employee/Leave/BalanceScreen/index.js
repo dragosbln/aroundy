@@ -11,7 +11,7 @@ import utils from '../../../../utils'
 export default class CalendarSCREEN extends React.Component {
 
   componentDidMount(){
-    console.log(this.props);
+    
   }
 
   onProceedPress = () => {

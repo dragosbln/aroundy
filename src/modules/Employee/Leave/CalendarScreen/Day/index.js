@@ -23,8 +23,8 @@ export default props => {
         <Text
           customStyle={[
             styles.dayText,
-            [0,6].includes(moment(props.date.dateString).day()) && styles.weekendDayText,
-            props.date.month !== props.focusedMonth && styles.unfocusedDaysText,
+            // [0,6].includes(moment(props.date.dateString).day()) && styles.weekendDayText,
+            ([0,6].includes(moment(props.date.dateString).day()) || props.date.month !== props.focusedMonth) && styles.unfocusedDaysText,
             isThisDay && styles.thisDayText
           ]}>
           {props.date.day}

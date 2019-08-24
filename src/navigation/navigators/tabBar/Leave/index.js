@@ -15,8 +15,9 @@ const stackNavigator = createStackNavigator({
     NotifyBossesScreen,
     SuccessScreen
 },{
-    initialRouteName: 'CalendarScreen',
-    headerMode: 'none'
+    initialRouteName: 'LeaveTypeScreen',
+    headerMode: 'none',
+    
 
 })
 

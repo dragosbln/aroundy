@@ -10,7 +10,6 @@ class AuthService{
             email,
             password
         }
-        console.log('sending post...');
         
         try{
             const response = await axios.post(`${this._rootPath}/auth/login`,JSON.stringify(formData), {
@@ -18,7 +17,6 @@ class AuthService{
                     'Content-Type': 'application/json'
                 }
             });
-            console.log(response.data);
             if(response.data.success){
                 const token = response.data.data.access_token
 
@@ -29,9 +27,7 @@ class AuthService{
                         Authorization:`Bearer ${token}`
                     }
                 })
-                console.log('user resp',userResponse);
                 if(userResponse.data.success){
-                    console.log('user mock', mock);
                     
                     return{
                         token,

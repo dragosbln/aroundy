@@ -38,21 +38,22 @@ const makeDatesInterval = (dates = []) => {
   return intervals;
 };
 
-const formatInterval = (interval = {}) => {
+const formatInterval = (interval = {}, noYear = false) => {
+  
   const from = moment(interval.from);
   const to = moment(interval.to);
   if (from.valueOf() === to.valueOf()) {
-    return `${from.date()} ${from.format("MMM")} ${from.year()}`;
+    return `${from.date()} ${from.format("MMM")}${noYear ? `` : ` ${from.year()}`}`;
   }
   if (from.month() === to.month() && from.year() === to.year()) {
     return `${from.date()} - ${to.date()} ${from.format(
       "MMMM"
-    )} ${from.year()}`;
+    )}${noYear ? `` : ` ${from.year()}`}`;
   }
   if (from.year() === to.year()) {
     return `${from.date()} ${from.format("MMM")} - ${to.date()} ${to.format(
       "MMM"
-    )} ${from.year()}`;
+    )}${noYear ? `` : ` ${from.year()}`}`;
   }
   //having the same interval between 2 years is impossible, New Year's Eve will separate them
   return ``;
@@ -69,7 +70,8 @@ const resetNavigation = (navigation, routeName) => {
 const calculateDaysTotal = (intervals = []) => {
   return intervals.reduce(
     (acc, currentVal) =>
-      acc + (currentVal.halfDay
+      acc +
+      (currentVal.halfDay
         ? 0.5
         : moment
             .duration(moment(currentVal.to).diff(moment(currentVal.from)))
@@ -78,10 +80,16 @@ const calculateDaysTotal = (intervals = []) => {
   );
 };
 
+updateApiState = (initialState = {}, key='', value=null) => ({
+  ...initialState.apiState,
+  [key]: value
+})
+
 export default {
   getDatesInterval,
   makeDatesInterval,
   formatInterval,
   resetNavigation,
-  calculateDaysTotal
+  calculateDaysTotal,
+  updateApiState
 };

@@ -8,8 +8,13 @@ const mockData = [
 ];
 
 const initialState = {
-  periods: [],
-  selectStopPeriod: false
+  periods: mockData,
+  selectStopPeriod: false,
+  apiState: {
+    pending: false,
+    success: false,
+    error: false
+  }
 };
 
 const reducer = (state = initialState, action) => {
@@ -76,6 +81,21 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         comment: action.payload
+      };
+    case types.PENDING:
+      return {
+        ...state,
+        apiState: utils.updateApiState(initialState, "pending", true)
+      };
+    case types.ERROR:
+      return {
+        ...state,
+        apiState: utils.updateApiState(initialState, "error", action.payload)
+      };
+    case types.SUCCESS:
+      return {
+        ...state,
+        apiState: utils.updateApiState(initialState, "success", true)
       };
     default:
       return state;

@@ -40,6 +40,19 @@ const setComment = (comment) => ({
     payload: comment
 })
 
+const pending = () => ({
+    type: types.PENDING
+})
+
+const success = () => ({
+    type: types.SUCCESS,
+})
+
+const error = (err) => ({
+    type: types.SUCCESS,
+    payload: err
+})
+
 export default {
     setFrom,
     setTo,
@@ -47,5 +60,8 @@ export default {
     setType,
     setHalfDay,
     setBosses,
-    setComment
+    setComment,
+    pending,
+    success,
+    error
 }

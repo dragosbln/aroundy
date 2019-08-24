@@ -37,7 +37,7 @@ export default StyleSheet.create({
         color: colors.gray_light,
       },
       weekendDayText:{
-        color: colors.gray_primary
+        color: colors.pink
       },
       thisDayText:{
         color: colors.orange,

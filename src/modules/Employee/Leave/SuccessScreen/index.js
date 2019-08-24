@@ -6,9 +6,10 @@ import Text from "../../../../components/Text/BaseText";
 import Button from "../../../../components/Buttons/BaseButton";
 import TextButton from "../../../../components/Buttons/TextButton";
 import { scale, askQuestion } from "../../../../assets/images";
-import utils from '../../../../utils'
+import utils from "../../../../utils";
 
 export default class CalendarSCREEN extends React.Component {
+
   render() {
     return (
       <View style={styles.base}>
@@ -20,7 +21,7 @@ export default class CalendarSCREEN extends React.Component {
               <Text customStyle={styles.rowNameTxt}>Balance</Text>
             </View>
 
-            <Text customStyle={styles.daysTxt}>3.5 Days</Text>
+            <Text customStyle={styles.daysTxt}>{this.props.balance} Days</Text>
           </View>
           <View style={styles.row}>
             <View style={styles.rowName}>
@@ -28,12 +29,18 @@ export default class CalendarSCREEN extends React.Component {
               <Text customStyle={styles.rowNameTxt}>Requested</Text>
             </View>
 
-            <Text customStyle={styles.daysTxt}>4 Days</Text>
+            <Text customStyle={styles.daysTxt}>{utils.calculateDaysTotal(this.props.periods)} Days</Text>
           </View>
         </View>
         <View style={styles.summaryContainer}>
           <Text customStyle={styles.summaryTxt}>
-            You requested {this.props.periods.map(period => utils.formatInterval(period.from, period.to)).join(', ')} off days for Vacation.
+            You requested{" "}
+            {this.props.periods
+              .map(period =>
+                utils.formatInterval({ from: period.from, to: period.to }, true)
+              )
+              .join(", ")}{" "}
+            off days for Vacation.
           </Text>
         </View>
         <View style={styles.fingersCrossedContainer}>

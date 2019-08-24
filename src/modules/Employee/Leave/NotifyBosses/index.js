@@ -7,14 +7,14 @@ import Button from "../../../../components/Buttons/BaseButton";
 import PrimaryButton from "../../../../components/Buttons/PrimaryButton";
 import ListItem from "./ListItem";
 import mockData from "../../../../utils/mockData";
-import utils from '../../../../utils'
+import utils from "../../../../utils";
 
 export default class CalendarSCREEN extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       bosses: [],
-      comment: ''
+      comment: ""
     };
   }
 
@@ -31,7 +31,6 @@ export default class CalendarSCREEN extends React.Component {
 
   onItemPressed = index => {
     const newBosses = [...this.state.bosses];
-    console.log(newBosses);
 
     newBosses[index] = {
       ...this.state.bosses[index],
@@ -44,18 +43,24 @@ export default class CalendarSCREEN extends React.Component {
     }));
   };
 
-  onChangeText = (value) => {
+  onChangeText = value => {
     this.setState(state => ({
       ...state,
       comment: value
-    }))
-  }
+    }));
+  };
 
   onPressProceed = () => {
-    this.props.setBosses(this.state.bosses.filter(boss => boss.active).map(boss => boss.id))
-    this.props.setComment(this.state.comment)
-    this.props.navigation.navigate('SuccessScreen')
-  }
+    this.props.setBosses(
+      this.state.bosses.filter(boss => boss.active).map(boss => boss.id)
+    );
+    this.props.setComment(this.state.comment);
+    this.props.navigation.navigate("SuccessScreen");
+  };
+
+  onBackPressed = () => {
+    this.props.navigation.goBack();
+  };
 
   render() {
     return (
@@ -63,14 +68,19 @@ export default class CalendarSCREEN extends React.Component {
         <Header title="Send to bosses" />
         <View style={styles.headingContainer}>
           <Heading customStyle={styles.heading}>
-          {utils.formatInterval({
+            {utils.formatInterval({
               from: this.props.periods[0].from,
               to: this.props.periods[this.props.periods.length - 1].to
             })}
           </Heading>
         </View>
         <View style={styles.inputContainer}>
-          <TextInput value={this.state.comment} onChangeText={this.onChangeText} style={styles.input} placeholder="Comments" />
+          <TextInput
+            value={this.state.comment}
+            onChangeText={this.onChangeText}
+            style={styles.input}
+            placeholder="Comments"
+          />
         </View>
         <View style={styles.listContainer}>
           <FlatList
@@ -87,9 +97,15 @@ export default class CalendarSCREEN extends React.Component {
           />
         </View>
         <View style={styles.buttonsContainer}>
-          <View style={styles.backBtn}>
-            <Button label="BACK" />
+          <View style={styles.firstBtnRowContainer}>
+            <View style={styles.backBtn}>
+              <Button onPress={this.onBackPressed} label="BACK" />
+            </View>
+            <View style={styles.backBtn}>
+              <Button onPress={this.onBackPressed} label="NEXT" />
+            </View>
           </View>
+
           <View style={styles.setMeFreeBtn}>
             <PrimaryButton onPress={this.onPressProceed} label="SET ME FREE" />
           </View>

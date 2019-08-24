@@ -36,7 +36,7 @@ export default class CalendarSCREEN extends React.Component {
 
   showButtons = () => {
     Animated.spring(this.state.animation.buttonsBottom, {
-      toValue: 40
+      toValue: 40,
     }).start();
   };
 
@@ -81,7 +81,6 @@ export default class CalendarSCREEN extends React.Component {
   };
 
   initHolidaysMarkers = () => {
-    console.log("hoooollyyy", this.props.holidays);
     const newMarkedDates = { ...this.state.calendar.markedDates };
     this.props.holidays.data.forEach(holiday => {
       newMarkedDates[holiday.date.iso] = {
@@ -137,7 +136,6 @@ export default class CalendarSCREEN extends React.Component {
       ...this.state.calendar.markedDates
     };
     if (this.props.selectedPeriods.length === 0) {
-      console.log("GOT IIIIN!");
 
       newMarkedDates = {};
       const currentMarkedDates = this.state.calendar.markedDates;
@@ -157,7 +155,6 @@ export default class CalendarSCREEN extends React.Component {
       }
     }
     this.props.selectedPeriods.forEach(period => {
-      console.log(period);
 
       if (!period.to) {
         newMarkedDates[period.from] = {
