@@ -10,6 +10,12 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start'
   },
+  contentContainer: {
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },  
   headingContainer: {
     width: '80%',
     height: 40,
@@ -62,18 +68,17 @@ export default StyleSheet.create({
   },
   summaryContainer: {
     width: '75%',
-    height: '15%',
+    // height: '15%',
     marginTop: 30,
     alignItems: 'center',
     justifyContent: 'center'
   },
   summaryTxt: {
     fontSize: 20,
-    lineHeight: 35,
     textAlign: 'center'
   },
   fingersCrossedContainer: {
-    
+    marginTop: 10
   },
   fingersCrossedText: {
     fontFamily: 'Montserrat-Medium',

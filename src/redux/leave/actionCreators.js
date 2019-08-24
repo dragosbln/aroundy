@@ -30,10 +30,44 @@ const setHalfDay = (id, halfDay) => ({
     }
 })
 
+const setBosses = (id, bosses) => ({
+    type: types.SET_BOSSES,
+    payload: {
+        id,
+        bosses
+    }
+})
+
+const setComment = (id, comment) => ({
+    type: types.SET_COMMENT,
+    payload: {
+        id,
+        comment
+    }
+})
+
+const pending = () => ({
+    type: types.PENDING
+})
+
+const success = () => ({
+    type: types.SUCCESS,
+})
+
+const error = (err) => ({
+    type: types.SUCCESS,
+    payload: err
+})
+
 export default {
     setFrom,
     setTo,
     clear,
     setType,
-    setHalfDay
+    setHalfDay,
+    setBosses,
+    setComment,
+    pending,
+    success,
+    error
 }

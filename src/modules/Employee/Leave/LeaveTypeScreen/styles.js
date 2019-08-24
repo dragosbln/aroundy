@@ -13,20 +13,20 @@ export default StyleSheet.create({
     height: 40,
     justifyContent: "center",
     marginTop: 60,
-    flexDirection: "row"
+    // flexDirection: "row"
   },
-  headingRunningContainer: {
-    width: "80%",
-    height: "100%",
-    position: "absolute",
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  heading: {
-    position: "absolute",
-    color: colors.orange,
-    fontSize: 20
-  },
+  // headingRunningContainer: {
+  //   width: "80%",
+  //   height: "100%",
+  //   position: "absolute",
+  //   alignItems: "center",
+  //   justifyContent: "center"
+  // },
+  // heading: {
+  //   position: "absolute",
+  //   color: colors.orange,
+  //   fontSize: 20
+  // },
   pickerContainer: {
     width: "90%",
     height: "40%",

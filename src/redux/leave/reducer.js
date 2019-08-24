@@ -1,15 +1,21 @@
 import types from "./types";
+import utils from '../../utils'
 
 const mockData = [
-  { id: 0, from: "2019-08-23", to: "2019-08-23" },
+  { id: 0, from: "2019-08-23", to: "2019-08-23", halfDay: true },
   { id: 1, from: "2019-09-02", to: "2019-09-05" },
   { id: 2, from: "2019-09-10", to: "2019-09-11" },
   { id: 3, from: "2019-09-13", to: "2019-09-13" }
 ];
 
 const initialState = {
-  periods: mockData,
-  selectStopPeriod: false
+  periods: [],
+  selectStopPeriod: false,
+  apiState: {
+    pending: false,
+    success: false,
+    error: false
+  }
 };
 
 const reducer = (state = initialState, action) => {
@@ -48,7 +54,7 @@ const reducer = (state = initialState, action) => {
       };
     case types.SET_TYPE: {
       const newState = { ...state };
-      newState.periods = [ ...state.periods ];
+      newState.periods = [...state.periods];
       newState.periods[action.payload.id] = {
         ...newState.periods[action.payload.id],
         type: action.payload.type
@@ -57,14 +63,51 @@ const reducer = (state = initialState, action) => {
     }
     case types.SET_HALF_DAY: {
       const newState = { ...state };
-      newState.periods = [ ...state.periods ];
+      newState.periods = [...state.periods];
       newState.periods[action.payload.id] = {
         ...newState.periods[action.payload.id],
         halfDay: action.payload.halfDay
       };
+
       return newState;
     }
 
+    case types.SET_BOSSES:{
+      const newState = { ...state };
+      newState.periods = [...state.periods];
+      newState.periods[action.payload.id] = {
+        ...newState.periods[action.payload.id],
+        bosses: action.payload.bosses
+      };
+
+      return newState;
+    }
+
+    case types.SET_COMMENT:{
+      const newState = { ...state };
+      newState.periods = [...state.periods];
+      newState.periods[action.payload.id] = {
+        ...newState.periods[action.payload.id],
+        comment: action.payload.comment
+      };
+
+      return newState;
+    }
+    case types.PENDING:
+      return {
+        ...state,
+        apiState: utils.updateApiState(initialState, "pending", true)
+      };
+    case types.ERROR:
+      return {
+        ...state,
+        apiState: utils.updateApiState(initialState, "error", action.payload)
+      };
+    case types.SUCCESS:
+      return {
+        ...state,
+        apiState: utils.updateApiState(initialState, "success", true)
+      };
     default:
       return state;
   }

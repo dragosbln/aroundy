@@ -17,7 +17,6 @@ export default class CalendarSCREEN extends React.Component {
   }
 
   componentDidMount = () => {
-    console.log('periods', this.props.periods);
     
     const singleDays = this.props.periods
       .filter(period => period.from === period.to)

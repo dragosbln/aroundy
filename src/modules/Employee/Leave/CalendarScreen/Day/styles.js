@@ -4,7 +4,7 @@ import colors from '../../../../../assets/theme/colors'
 export default StyleSheet.create({
     base: {
         width: '100%',
-        height: 30,
+        height: 25,
         
       },
       dayContainer: {
@@ -12,7 +12,7 @@ export default StyleSheet.create({
         height: '100%',
         justifyContent: 'flex-start',
         alignItems: 'center',
-        paddingTop: 2,
+        paddingTop: 1,
       },
       selectedDay:{
           backgroundColor: colors.green_dark
@@ -37,10 +37,13 @@ export default StyleSheet.create({
         color: colors.gray_light,
       },
       weekendDayText:{
-        color: colors.gray_primary
+        color: '#f59898'
       },
       thisDayText:{
-        color: colors.orange,
+        color: colors.blue,
         fontFamily: 'Montserrat-Medium',
+      },
+      selectedText: {
+        color: '#fff'
       }
 })

@@ -43,12 +43,9 @@ export default class Login extends React.Component {
     
     if(prevProps === this.props) return
 
-    console.log('got in update');
     
     if(this.props.error){
-      console.log('====================================');
-      console.log(this.props.error);
-      console.log('====================================');
+      console.log('error in login component',this.props.error);
     }
     if (!this.props.user) {
       return

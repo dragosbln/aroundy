@@ -1,5 +1,9 @@
 import moment from "moment";
-import { StackActions, NavigationAction, NavigationActions } from 'react-navigation'
+import {
+  StackActions,
+  NavigationAction,
+  NavigationActions
+} from "react-navigation";
 
 const getDatesInterval = (from, to) => {
   let currentDate = moment(from);
@@ -34,21 +38,22 @@ const makeDatesInterval = (dates = []) => {
   return intervals;
 };
 
-const formatInterval = (interval = {}) => {
+const formatInterval = (interval = {}, noYear = false) => {
+  
   const from = moment(interval.from);
   const to = moment(interval.to);
   if (from.valueOf() === to.valueOf()) {
-    return `${from.date()} ${from.format("MMM")} ${from.year()}`;
+    return `${from.date()} ${from.format("MMM")}${noYear ? `` : ` ${from.year()}`}`;
   }
   if (from.month() === to.month() && from.year() === to.year()) {
     return `${from.date()} - ${to.date()} ${from.format(
-      "MMMM"
-    )} ${from.year()}`;
+      "MMM"
+    )}${noYear ? `` : ` ${from.year()}`}`;
   }
   if (from.year() === to.year()) {
     return `${from.date()} ${from.format("MMM")} - ${to.date()} ${to.format(
       "MMM"
-    )} ${from.year()}`;
+    )}${noYear ? `` : ` ${from.year()}`}`;
   }
   //having the same interval between 2 years is impossible, New Year's Eve will separate them
   return ``;
@@ -57,16 +62,34 @@ const formatInterval = (interval = {}) => {
 const resetNavigation = (navigation, routeName) => {
   const resetAction = StackActions.reset({
     index: 0,
-    actions: [
-      NavigationActions.navigate({routeName})
-    ]
-  })
-  navigation.dispatch(resetAction)
-}
+    actions: [NavigationActions.navigate({ routeName })]
+  });
+  navigation.dispatch(resetAction);
+};
+
+const calculateDaysTotal = (intervals = []) => {
+  return intervals.reduce(
+    (acc, currentVal) =>
+      acc +
+      (currentVal.halfDay
+        ? 0.5
+        : moment
+            .duration(moment(currentVal.to).diff(moment(currentVal.from)))
+            .asDays() + 1),
+    0
+  );
+};
+
+updateApiState = (initialState = {}, key='', value=null) => ({
+  ...initialState.apiState,
+  [key]: value
+})
 
 export default {
   getDatesInterval,
   makeDatesInterval,
   formatInterval,
-  resetNavigation
+  resetNavigation,
+  calculateDaysTotal,
+  updateApiState
 };
