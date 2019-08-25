@@ -4,8 +4,13 @@ const pending = () => ({
     type: types.PENDING
 })
 
-const success = (data) => ({
-    type: types.SUCCESS,
+const loginSuccess = (data) => ({
+    type: types.LOGIN_SUCCESS,
+    payload: data
+})
+
+const getUserSuccess = (data) => ({
+    type: types.GET_USER_SUCCESS,
     payload: data
 })
 
@@ -16,6 +21,7 @@ const error = (err) => ({
 
 export default {
     pending,
-    success,
+    loginSuccess,
+    getUserSuccess,
     error
 }

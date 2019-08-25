@@ -1,5 +1,5 @@
 import types from "./types";
-import utils from '../../utils'
+import utils from '../../utils/functions'
 
 const mockData = [
   { id: 0, from: "2019-08-23", to: "2019-08-23", halfDay: true },

@@ -10,10 +10,12 @@ import Counter from "../../../components/Counter";
 
 export default class Home extends React.Component {
   componentDidMount() {
-    console.log("employee home probs", this.props);
+    if(!this.props.balance){
+      this.props.getCurrentUser()
+    }
 
     this.props.getHolidays();
-    this.props.getCachedCountdownHoliday();
+    this.props.getCountdownHoliday();
   }
 
   onListItemPressed = i => {

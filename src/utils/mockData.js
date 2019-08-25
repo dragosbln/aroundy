@@ -280,7 +280,13 @@ const loggedUser = {
   Contract: null,
   Requests: [...requests.filter(el => el.user_id === 1)],
   RequestApprovals: [],
-  Teams: [],
+  Teams: [
+    {
+      id: 1,
+      name: 'pisicile salbatice',
+      Users: [1,2,3,4]
+    }
+  ],
   Comments: []
 };
 

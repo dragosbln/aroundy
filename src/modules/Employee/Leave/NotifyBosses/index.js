@@ -7,7 +7,7 @@ import Button from "../../../../components/Buttons/BaseButton";
 import PrimaryButton from "../../../../components/Buttons/PrimaryButton";
 import ListItem from "./ListItem";
 import mockData from "../../../../utils/mockData";
-import utils from "../../../../utils";
+import utils from "../../../../utils/functions";
 import AnimatedHeading from "../../../../components/AnimatedHeading";
 
 export default class CalendarSCREEN extends React.Component {

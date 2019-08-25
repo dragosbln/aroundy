@@ -1,16 +1,13 @@
 import types from "./types";
-import mock from "../../utils/mockData";
-import utils from "../../utils/functions";
+import utils from '../../utils/functions'
 
 const initialState = {
-  currentUser: null,
-  tokens: null,
+  data: [],
   apiState: {
     pending: false,
     success: false,
-    error: null
-  },
-  cache
+    error: false
+  }
 };
 
 const reducer = (state = initialState, action) => {
@@ -25,16 +22,10 @@ const reducer = (state = initialState, action) => {
         ...state,
         apiState: utils.updateApiState(initialState, "error", action.payload)
       };
-    case types.LOGIN_SUCCESS:
+    case types.SUCCESS:
       return {
         ...state,
-        tokens: action.payload,
-        apiState: utils.updateApiState(initialState, "success", true)
-      };
-    case types.GET_USER_SUCCESS:
-      return {
-        ...state,
-        currentUser: action.payload,
+        data: action.payload,
         apiState: utils.updateApiState(initialState, "success", true)
       };
     default:

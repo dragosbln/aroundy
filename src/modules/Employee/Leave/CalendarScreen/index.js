@@ -10,7 +10,7 @@ import colors from "../../../../assets/theme/colors";
 import Legend from "../../../../components/Legend";
 import Day from "./Day";
 import moment from "moment";
-import utils from "../../../../utils";
+import utils from "../../../../utils/functions";
 
 LocaleConfig.locales["custom"] = {
   ...LocaleConfig.locales[""],

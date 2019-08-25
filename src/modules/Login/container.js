@@ -3,8 +3,9 @@ import userActions from '../../redux/user/actions'
 import {connect} from 'react-redux'
 
 const mapStateToProps = (state) => ({
-    user: state.user.data,
-    error: state.user.apiState.error
+    token: state.user.tokens ? state.user.tokens.access_token : null,
+    error: state.user.apiState.error,
+    pending: state.user.apiState.pending
 })
 
 const mapDispatchToProps = (dispatch) => ({

@@ -8,8 +8,10 @@ const getHolidays = () => async (dispatch, getState) => {
         const resp = await holidaysService.getHolidays(new Date().getFullYear())
         if(resp.success){
             dispatch(holidaysAC.success(resp.holidays))
-            const countdownHoliday = resp.holidays.find(el => el.name === "Christmas Day")
-            dispatch(holidaysAC.setCountdownHoliday(countdownHoliday))
+            // if(!getState().holidays.countdownHoliday){
+            //     const countdownHoliday = resp.holidays.find(el => el.name === "Christmas Day")
+            //     dispatch(holidaysAC.setCountdownHoliday(countdownHoliday)) 
+            // }
         } else {
             dispatch(holidaysAC.error(resp.error))
         }
@@ -18,11 +20,8 @@ const getHolidays = () => async (dispatch, getState) => {
     }
 }
 
-const getCachedCountdownHoliday = () => async (dispatch, getState) => {
+const getCountdownHoliday = () => async (dispatch, getState) => {
     const holiday = await holidaysService.getCountdownHoliday()
-    if(!holiday){
-        return
-    }
     dispatch(holidaysAC.setCountdownHoliday(holiday))
 }
 
@@ -33,6 +32,6 @@ const setCountdownHoliday = (holiday) => (dispatch, getState) => {
 
 export default {
     getHolidays,
-    getCachedCountdownHoliday,
+    getCountdownHoliday,
     setCountdownHoliday
 }

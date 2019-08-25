@@ -6,7 +6,7 @@ import Text from "../../../../components/Text/BaseText";
 import Button from "../../../../components/Buttons/BaseButton";
 import TextButton from "../../../../components/Buttons/TextButton";
 import { scale, askQuestion } from "../../../../assets/images";
-import utils from "../../../../utils";
+import utils from "../../../../utils/functions";
 import colors from '../../../../assets/theme/colors'
 
 export default class CalendarSCREEN extends React.Component {
