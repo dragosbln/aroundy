@@ -1,5 +1,5 @@
 import types from "./types";
-import utils from '../../utils'
+import utils from '../../utils/functions'
 
 const initialState = {
   data: [],

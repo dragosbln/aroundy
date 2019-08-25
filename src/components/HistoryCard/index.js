@@ -4,7 +4,7 @@ import styles from "./styles";
 import HeadingText from "../Text/HeadingText";
 import ListHeader from "./ListHeader";
 import ListItem from "./ListItem";
-import utils from "../../utils";
+import utils from "../../utils/functions";
 
 export default props => {
   return (

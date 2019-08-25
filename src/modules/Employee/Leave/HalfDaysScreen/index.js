@@ -6,7 +6,7 @@ import Heading from "../../../../components/Text/HeadingText";
 import Button from "../../../../components/Buttons/BaseButton";
 import { ScrollView } from "react-native-gesture-handler";
 import DaySwitch from "./daySwitch";
-import utils from "../../../../utils";
+import utils from "../../../../utils/functions";
 
 export default class CalendarSCREEN extends React.Component {
   constructor(props) {

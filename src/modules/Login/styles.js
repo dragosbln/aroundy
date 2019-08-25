@@ -39,9 +39,16 @@ export default StyleSheet.create({
         height: 55,
         marginTop: 50, 
     },
+    statusContainer: {
+        width: '80%',
+        height: 30,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
     errorTxt: {
-        color: colors.red,
+        color: colors.pink,
         fontSize: 14,
+        textAlign: 'center',
         fontFamily: 'Montserrat-Medium'
     }
 })

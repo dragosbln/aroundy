@@ -9,7 +9,7 @@ import TextButton from "../../../components/Buttons/TextButton";
 import PrimaryButton from "../../../components/Buttons/PrimaryButton";
 import Counter from "../../../components/Counter";
 import HistoryCard from "../../../components/HistoryCard";
-import utils from "../../../utils";
+import utils from "../../../utils/functions";
 import moment from "moment";
 import appData from "../../../utils/appData";
 

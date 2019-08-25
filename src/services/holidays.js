@@ -1,5 +1,5 @@
 import axios from 'axios'
-import holidaysCacheService from './holidaysCache'
+import holidaysCacheService from './cache/holidaysCache'
 import moment from 'moment'
 //TODO: get holidays for a 1 year interval
 
@@ -46,7 +46,7 @@ export default class HolidaysService{
         if(cachedHoliday){
             return cachedHoliday
         } 
-        const holidaysResp = await this.getHolidays()
+        const holidaysResp = await this.getHolidays(new Date().getFullYear())
         return holidaysResp.holidays.find(holiday => holiday.name === "Christmas Day")
     }
 

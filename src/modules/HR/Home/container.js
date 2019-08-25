@@ -1,18 +1,24 @@
-import Home from './'
-import {connect} from 'react-redux'
-import requestActions from '../../../redux/request/actions'
-import actions from '../../../redux/holidays/actions'
+import Home from "./";
+import { connect } from "react-redux";
+import requestActions from "../../../redux/request/actions";
+import holidaysActions from "../../../redux/holidays/actions";
+import userActions from '../../../redux/user/actions'
 
+const mapStateTorProps = state => ({
+  requests: state.requests.data,
+  countdownHoliday: state.holidays.countdownHoliday,
+  balance: state.user.currentUser
+    ? state.user.currentUser.Balance.remaining
+    : null
+});
 
-const mapStateTorProps = (state) => ({
-    requests: state.requests.data, 
-    countdownHoliday: state.holidays.countdownHoliday,
-    balance: state.user.data.Balance.remaining
-})
+const mapDispatchToProps = dispatch => ({
+  getTeamRequests: team => dispatch(requestActions.getTeamRequests(team)),
+  getCountdownHoliday: () => dispatch(holidaysActions.getCountdownHoliday()),
+  getCurrentUser: () => dispatch(userActions.getCurrentUser())
+});
 
-const mapDispatchToProps = (dispatch) => ({
-    getTeamRequests: (team) => dispatch(requestActions.getTeamRequests(team)),
-    getCountdownHoliday: () => dispatch(actions.getCountdownHoliday()),
-})
-
-export default connect(mapStateTorProps, mapDispatchToProps)(Home)
+export default connect(
+  mapStateTorProps,
+  mapDispatchToProps
+)(Home);

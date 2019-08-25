@@ -10,6 +10,10 @@ import Counter from "../../../components/Counter";
 
 export default class Home extends React.Component {
   componentDidMount() {
+    if(!this.props.balance){
+      this.props.getCurrentUser()
+    }
+
     this.props.getHolidays();
     this.props.getCountdownHoliday();
   }
