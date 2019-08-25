@@ -37,8 +37,25 @@ getCurrentUser = () => async (dispatch, getState) => {
     }
 }
 
+const getAllUsers = () => async (dispatch, getState) => {
+    if(getState().user.apiState.pending){
+        return
+    }
+    dispatch(userAC.pending())
+    try{
+        const resp = await UserService.getAllUsers()
+        if(resp.type !== responseTypes.SUCCESS){
+            return dispatch(userAC.error(resp))
+        }
+        dispatch(userAC.getUserSuccess(resp.data))
+    } catch (e) {
+        console.log('error from redux getCurrentUser',e);
+        dispatch(userAC.error(e))
+    }
+}
 
 export default {
     login,
-    getCurrentUser
+    getCurrentUser,
+    getAllUsers
 }

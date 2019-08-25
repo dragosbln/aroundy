@@ -5,6 +5,7 @@ import utils from "../../utils/functions";
 const initialState = {
   currentUser: null,
   tokens: null,
+  users: null,
   apiState: {
     pending: false,
     success: false,
@@ -34,6 +35,12 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         currentUser: action.payload,
+        apiState: utils.updateApiState(initialState, "success", true)
+      };
+    case types.GET_ALL_USERS_SUCCESS:
+      return {
+        ...state,
+        users: action.payload,
         apiState: utils.updateApiState(initialState, "success", true)
       };
     default:

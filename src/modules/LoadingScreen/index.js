@@ -8,12 +8,14 @@ import decodeJwt from "jwt-decode";
 
 export default class LoadingScreen extends React.Component {
   componentDidMount = async () => {
-    await new Promise(res => setTimeout(res, 3000))
+    
+    // await new Promise(res => setTimeout(res, 3000))
     this.props.getCountdownHoliday();
     this.props.getCachedTokens()
   };
 
   componentDidUpdate = prevProps => {
+
     if (prevProps.countdownHoliday !== this.props.countdownHoliday) {
       this.props.setCountdownHoliday(this.props.countdownHoliday);
     }
@@ -36,6 +38,7 @@ export default class LoadingScreen extends React.Component {
   };
 
   render() {
+
     return (
       <ImageBackground source={loginBg} style={styles.base}>
         <View style={styles.contentContainer}>

@@ -6,16 +6,16 @@ import userActions from '../../../redux/user/actions'
 
 const mapStateTorProps = state => ({
   requests: state.requests.data,
+  users: state.user.users,
   countdownHoliday: state.holidays.countdownHoliday,
-  balance: state.user.currentUser
-    ? state.user.currentUser.Balance.remaining
-    : null
+  user: state.user.currentUser
 });
 
 const mapDispatchToProps = dispatch => ({
   getTeamRequests: team => dispatch(requestActions.getTeamRequests(team)),
   getCountdownHoliday: () => dispatch(holidaysActions.getCountdownHoliday()),
-  getCurrentUser: () => dispatch(userActions.getCurrentUser())
+  getCurrentUser: () => dispatch(userActions.getCurrentUser()),
+  getAllUsers: () => dispatch(userActions.getAllUsers())
 });
 
 export default connect(

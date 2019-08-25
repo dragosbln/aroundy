@@ -25,7 +25,10 @@ const reducer = (state = initialState, action) => {
     case types.SUCCESS:
       return {
         ...state,
-        data: action.payload,
+        data: [
+          ...state.data,
+          ...action.payload
+        ],
         apiState: utils.updateApiState(initialState, "success", true)
       };
     default:

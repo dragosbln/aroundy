@@ -79,6 +79,35 @@ class UserService {
     }
     
   };
+
+  static getAllUsers = async () => {
+    const token = store.getState().user.tokens.access_token;
+    if (!token) {
+      return serverResponse.unauthorized();
+    }
+    try{
+      const userResponse = await axios({
+        method: "GET",
+        url: `${this._rootPath}/user`,
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+        timeout: 3000
+      });
+      if (userResponse.data.success) {
+        return serverResponse.success(userResponse.data.data);
+      }
+    } catch (e) {
+      if (e.code === "ECONNABORTED") {
+        return serverResponse.timeout();
+      }
+      if (e.response && e.response.status === 401) {
+        return serverResponse.unauthorized();
+      }
+      throw e;
+    }
+  }
 }
+
 
 export default UserService;

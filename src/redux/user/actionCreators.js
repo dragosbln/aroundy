@@ -14,6 +14,11 @@ const getUserSuccess = (data) => ({
     payload: data
 })
 
+const getAllUsersSuccess = (data) => ({
+    type: types.GET_ALL_USERS_SUCCESS,
+    payload: data
+})
+
 const error = (err) => ({
     type: types.ERROR,
     payload: err
@@ -23,5 +28,6 @@ export default {
     pending,
     setTokens,
     getUserSuccess,
+    getAllUsersSuccess,
     error
 }

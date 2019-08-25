@@ -10,16 +10,42 @@ import ListItem from "./ListItem";
 export default class Home extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      requests = []
+    }
   }
 
   componentDidMount = () => {
     if (!this.props.countdownHoliday) {
       this.props.getCountdownHoliday();
     }
-    if(!this.props.balance){
+    if(!this.props.user){
       this.props.getCurrentUser()
+    } else {
+      this.props.user.Teams.forEach(team => {
+        this.props.getTeamRequests()
+      });
     }
-  };
+    //DOING A LOT OF REQUESTS! U DON'T KNOW WHICH IS WHICH, IN REDUCER
+    
+  }; 
+
+  componentDidUpdate = (prevProps) => {
+    if(prevProps === this.props) {
+      return
+    }
+    if(prevProps.user !== this.props.user){
+      this.props.user.Teams.forEach(team => {
+        this.props.getTeamRequests()
+      });
+    }
+    if(prevProps.requests !== this.props.requests){
+      const requests = this.props.requests.map(request => {
+        
+      })
+    }
+
+  }
 
   render() {
     return (
@@ -41,7 +67,7 @@ export default class Home extends React.Component {
           </ImageBackground>
         </View>
         <View style={styles.bgCardContainer}>
-          <BalanceCard days={this.props.balance} />
+          <BalanceCard days={this.props.user && this.props.user.Balance.remaining} />
         </View>
         <View style={styles.mainContainer}>
           <View style={styles.headingContainer}>
