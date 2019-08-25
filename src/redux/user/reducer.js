@@ -9,8 +9,7 @@ const initialState = {
     pending: false,
     success: false,
     error: null
-  },
-  cache
+  }
 };
 
 const reducer = (state = initialState, action) => {
@@ -25,7 +24,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         apiState: utils.updateApiState(initialState, "error", action.payload)
       };
-    case types.LOGIN_SUCCESS:
+    case types.SET_TOKENS:
       return {
         ...state,
         tokens: action.payload,

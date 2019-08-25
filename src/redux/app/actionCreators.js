@@ -1,14 +1,10 @@
 import types from './types'
 
-const setAccessToken = (token) => ({
-    type: types.SET_ACCESS_TOKEN,
-    payload: token
+const setTokens = (tokens) => ({
+    type: types.SET_TOKENS,
+    payload: tokens
 })
 
-const setRefreshToken = (token) => ({
-    type: types.SET_REFRESH_TOKEN,
-    payload: token
-})
 
 const setCountdownHoliday = (holiday) => ({
     type: types.SET_COUNTDOWN_HOLIDAY,
@@ -16,7 +12,6 @@ const setCountdownHoliday = (holiday) => ({
 })
 
 export default {
-    setAccessToken,
+    setTokens,
     setCountdownHoliday,
-    setRefreshToken
 }

@@ -7,12 +7,8 @@ import UserCacheService from './cache/userCache'
 class UserService {
   static _rootPath = "https://aroundy-03.democlient.info";
 
-  static getCachedAccessToken = async () => {
-    return UserCacheService.getAccessToken()
-  }
-
-  static getCachedRefreshToken = async () => {
-    return UserCacheService.getRefreshToken()
+  static getCachedTokens = async () => {
+    return UserCacheService.getTokens()
   }
 
   static login = async (email = "", password) => {
@@ -33,7 +29,7 @@ class UserService {
       });
 
       if (response.data.success) {
-        UserCacheService.setAccessToken(response.data.data.access_token)
+        UserCacheService.setTokens(response.data.data)
         return serverResponse.success(response.data.data);
       } else {
         throw response;
