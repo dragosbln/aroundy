@@ -8,21 +8,10 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case types.SET_ACCESS_TOKEN:
+    case types.SET_TOKENS:
       return {
         ...state,
-        tokens: {
-          ...state.tokens,
-          access_token: action.payload
-        }
-      };
-    case types.SET_REFRESH_TOKEN:
-      return {
-        ...state,
-        tokens: {
-          ...state.tokens,
-          refresh_token: action.payload
-        }
+        tokens: action.payload
       };
     case types.SET_COUNTDOWN_HOLIDAY:
       return {

@@ -2,14 +2,13 @@ import appAC from "./actionCreators";
 import UserService from "../../services/user";
 import HolidaysService from '../../services/holidays'
 
-getCachedAccessToken = () => async (dispatch, getState) => {
-  const token = await UserService.getCachedAccessToken();
-  dispatch(appAC.setAccessToken(token));
-};
-
-getCachedRefreshToken = () => async (dispatch, getState) => {
-  const token = await UserService.getCachedRefreshToken();
-  dispatch(appAC.setRefreshToken(token));
+getCachedTokens = () => async (dispatch, getState) => {
+  const cachedTokens = await UserService.getCachedTokens();
+  const tokens = {
+      access_token: cachedTokens && cachedTokens.access_token,
+      refresh_token: cachedTokens && cachedTokens.refresh_token
+  }
+  dispatch(appAC.setTokens(tokens));
 };
 
 getCountdownHoliday = () => async (dispatch, getState) => {
@@ -19,7 +18,6 @@ getCountdownHoliday = () => async (dispatch, getState) => {
 
 
 export default {
-  getCachedAccessToken,
-  getCachedRefreshToken,
-  setCountdownHoliday
+  getCachedTokens,
+  getCountdownHoliday
 };

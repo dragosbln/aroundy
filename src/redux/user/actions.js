@@ -13,7 +13,7 @@ const login = (email, password) => async (dispatch, getState) => {
         if(resp.type !== responseTypes.SUCCESS){
             return dispatch(userAC.error(resp))
         }
-        dispatch(userAC.loginSuccess(resp.data))
+        dispatch(userAC.setTokens(resp.data))
     } catch (e) {
         console.log('error from redux login',e);
         dispatch(userAC.error(e))
@@ -37,9 +37,6 @@ getCurrentUser = () => async (dispatch, getState) => {
     }
 }
 
-getCachedToken = () => async (dispatch, getState) => {
-    
-}
 
 export default {
     login,
