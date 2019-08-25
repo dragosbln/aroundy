@@ -41,8 +41,13 @@ export default class HolidaysService{
        
     }
 
-    static getCountdownHoliday = () => {
-        return holidaysCacheService.getCountdownHoliday()
+    static getCountdownHoliday = async () => {
+        const cachedHoliday = await holidaysCacheService.getCountdownHoliday()
+        if(cachedHoliday){
+            return cachedHoliday
+        } 
+        const holidaysResp = await this.getHolidays()
+        return holidaysResp.holidays.find(holiday => holiday.name === "Christmas Day")
     }
 
     static setCountdownHoliday = (holiday) => {

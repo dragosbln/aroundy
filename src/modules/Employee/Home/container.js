@@ -10,7 +10,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     getHolidays: () => dispatch(actions.getHolidays()),
-    getCachedCountdownHoliday: () => dispatch(actions.getCachedCountdownHoliday()),
+    getCountdownHoliday: () => dispatch(actions.getCountdownHoliday()),
     setCountdownHoliday: (holiday) => dispatch(actions.setCountdownHoliday(holiday))
 })
 

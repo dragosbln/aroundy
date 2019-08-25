@@ -24,7 +24,7 @@ class holidaysCacheService {
   };
 
   static getCountdownHoliday = async () => {
-    const holiday = storageService.get(this._countdownKey);
+    const holiday = await storageService.get(this._countdownKey);
     if (!holiday) {
       return null;
     }
