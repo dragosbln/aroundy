@@ -1,61 +1,55 @@
-import userAC from './actionCreators'
-import UserService from '../../services/user'
-import responseTypes from '../../utils/responseTypes'
+import userAC from "./actionCreators";
+import UserService from "../../services/user";
+import responseTypes from "../../utils/responseTypes";
+import ContractService from '../../services/contract'
 //TODO: split login - get user logic
 
-const login = (email, password) => async (dispatch, getState) => {
-    if(getState().user.apiState.pending){
-        return
-    }
-    dispatch(userAC.pending())
-    try{
-        const resp = await UserService.login(email, password)
-        if(resp.type !== responseTypes.SUCCESS){
-            return dispatch(userAC.error(resp))
-        }
-        dispatch(userAC.setTokens(resp.data))
-    } catch (e) {
-        console.log('error from redux login',e);
-        dispatch(userAC.error(e))
-    }
-}
-
 getCurrentUser = () => async (dispatch, getState) => {
-    if(getState().user.apiState.pending){
-        return
+  if (getState().user.currentUserApiState.pending) {
+    return;
+  }
+  dispatch(userAC.currentUserPending());
+  try {
+    const resp = await UserService.getCurrentUser();
+    if (resp.type !== responseTypes.SUCCESS) {
+      return dispatch(userAC.currentUserError(resp));
     }
-    dispatch(userAC.pending())
-    try{
-        const resp = await UserService.getCurrentUser()
-        if(resp.type !== responseTypes.SUCCESS){
-            return dispatch(userAC.error(resp))
-        }
-        dispatch(userAC.getUserSuccess(resp.data))
-    } catch (e) {
-        console.log('error from redux getCurrentUser',e);
-        dispatch(userAC.error(e))
-    }
-}
+    dispatch(userAC.currentUserSuccess(resp.data));
+  } catch (e) {
+    console.log("error from redux getCurrentUser", e);
+    dispatch(userAC.currentUserError(e));
+  }
+};
 
 const getAllUsers = () => async (dispatch, getState) => {
-    if(getState().user.apiState.pending){
-        return
+  if (getState().user.allUsersApiState.pending) {
+    return;
+  }
+  dispatch(userAC.allUsersPending());
+  try {
+    const resp = await UserService.getAllUsers();
+    if (resp.type !== responseTypes.SUCCESS) {
+      return dispatch(userAC.allUsersError(resp));
     }
-    dispatch(userAC.pending())
-    try{
-        const resp = await UserService.getAllUsers()
-        if(resp.type !== responseTypes.SUCCESS){
-            return dispatch(userAC.error(resp))
+    const users = resp.data;
+    for (let i = 0; i < users.length; i++){
+        const contractResp = await ContractService.getUserContract(users[i].id)
+        if(contractResp.type !== responseTypes.SUCCESS){
+            throw new Error("couldn't get contract!")
         }
-        dispatch(userAC.getUserSuccess(resp.data))
-    } catch (e) {
-        console.log('error from redux getCurrentUser',e);
-        dispatch(userAC.error(e))
+        users[i] = {
+            ...users[i],
+            Contract: contractResp.data
+        }
     }
-}
+      dispatch(userAC.allUsersSuccess(resp.data));
+  } catch (e) {
+    console.log("error from redux getCurrentUser", e);
+    dispatch(userAC.allUsersError(e));
+  }
+};
 
 export default {
-    login,
-    getCurrentUser,
-    getAllUsers
-}
+  getCurrentUser,
+  getAllUsers
+};

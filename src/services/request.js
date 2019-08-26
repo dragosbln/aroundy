@@ -25,7 +25,18 @@ class RequestService{
     static getUserRequest = async (id) => {
         //logic here
         await new Promise(res => setTimeout(res, 200))
-        return serverResponse.success(mockData.requests.filter(req => req.id === id))
+        return serverResponse.success(mockData.requests.filter(req => req.user_id === id))
+    }
+
+    static mergeUserRequests = (users, requests) => {
+        return requests.map(request => {
+            const user = users.find(usr => usr.id === request.user_id)
+            return{
+                ...request,
+                userName: `${user.firstName} ${user.lastName}`,
+                userRole: `Awesome Dev`
+            }
+        })
     }
 }
 

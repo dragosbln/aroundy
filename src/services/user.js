@@ -46,7 +46,7 @@ class UserService {
   };
 
   static getCurrentUser = async () => {
-    const token = store.getState().user.tokens.access_token;
+    const token = store.getState().auth.tokens.access_token;
     if (!token) {
       return serverResponse.unauthorized();
     }
@@ -65,7 +65,8 @@ class UserService {
           ...userResponse.data.data,
           Requests: mock.requests.filter(
             el => el.user_id === userResponse.data.data.id
-          )
+          ),
+          Teams: [{id:1,name: 'pisicile salbatice', Users:[1,2,3,4]}]
         });
       }
     } catch (e) {
@@ -81,7 +82,7 @@ class UserService {
   };
 
   static getAllUsers = async () => {
-    const token = store.getState().user.tokens.access_token;
+    const token = store.getState().auth.tokens.access_token;
     if (!token) {
       return serverResponse.unauthorized();
     }

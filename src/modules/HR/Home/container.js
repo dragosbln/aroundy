@@ -6,10 +6,10 @@ import userActions from '../../../redux/user/actions'
 
 const mapStateTorProps = state => ({
   requests: state.requests.data,
-  users: state.user.users,
+  users: state.user.allUsers,
   countdownHoliday: state.holidays.countdownHoliday,
   user: state.user.currentUser
-});
+}); 
 
 const mapDispatchToProps = dispatch => ({
   getTeamRequests: team => dispatch(requestActions.getTeamRequests(team)),

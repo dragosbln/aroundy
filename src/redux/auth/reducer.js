@@ -1,12 +1,13 @@
 import types from "./types";
-import utils from '../../utils/functions'
+import mock from "../../utils/mockData";
+import utils from "../../utils/functions";
 
 const initialState = {
-  data: null,
+  tokens: null,
   apiState: {
     pending: false,
     success: false,
-    error: false
+    error: null
   }
 };
 
@@ -22,11 +23,10 @@ const reducer = (state = initialState, action) => {
         ...state,
         apiState: utils.updateApiState(initialState, "error", action.payload)
       };
-    case types.SUCCESS:
-      const newData = state.data ? [...state.data, ...action.payload] : [...action.payload]
+    case types.SET_TOKENS:
       return {
         ...state,
-        data: newData,
+        tokens: action.payload,
         apiState: utils.updateApiState(initialState, "success", true)
       };
     default:

@@ -2,19 +2,31 @@ import requestAC from "./actionCreators";
 import RequestService from "../../services/request";
 import responseTypes from '../../utils/responseTypes'
 
-const getTeamRequests = team => async (dispatch, getState) => {
+const getTeamsRequests = teams => async (dispatch, getState) => {
   dispatch(requestAC.pending());
   try {
+
+    const users = []
+
+    teams.forEach(team => {
+      team.Users.forEach(user => {
+        if(!users.includes(user)){
+          users.push(user)
+        }
+      })
+    });
+
     const requests = [];
-    for (let i = 0; i < team.users.length; i++) {
-      const userRequests = await RequestService.getUserRequest(team.users[i]);
+    for (let i=0;i<users.length;i++) {
+      const userRequests = await RequestService.getUserRequest(users[i]);
+      
       if(userRequests.type === responseTypes.SUCCESS){
         requests.push(...userRequests.data);
       } else {
         throw userRequests
       }
     }
-    dispatch(requestAC.success(userRequests));
+    dispatch(requestAC.success(requests));
   } catch (e) {
     dispatch(requestAC.error(e));
   }
@@ -46,5 +58,5 @@ const cancelRequests = id => async (dispatch, getState) => {
 };
 
 export default {
-  getTeamRequests
+  getTeamsRequests
 };

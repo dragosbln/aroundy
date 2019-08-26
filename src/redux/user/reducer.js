@@ -3,10 +3,14 @@ import mock from "../../utils/mockData";
 import utils from "../../utils/functions";
 
 const initialState = {
-  currentUser: null,
-  tokens: null,
-  users: null,
-  apiState: {
+  currentUser: mock.loggedUser,
+  allUsers: null,
+  currentUserApiState: {
+    pending: false,
+    success: false,
+    error: null
+  },
+  allUsersApiState: {
     pending: false,
     success: false,
     error: null
@@ -15,34 +19,38 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case types.PENDING:
+    case types.CURRENT_USER_PENDING:
       return {
         ...state,
-        apiState: utils.updateApiState(initialState, "pending", true)
+        currentUserApiState: utils.updateApiState(initialState, "pending", true, 'currentUserApiState')
       };
-    case types.ERROR:
+    case types.CURRENT_USER_ERROR:
       return {
         ...state,
-        apiState: utils.updateApiState(initialState, "error", action.payload)
+        apiState: utils.updateApiState(initialState, "error", action.payload, 'currentUserApiState')
       };
-    case types.SET_TOKENS:
-      return {
-        ...state,
-        tokens: action.payload,
-        apiState: utils.updateApiState(initialState, "success", true)
-      };
-    case types.GET_USER_SUCCESS:
+    case types.CURRENT_USER_SUCCESS:
       return {
         ...state,
         currentUser: action.payload,
-        apiState: utils.updateApiState(initialState, "success", true)
+        apiState: utils.updateApiState(initialState, "success", true, 'currentUserApiState')
       };
-    case types.GET_ALL_USERS_SUCCESS:
-      return {
-        ...state,
-        users: action.payload,
-        apiState: utils.updateApiState(initialState, "success", true)
-      };
+      case types.ALL_USERS_PENDING:
+        return {
+          ...state,
+          allUsersApiState: utils.updateApiState(initialState, "pending", true, 'allUsersApiState')
+        };
+      case types.ALL_USERS_ERROR:
+        return {
+          ...state,
+          allUsersApiState: utils.updateApiState(initialState, "error", action.payload, 'allUsersApiState')
+        };
+      case types.ALL_USERS_SUCCESS:
+        return {
+          ...state,
+          allUsers: action.payload,
+          allUsersApiState: utils.updateApiState(initialState, "success", true, 'allUsersApiState')
+        };
     default:
       return state;
   }

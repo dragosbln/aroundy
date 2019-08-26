@@ -1,33 +1,39 @@
 import types from './types'
 
-const pending = () => ({
-    type: types.PENDING
+const currentUserPending = () => ({
+    type: types.CURRENT_USER_PENDING
 })
 
-const setTokens = (data) => ({
-    type: types.SET_TOKENS,
+
+const currentUserSuccess = (data) => ({
+    type: types.CURRENT_USER_SUCCESS,
     payload: data
 })
 
-const getUserSuccess = (data) => ({
-    type: types.GET_USER_SUCCESS,
-    payload: data
-})
-
-const getAllUsersSuccess = (data) => ({
-    type: types.GET_ALL_USERS_SUCCESS,
-    payload: data
-})
-
-const error = (err) => ({
-    type: types.ERROR,
+const currentUserError = (err) => ({
+    type: types.CURRENT_USER_ERROR,
     payload: err
 })
 
+const allUsersPending = () => ({
+    type: types.ALL_USERS_PENDING
+})
+
+const allUsersError = (err) => ({
+    type: types.ALL_USERS_ERROR,
+    payload: err
+})
+
+const allUsersSuccess = (data) => ({
+    type: types.ALL_USERS_SUCCESS,
+    payload: data
+})
+
 export default {
-    pending,
-    setTokens,
-    getUserSuccess,
-    getAllUsersSuccess,
-    error
+    currentUserError,
+    currentUserPending,
+    currentUserSuccess,
+    allUsersError,
+    allUsersPending,
+    allUsersSuccess
 }

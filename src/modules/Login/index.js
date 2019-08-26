@@ -7,9 +7,9 @@ import TextButton from "../../components/Buttons/TextButton";
 import Button from "../../components/Buttons/PrimaryButton";
 import { passwordIcon, emailIcon } from "../../assets/images";
 import Text from "../../components/Text/BaseText";
-import jwtDecode from "jwt-decode";
+import decodeJwt from "jwt-decode";
 import responseTypes from "../../utils/responseTypes";
-import colors from '../../assets/theme/colors'
+import colors from "../../assets/theme/colors";
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -42,18 +42,69 @@ export default class Login extends React.Component {
     };
   }
 
+  componentDidMount() {
+    this.props.getCountdownHoliday();
+  }
+
   componentDidUpdate(prevProps, prevState) {
-    if (!this.props.token || this.props.error) {
+    if (prevProps === this.props) {
       return;
     }
 
-    const decoded = jwtDecode(this.props.token);
+    if (prevProps.countdownHoliday !== this.props.countdownHoliday) {
+      this.props.setCountdownHoliday(this.props.countdownHoliday);
+    }
 
-    if (decoded.roles.includes("human-resources")) {
+    if (prevProps.tokens !== this.props.tokens) {
+      const decoded = decodeJwt(this.props.tokens.access_token);
+      if (decoded.roles.includes("human-resources")) {
+        this.setState(state => ({
+          ...state,
+          mode: "hr"
+        }));
+        this.props.getCurrentUser();
+        this.props.getAllUsers();
+        this.props.getHolidays();
+        return;
+        // return this.props.navigation.navigate("HR");
+      }
+      //TODO: PM
+      this.setState(state => ({
+        ...state,
+        mode: "employee"
+      }));
+      this.props.getCurrentUser();
+      this.props.getHolidays();
+      return;
+      // return this.props.navigation.navigate("Employee");
+    }
+
+    if (
+      this.state.mode === "hr" &&
+      this.props.currentUser &&
+      !this.props.requests &&
+      !this.props.getRequestsPending
+    ) {
+      this.props.getTeamsRequests(this.props.currentUser.Teams);
+    }
+    console.log("PROPSIES", this.props);
+
+    if (
+      this.state.mode === "hr" &&
+      this.props.currentUser &&
+      this.props.users &&
+      this.props.requests &&
+      this.props.holidays
+    ) {
       return this.props.navigation.navigate("HR");
     }
-    //TODO: PM
-    return this.props.navigation.navigate("Employee");
+    if (
+      this.state.mode === "employee" &&
+      this.props.currentUser &&
+      this.props.holidays
+    ) {
+      return this.props.navigation.navigate("Employee");
+    }
   }
 
   checkInput = (key, value) => {
@@ -131,19 +182,22 @@ export default class Login extends React.Component {
       </View>
     ));
     let status = null;
-    if(this.props.pending){
-      status = <ActivityIndicator size='small' color={colors.orange} />
+    if (this.props.pending) {
+      status = <ActivityIndicator size="small" color={colors.orange} />;
     }
-    if (this.props.error && this.props.error.type === responseTypes.UNAUTHORIZED) {
+    if (
+      this.props.error &&
+      this.props.error.type === responseTypes.UNAUTHORIZED
+    ) {
       status = (
-          <Text customStyle={styles.errorTxt}>Invalid user/password!</Text>
+        <Text customStyle={styles.errorTxt}>Invalid user/password!</Text>
       );
     }
     if (this.props.error && this.props.error.type === responseTypes.TIMEOUT) {
       status = (
-          <Text customStyle={styles.errorTxt}>
-            Server didn't respond. Check your internet connection!
-          </Text>
+        <Text customStyle={styles.errorTxt}>
+          Server didn't respond. Check your internet connection!
+        </Text>
       );
     }
     return (
@@ -151,9 +205,7 @@ export default class Login extends React.Component {
         <View style={styles.logoContainer}>
           <Text>logo</Text>
         </View>
-        <View style={styles.statusContainer}>
-          {status}
-        </View>
+        <View style={styles.statusContainer}>{status}</View>
         <View style={styles.inputsContainer}>
           {form}
           <View style={styles.textBtn}>

@@ -7,14 +7,23 @@ import { austronaut } from "../../assets/animations";
 import decodeJwt from "jwt-decode";
 
 export default class LoadingScreen extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      mode: ""
+    };
+  }
+
   componentDidMount = async () => {
-    
-    await new Promise(res => setTimeout(res, 3000))
+    // await new Promise(res => setTimeout(res, 3000));
     this.props.getCountdownHoliday();
-    this.props.getCachedTokens()
+    this.props.getCachedTokens();
   };
 
   componentDidUpdate = prevProps => {
+    if (prevProps === this.props) {
+      return;
+    }
 
     if (prevProps.countdownHoliday !== this.props.countdownHoliday) {
       this.props.setCountdownHoliday(this.props.countdownHoliday);
@@ -30,15 +39,48 @@ export default class LoadingScreen extends React.Component {
       this.props.setTokens(this.props.tokens);
       const decoded = decodeJwt(this.props.tokens.access_token);
       if (decoded.roles.includes("human-resources")) {
-        return this.props.navigation.navigate("HR");
+        this.setState(state => ({
+          ...state,
+          mode: "hr"
+        }));
+        this.props.getCurrentUser();
+        this.props.getAllUsers();
+        this.props.getHolidays()
+        return;
+        // return this.props.navigation.navigate("HR");
       }
       //TODO: PM
+      this.setState(state => ({
+        ...state,
+        mode: "employee"
+      }));
+      this.props.getCurrentUser();
+      this.props.getHolidays()
+      return;
+      // return this.props.navigation.navigate("Employee");
+    }
+
+    if(this.state.mode === 'hr' && this.props.currentUser && !this.props.requests && !this.props.getRequestsPending){
+      
+      this.props.getTeamsRequests(this.props.currentUser.Teams)
+    }
+    console.log('PROPSIES', this.props);
+    
+    if (
+      this.state.mode === "hr" &&
+      this.props.currentUser &&
+      this.props.users &&
+      this.props.requests &&
+      this.props.holidays
+    ) {
+      return this.props.navigation.navigate("HR");
+    }
+    if (this.state.mode === "employee" && this.props.currentUser && this.state.holidays) {
       return this.props.navigation.navigate("Employee");
     }
   };
 
   render() {
-
     return (
       <ImageBackground source={loginBg} style={styles.base}>
         <View style={styles.contentContainer}>

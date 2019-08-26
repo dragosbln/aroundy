@@ -88,7 +88,7 @@ export default class CalendarSCREEN extends React.Component {
 
   initHolidaysMarkers = () => {
     const newMarkedDates = { ...this.state.calendar.markedDates };
-    this.props.holidays.data.forEach(holiday => {
+    this.props.holidays.forEach(holiday => {
       newMarkedDates[holiday.date.iso] = {
         ...this.state.calendar.markedDates[holiday.date.iso],
         marked: true,
@@ -111,11 +111,7 @@ export default class CalendarSCREEN extends React.Component {
   componentDidMount = () => {
     
     this.initMarkedDates();
-    if (!this.props.holidays.data) {
-      this.props.getHolidays();
-    } else {
       this.initHolidaysMarkers();
-    }
   };
 
   onMonthChange = async date => {
@@ -135,9 +131,6 @@ export default class CalendarSCREEN extends React.Component {
   componentDidUpdate = (prevProps, prevState) => {
     if (prevProps.selectedPeriods !== this.props.selectedPeriods) {
       this.updateSelected();
-    }
-    if (prevProps.holidays.data !== this.props.holidays.data) {
-      this.initHolidaysMarkers();
     }
   };
 

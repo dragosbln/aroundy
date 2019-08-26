@@ -11,7 +11,7 @@ const switchNavigator = createSwitchNavigator({
     HR,
     Employee
 },{
-    initialRouteName: 'HR'
+    initialRouteName: 'Loading'
 })
 
 export default switchNavigator
