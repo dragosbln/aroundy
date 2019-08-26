@@ -9,7 +9,7 @@ import decodeJwt from "jwt-decode";
 export default class LoadingScreen extends React.Component {
   componentDidMount = async () => {
     
-    // await new Promise(res => setTimeout(res, 3000))
+    await new Promise(res => setTimeout(res, 3000))
     this.props.getCountdownHoliday();
     this.props.getCachedTokens()
   };
