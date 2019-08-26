@@ -1,6 +1,7 @@
 import axios from 'axios'
 import mockData from '../utils/mockData'
 import serverResponse from '../utils/serverResponse'
+import store from '../redux/store'
 //TODO: add logic
 
 class RequestService{
@@ -22,10 +23,14 @@ class RequestService{
         }
     }
 
-    static getUserRequest = async (id) => {
-        //logic here
-        await new Promise(res => setTimeout(res, 200))
-        return serverResponse.success(mockData.requests.filter(req => req.user_id === id))
+    static getUserRequests = async (id) => {
+        if(!store.getState().user.allUsers){
+            throw new Error('No users in Redux!')
+        }
+
+        const user = store.getState().user.allUsers.find(user => user.id === id)
+
+        return serverResponse.success(user.Requests)
     }
 
     static mergeUserRequests = (users, requests) => {
@@ -34,7 +39,7 @@ class RequestService{
             return{
                 ...request,
                 userName: `${user.firstName} ${user.lastName}`,
-                userRole: `Awesome Dev`
+                image: user.image
             }
         })
     }

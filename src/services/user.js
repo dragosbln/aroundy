@@ -85,6 +85,9 @@ class UserService {
     if (!token) {
       return serverResponse.unauthorized();
     }
+    if (!store.getState().user.currentUser) {
+      throw new Error("No currentUser in Redux!");
+    }
     try {
       const userResponse = await axios({
         method: "GET",
@@ -94,25 +97,76 @@ class UserService {
         },
         timeout: 3000
       });
+      const currentUser = store.getState().user.currentUser;
       if (userResponse.data.success) {
         return serverResponse.success(
-          userResponse.data.data.map(user => ({
+          userResponse.data.data
+            .filter(user => user.id !== currentUser.id)
+            .map(user => ({
+              ...user,
+              Requests: mock.requests.filter(req => req.user_id === user.id),
+              Contract: {
+                id: 1,
+                role: "Awesome Dev"
+              },
+              Teams: [
+                {
+                  id: 1,
+                  name: "pisicile salbatice",
+                  Users: [1, 2, 3]
+                }
+              ]
+            }))
+        );
+      }
+    } catch (e) {
+      if (e.code === "ECONNABORTED") {
+        return serverResponse.timeout();
+      }
+      if (e.response && e.response.status === 401) {
+        return serverResponse.unauthorized();
+      }
+      throw e;
+    }
+  };
+
+  static getAllTeamUsers = async userIds => {
+    const token = store.getState().auth.tokens.access_token;
+    if (!token) {
+      return serverResponse.unauthorized();
+    }
+    try {
+      const users = [];
+      for (let i = 0; i < userIds.length; i++) {
+        //TODO: make sure user id is pased in route
+        const userResponse = await axios({
+          method: "GET",
+          url: `${this._rootPath}/user/${userIds[i]}`,
+          headers: {
+            Authorization: `Bearer ${token}`
+          },
+          timeout: 3000
+        });
+
+        if (userResponse.data.success) {
+          users.push({
             ...user,
             Requests: mock.requests.filter(req => req.user_id === user.id),
             Contract: {
               id: 1,
-              role: 'Awesome Dev'
+              role: "Awesome Dev"
             },
             Teams: [
               {
                 id: 1,
-                name: 'pisicile salbatice',
-                Users: [1,2,3,4]
+                name: "pisicile salbatice",
+                Users: [1, 2, 3]
               }
             ]
-          }))
-        );
+          });
+        }
       }
+      return serverResponse.success(users);
     } catch (e) {
       if (e.code === "ECONNABORTED") {
         return serverResponse.timeout();

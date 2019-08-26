@@ -31,7 +31,7 @@ export default class Home extends React.Component {
   render() {
     return (
       <View style={styles.base}>
-        <Header bg={teamHeaderBg} title="Ann Andria" picture={profilePic} />
+        <Header bg={teamHeaderBg} title="Ann Andria" />
         <View style={styles.headingContainer}>
           <Text customStyle={styles.headingTxt}>BOOK DAYS OFF</Text>
           <Icon style={styles.chart} name="ios-download" />

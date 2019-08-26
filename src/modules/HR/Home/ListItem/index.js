@@ -13,7 +13,7 @@ export default props => {
   return (
     <View style={styles.base}>
       <View style={styles.imageContainer}>
-        <CircularImage source={props.profilePic} customStyle={styles.image} />
+        <CircularImage source={props.request.image} customStyle={styles.image} />
       </View>
       <View style={styles.infoContainer}>
         <Text customStyle={styles.nameTxt}>{props.request.userName}</Text>

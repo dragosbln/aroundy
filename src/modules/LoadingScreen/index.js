@@ -44,8 +44,17 @@ export default class LoadingScreen extends React.Component {
           mode: "hr"
         }));
         this.props.getCurrentUser();
-        this.props.getAllUsers();
-        this.props.getHolidays()
+        this.props.getHolidays();
+        return;
+        // return this.props.navigation.navigate("HR");
+      }
+      if (decoded.roles.includes("project-manager")) {
+        this.setState(state => ({
+          ...state,
+          mode: "pm"
+        }));
+        this.props.getCurrentUser();
+        this.props.getHolidays();
         return;
         // return this.props.navigation.navigate("HR");
       }
@@ -55,17 +64,31 @@ export default class LoadingScreen extends React.Component {
         mode: "employee"
       }));
       this.props.getCurrentUser();
-      this.props.getHolidays()
+      this.props.getHolidays();
       return;
       // return this.props.navigation.navigate("Employee");
     }
 
-    if(this.state.mode === 'hr' && this.props.currentUser && !this.props.requests && !this.props.getRequestsPending){
-      
-      this.props.getTeamsRequests(this.props.currentUser.Teams)
+    if(this.state.mode === 'pm' && this.props.currentUser && !this.props.users){
+      //TODO: ask how to get team users, as PM
+      this.props.getAllTeamUsers()
     }
-    console.log('PROPSIES', this.props);
-    
+
+    if(this.state.mode === 'hr' && this.props.currentUser && !this.props.users){
+      //TODO: ask how to get team users, as PM
+      this.props.getAllUsers()
+    }
+
+    if (
+      (this.state.mode === "hr" || this.state.mode === 'pm') &&
+      this.props.currentUser &&
+      this.props.users &&
+      !this.props.requests &&
+      !this.props.getRequestsPending
+    ) {
+      this.props.getRequests();
+    }
+
     if (
       this.state.mode === "hr" &&
       this.props.currentUser &&
@@ -75,7 +98,22 @@ export default class LoadingScreen extends React.Component {
     ) {
       return this.props.navigation.navigate("HR");
     }
-    if (this.state.mode === "employee" && this.props.currentUser && this.state.holidays) {
+    if (
+      this.state.mode === "pm" &&
+      this.props.currentUser &&
+      this.props.users &&
+      this.props.requests &&
+      this.props.holidays
+    ) {
+      console.log('LOGED AS PM, PROMISE!');
+      
+      return this.props.navigation.navigate("HR");
+    }
+    if (
+      this.state.mode === "employee" &&
+      this.props.currentUser &&
+      this.props.holidays
+    ) {
       return this.props.navigation.navigate("Employee");
     }
   };

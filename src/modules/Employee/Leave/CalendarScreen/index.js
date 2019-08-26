@@ -68,8 +68,6 @@ export default class CalendarSCREEN extends React.Component {
         });
       });
       
-    console.log('state before setting: ', this.state);
-    console.log('markedDats before setting: ', markedDates);
     
       
     await this.setState(state => ({
@@ -82,7 +80,6 @@ export default class CalendarSCREEN extends React.Component {
         }
       }
     }));
-    console.log('just set state: ', this.state);
     
   };
 

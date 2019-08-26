@@ -33,6 +33,7 @@ export default createBottomTabNavigator(
           const { routeName } = navigation.state;
 
           let icon;
+          let size = null
           switch (routeName) {
             case "Home":
               icon = globe;
@@ -48,6 +49,7 @@ export default createBottomTabNavigator(
               break;
             case "Team":
               icon = astronaut;
+              size = 40
               if (focused) {
                 icon = astronautActive;
               }
@@ -61,7 +63,7 @@ export default createBottomTabNavigator(
             default:
           }
 
-          return <TabBarIcon icon={icon} />;
+          return <TabBarIcon size={size} icon={icon} />;
         }
       };
     },

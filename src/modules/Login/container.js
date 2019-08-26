@@ -26,8 +26,9 @@ const mapDispatchToProps = dispatch => ({
     dispatch(holidaysActions.setCountdownHoliday(holiday)),
   getCurrentUser: () => dispatch(userActions.getCurrentUser()),
   getAllUsers: () => dispatch(userActions.getAllUsers()),
-  getTeamsRequests: teams => dispatch(requestActions.getTeamsRequests(teams)),
-  getHolidays: () => dispatch(holidaysActions.getHolidays())
+  getRequests: () => dispatch(requestActions.getRequests()),
+  getHolidays: () => dispatch(holidaysActions.getHolidays()),
+  getAllTeamUsers: () => dispatch(userActions.getAllTeamUsers())
 });
 
 export default connect(

@@ -3,7 +3,7 @@ import mock from "../../utils/mockData";
 import utils from "../../utils/functions";
 
 const initialState = {
-  currentUser: mock.loggedUser,
+  currentUser: null,
   allUsers: null,
   currentUserApiState: {
     pending: false,

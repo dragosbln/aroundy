@@ -1,31 +1,28 @@
 import requestAC from "./actionCreators";
 import RequestService from "../../services/request";
-import responseTypes from '../../utils/responseTypes'
+import responseTypes from "../../utils/responseTypes";
 
-const getTeamsRequests = teams => async (dispatch, getState) => {
+const getRequests = () => async (dispatch, getState) => {
+  if(getState().requests.apiState.pending){
+    return
+  }
   dispatch(requestAC.pending());
   try {
-
-    const users = []
-
-    teams.forEach(team => {
-      team.Users.forEach(user => {
-        if(!users.includes(user)){
-          users.push(user)
-        }
-      })
-    });
-
+    if(!getState().user.allUsers){
+      throw new Error('No users in Redux!')
+    }
+    const users = getState().user.allUsers
     const requests = [];
-    for (let i=0;i<users.length;i++) {
-      const userRequests = await RequestService.getUserRequest(users[i]);
-      
-      if(userRequests.type === responseTypes.SUCCESS){
+    for (let i = 0; i < users.length; i++) {
+      const userRequests = await RequestService.getUserRequests(users[i].id);
+
+      if (userRequests.type === responseTypes.SUCCESS) {
         requests.push(...userRequests.data);
       } else {
-        throw userRequests
+        throw userRequests;
       }
     }
+
     dispatch(requestAC.success(requests));
   } catch (e) {
     dispatch(requestAC.error(e));
@@ -58,5 +55,5 @@ const cancelRequests = id => async (dispatch, getState) => {
 };
 
 export default {
-  getTeamsRequests
+  getRequests
 };

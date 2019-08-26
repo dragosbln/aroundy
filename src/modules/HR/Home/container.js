@@ -12,7 +12,7 @@ const mapStateTorProps = state => ({
 }); 
 
 const mapDispatchToProps = dispatch => ({
-  getTeamRequests: team => dispatch(requestActions.getTeamRequests(team)),
+  getTeamRequests: user => dispatch(requestActions.getTeamRequests(user)),
   getCountdownHoliday: () => dispatch(holidaysActions.getCountdownHoliday()),
   getCurrentUser: () => dispatch(userActions.getCurrentUser()),
   getAllUsers: () => dispatch(userActions.getAllUsers())

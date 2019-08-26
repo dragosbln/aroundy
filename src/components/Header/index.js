@@ -21,7 +21,7 @@ export default props => {
       <TouchableOpacity style={styles.backContainer}>
         <Icon name="chevron-left" size={35} color="#fff" />
       </TouchableOpacity>
-      <CircularImage source={props.picture} radius={16} border={"yellow"} />
+      <CircularImage source={props.imageSource} radius={16} border={"yellow"} />
     </View>
   );
 

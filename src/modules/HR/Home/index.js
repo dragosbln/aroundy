@@ -26,8 +26,6 @@ export default class Home extends React.Component {
 
 
   render() {
-    console.log('STATEEEE', this.state);
-    
     return (
       <View style={styles.base}>
         <View style={styles.topImageContainer}>
@@ -48,7 +46,7 @@ export default class Home extends React.Component {
         </View>
         <View style={styles.bgCardContainer}>
           <BalanceCard
-            days={this.props.user && this.props.user.Balance.remaining}
+            days={this.props.user && this.props.user.Balance && this.props.user.Balance.remaining}
           />
         </View>
         <View style={styles.mainContainer}>
@@ -60,7 +58,8 @@ export default class Home extends React.Component {
           <View style={styles.listContainer}>
             <FlatList
               data={this.state.requests}
-              renderItem={({ item, index }) => <ListItem request={item} id={index} />}
+              keyExtractor={(item, index) => `hrhome-list-item-${index}`}
+              renderItem={({ item, index }) => <ListItem request={item} />}
               ItemSeparatorComponent={() => <View style={styles.separator} />}
             />
           </View>

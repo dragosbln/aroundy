@@ -24,7 +24,7 @@ const mapDispatchToProps = dispatch => ({
   setTokens: tokens => dispatch(authAC.setTokens(tokens)),
   getCurrentUser: () => dispatch(userActions.getCurrentUser()),
   getAllUsers: () => dispatch(userActions.getAllUsers()),
-  getTeamsRequests: teams => dispatch(requestActions.getTeamsRequests(teams)),
+  getRequests: () => dispatch(requestActions.getRequests()),
   getHolidays: () => dispatch(holidaysActions.getHolidays())
 });
 

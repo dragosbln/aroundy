@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import leaveActions from '../../../redux/leave/actions'
 
 const mapStateToProps = (state) => ({
-    user: state.user.data
+    user: state.user.currentUser
 })
 
 const mapDispatchToProps = (dispatch) => ({

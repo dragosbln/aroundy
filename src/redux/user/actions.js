@@ -1,10 +1,10 @@
 import userAC from "./actionCreators";
 import UserService from "../../services/user";
 import responseTypes from "../../utils/responseTypes";
-import ContractService from '../../services/contract'
+import ContractService from "../../services/contract";
 //TODO: split login - get user logic
 
-getCurrentUser = () => async (dispatch, getState) => {
+const getCurrentUser = () => async (dispatch, getState) => {
   if (getState().user.currentUserApiState.pending) {
     return;
   }
@@ -31,18 +31,38 @@ const getAllUsers = () => async (dispatch, getState) => {
     if (resp.type !== responseTypes.SUCCESS) {
       return dispatch(userAC.allUsersError(resp));
     }
-    const users = resp.data;
-    for (let i = 0; i < users.length; i++){
-        const contractResp = await ContractService.getUserContract(users[i].id)
-        if(contractResp.type !== responseTypes.SUCCESS){
-            throw new Error("couldn't get contract!")
-        }
-        users[i] = {
-            ...users[i],
-            Contract: contractResp.data
-        }
+    dispatch(userAC.allUsersSuccess(resp.data));
+  } catch (e) {
+    console.log("error from redux getCurrentUser", e);
+    dispatch(userAC.allUsersError(e));
+  }
+};
+
+const getAllTeamUsers = () => async (dispatch, getState) => {
+  if (getState().user.allUsersApiState.pending) {
+    return;
+  }
+  dispatch(userAC.allUsersPending());
+  try {
+    const currentUser = getState().user.currentUser;
+    if (!currentUser) {
+      throw new Error("No current user in Redux");
     }
-      dispatch(userAC.allUsersSuccess(resp.data));
+    const teams = currentUser.Teams;
+    const userIds = [];
+    teams.forEach(team => {
+      team.Users.forEach(userId => {
+        if (!userIds.includes(userId) && userId !== currentUser.id) {
+          userIds.push(userId);
+        }
+      });
+    });
+
+    const resp = await UserService.getAllTeamUsers(userIds);
+    if (resp.type !== responseTypes.SUCCESS) {
+      return dispatch(userAC.allUsersError(resp));
+    }
+    dispatch(userAC.allUsersSuccess(resp.data));
   } catch (e) {
     console.log("error from redux getCurrentUser", e);
     dispatch(userAC.allUsersError(e));
@@ -51,5 +71,6 @@ const getAllUsers = () => async (dispatch, getState) => {
 
 export default {
   getCurrentUser,
-  getAllUsers
+  getAllUsers,
+  getAllTeamUsers
 };
