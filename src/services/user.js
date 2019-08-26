@@ -2,14 +2,14 @@ import axios from "axios";
 import mock from "../utils/mockData";
 import store from "../redux/store";
 import serverResponse from "../utils/serverResponse";
-import UserCacheService from './cache/userCache'
+import UserCacheService from "./cache/userCache";
 
 class UserService {
   static _rootPath = "https://aroundy-03.democlient.info";
 
   static getCachedTokens = async () => {
-    return UserCacheService.getTokens()
-  }
+    return UserCacheService.getTokens();
+  };
 
   static login = async (email = "", password) => {
     const formData = {
@@ -29,7 +29,7 @@ class UserService {
       });
 
       if (response.data.success) {
-        UserCacheService.setTokens(response.data.data)
+        UserCacheService.setTokens(response.data.data);
         return serverResponse.success(response.data.data);
       } else {
         throw response;
@@ -51,7 +51,7 @@ class UserService {
       return serverResponse.unauthorized();
     }
 
-    try{
+    try {
       const userResponse = await axios({
         method: "GET",
         url: `${this._rootPath}/auth/current-user`,
@@ -66,7 +66,7 @@ class UserService {
           Requests: mock.requests.filter(
             el => el.user_id === userResponse.data.data.id
           ),
-          Teams: [{id:1,name: 'pisicile salbatice', Users:[1,2,3,4]}]
+          Teams: [{ id: 1, name: "pisicile salbatice", Users: [1, 2, 3, 4] }]
         });
       }
     } catch (e) {
@@ -78,7 +78,6 @@ class UserService {
       }
       throw e;
     }
-    
   };
 
   static getAllUsers = async () => {
@@ -86,7 +85,7 @@ class UserService {
     if (!token) {
       return serverResponse.unauthorized();
     }
-    try{
+    try {
       const userResponse = await axios({
         method: "GET",
         url: `${this._rootPath}/user`,
@@ -96,7 +95,23 @@ class UserService {
         timeout: 3000
       });
       if (userResponse.data.success) {
-        return serverResponse.success(userResponse.data.data);
+        return serverResponse.success(
+          userResponse.data.data.map(user => ({
+            ...user,
+            Requests: mock.requests.filter(req => req.user_id === user.id),
+            Contract: {
+              id: 1,
+              role: 'Awesome Dev'
+            },
+            Teams: [
+              {
+                id: 1,
+                name: 'pisicile salbatice',
+                Users: [1,2,3,4]
+              }
+            ]
+          }))
+        );
       }
     } catch (e) {
       if (e.code === "ECONNABORTED") {
@@ -107,8 +122,7 @@ class UserService {
       }
       throw e;
     }
-  }
+  };
 }
-
 
 export default UserService;

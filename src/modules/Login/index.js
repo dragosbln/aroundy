@@ -94,6 +94,7 @@ export default class Login extends React.Component {
       this.props.currentUser &&
       this.props.users &&
       this.props.requests &&
+      
       this.props.holidays
     ) {
       return this.props.navigation.navigate("HR");
