@@ -191,7 +191,7 @@ export default class Login extends React.Component {
     //   this.state.formConfig.email.value,
     //   this.state.formConfig.password.value
     // );
-    this.props.login('admin@aroundy.com', 'asd')
+    this.props.login('admin@aroundy.com', 'secret')
   };
 
   render() {

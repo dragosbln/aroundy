@@ -6,7 +6,7 @@ const requests = [
     to: "2019-09-05",
     period: 5,
     type: "anual",
-    status: "processed",
+    status: "approved",
     requestApprovals: [
       {
         id: 1,
@@ -22,7 +22,7 @@ const requests = [
     to: "2019-09-22",
     period: 7,
     type: "medical",
-    status: "processed",
+    status: "not-approved",
     requestApprovals: [
       {
         id: 1,
@@ -54,7 +54,7 @@ const requests = [
     to: "2019-07-26",
     period: 7,
     type: "anual",
-    status: "processed",
+    status: "not-approved",
     requestApprovals: [
       {
         id: 1,
@@ -70,7 +70,7 @@ const requests = [
     to: "2019-08-12",
     period: 7,
     type: "anual",
-    status: "processed",
+    status: "approved",
     requestApprovals: [
       {
         id: 1,
@@ -86,7 +86,7 @@ const requests = [
     to: "2019-07-02",
     period: 7,
     type: "anual",
-    status: "processed",
+    status: "not-approved",
     requestApprovals: [
       {
         id: 1,
@@ -102,7 +102,7 @@ const requests = [
     to: "2019-08-23",
     period: 2,
     type: "emergency",
-    status: "processed",
+    status: "not-approved",
     requestApprovals: [
       {
         id: 1,
@@ -118,7 +118,7 @@ const requests = [
     to: "2019-09-01",
     period: 1,
     type: "medical",
-    status: "processed",
+    status: "pending",
     requestApprovals: [
       {
         id: 1,
@@ -160,7 +160,7 @@ const requests = [
     to: "2019-09-01",
     period: 1,
     type: "medical",
-    status: "processed",
+    status: "approved",
     requestApprovals: [
       {
         id: 1,

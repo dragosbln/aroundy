@@ -1,7 +1,6 @@
 import userAC from "./actionCreators";
 import UserService from "../../services/user";
 import responseTypes from "../../utils/responseTypes";
-import ContractService from '../../services/contract'
 //TODO: split login - get user logic
 
 const login = (email, password) => async (dispatch, getState) => {

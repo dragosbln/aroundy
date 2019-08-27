@@ -36,11 +36,11 @@ class UserCacheService {
     const toSave = {
       access_token: {
         token: tokens.access_token,
-        expiresAt: new Date().valueOf() + 7200000
+        expiresAt: new Date().valueOf() + 604800000
       },
       refresh_token: {
         token: tokens.refresh_token,
-        expiresAt: new Date().valueOf() + 604800000
+        expiresAt: new Date().valueOf() + 604800000*30
       }
     };
     StorageService.save(this._tokensKey, toSave);

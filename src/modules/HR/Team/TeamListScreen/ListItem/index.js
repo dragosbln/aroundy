@@ -1,10 +1,10 @@
 import React from "react";
 import { View, Image } from "react-native";
 import styles from "./styles";
-import { checked, checkedActive } from "../../../../..//../assets/images";
-import Text from "../../../../../../components/Text/BaseText";
-import CircularImage from "../../../../../../components/CircularImage";
-import PrimaryButton from "../../../../../../components/Buttons/PrimaryButton";
+import { checked, checkedActive } from "../../../..//../assets/images";
+import Text from "../../../../../components/Text/BaseText";
+import CircularImage from "../../../../../components/CircularImage";
+import PrimaryButton from "../../../../../components/Buttons/PrimaryButton";
 
 export default props => {
   return (

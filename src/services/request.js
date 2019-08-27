@@ -23,26 +23,30 @@ class RequestService{
         }
     }
 
-    static getUserRequests = async (id) => {
-        if(!store.getState().user.allUsers){
-            throw new Error('No users in Redux!')
-        }
+    // static getUserRequests = async (id) => {
+    //     if(!store.getState().user.allUsers){
+    //         throw new Error('No users in Redux!')
+    //     }
 
-        const user = store.getState().user.allUsers.find(user => user.id === id)
+    //     const user = store.getState().user.allUsers.find(user => user.id === id)
 
-        return serverResponse.success(user.Requests)
+    //     return serverResponse.success(user.Requests)
+    // }
+
+    static getRequests = () => {
+        //GET /requests
+        return serverResponse.success(mockData.requests)
     }
-
-    static mergeUserRequests = (users, requests) => {
-        return requests.map(request => {
-            const user = users.find(usr => usr.id === request.user_id)
-            return{
-                ...request,
-                userName: `${user.firstName} ${user.lastName}`,
-                image: user.image
-            }
-        })
-    }
+    // static mergeUserRequests = (users, requests) => {
+    //     return requests.map(request => {
+    //         const user = users.find(usr => usr.id === request.user_id)
+    //         return{
+    //             ...request,
+    //             userName: `${user.firstName} ${user.lastName}`,
+    //             image: user.image
+    //         }
+    //     })
+    // }
 }
 
 export default RequestService

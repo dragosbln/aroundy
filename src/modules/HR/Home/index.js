@@ -6,7 +6,7 @@ import Counter from "../../../components/Counter";
 import { homeBgTop } from "../../../assets/images";
 import HeadingText from "../../../components/Text/HeadingText";
 import ListItem from "./ListItem";
-import RequestService from "../../../services/request";
+// import RequestService from "../../../services/request";
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -16,12 +16,12 @@ export default class Home extends React.Component {
     };
   }
 
-  componentDidMount = () => {
-    this.setState(state => ({
-      ...state,
-      requests: RequestService.mergeUserRequests(this.props.users, this.props.requests)
-    }))
-  };
+  // componentDidMount = () => {
+  //   this.setState(state => ({
+  //     ...state,
+  //     requests: RequestService.mergeUserRequests(this.props.users, this.props.requests)
+  //   }))
+  // };
 
 
 
@@ -57,7 +57,7 @@ export default class Home extends React.Component {
           </View>
           <View style={styles.listContainer}>
             <FlatList
-              data={this.state.requests}
+              data={this.props.requests}
               keyExtractor={(item, index) => `hrhome-list-item-${index}`}
               renderItem={({ item, index }) => <ListItem request={item} />}
               ItemSeparatorComponent={() => <View style={styles.separator} />}

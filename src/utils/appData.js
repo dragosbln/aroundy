@@ -1,16 +1,16 @@
 const leaveTypes = {
-    medical: 'MEDICAL',
-    sickDay: 'SICK DAY',
-    emergency: 'EMERGENCY',
-    bloodDonation: 'BLOOD DONATION',
-    compensatedFreeTime: 'COMPENSATED FREE TIME',
-    anual: 'ANUAL',
-    delegation: 'DELEGATION',
-    bereavement: 'BEREAVEMENT',
-    mariage: 'MARIAGE',
-    noPayment: 'NO PAYMENT',
-    paternat: 'PATERNAL',
-    trainingDay: 'TRAINING DAY'
+    'medical': 'MEDICAL',
+    'sick-day': 'SICK DAY',
+    'emergency': 'EMERGENCY',
+    'bloodDonation': 'BLOOD DONATION',
+    'compensated-free-time': 'COMPENSATED FREE TIME',
+    'annual': 'ANNUAL',
+    'delegation': 'DELEGATION',
+    'bereavement': 'BEREAVEMENT',
+    'mariage': 'MARIAGE',
+    'no-payment': 'NO PAYMENT',
+    'paternal': 'PATERNAL',
+    'training-day': 'TRAINING DAY'
 }
 
 export default {

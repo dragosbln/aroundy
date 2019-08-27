@@ -27,8 +27,10 @@ export default class Home extends React.Component {
       dragging: false,
       panResponder: null,
       approvedRequest: null,
-      pendingRequest: null,
-      rejectedRequest: null,
+      nextHoliday: null,
+      // pendingRequest: null,
+      // rejectedRequest: null,
+      message: "",
       historyData: null
     };
   }
@@ -38,11 +40,7 @@ export default class Home extends React.Component {
       from: request.from,
       to: request.to,
       type: appData.leaveTypes[request.type],
-      //TODO: TEST ASSUMPTION! I assume that if a request is processed, it has an answer from HR.
-      status:
-        request.status === "processed"
-          ? request.requestApprovals.find(reqApp => reqApp.type === "hr").status
-          : "pending"
+      status: request.status
     }));
 
     const futureRequests = historyData.filter(el => moment() < moment(el.from));
@@ -66,9 +64,14 @@ export default class Home extends React.Component {
     }));
   };
 
-  componentDidMount = () => {
+  componentDidMount = async () => {
     this.setupPanResponder();
-    this.getLastRequestStatus();
+    await this.setState(state => ({
+      ...state,
+      nextHoliday: this.props.holidays[0]
+    }));
+    
+    this.setMessage();
     this.initRequestsHistoryData();
   };
 
@@ -97,85 +100,97 @@ export default class Home extends React.Component {
     }));
   };
 
-  getLastRequestStatus = () => {
+  setMessage = () => {
     const approvedRequest = this.props.user.Requests.find(request => {
       if (moment() > moment(request.from)) {
         return false;
       }
-      const approval = request.requestApprovals.find(
-        reqApp => reqApp.status === "approved" && reqApp.type === "hr"
-      );
-      return approval;
+      return request.status === "approved";
     });
-    if (approvedRequest) {
+    
+    if (
+      !approvedRequest ||
+      moment(approvedRequest.from) > moment(this.state.nextHoliday.date.iso)
+    ) {
       return this.setState(state => ({
         ...state,
-        approvedRequest
+        message: "You have no approved requests"
       }));
     }
-    const pendingRequest = this.props.user.Requests.find(
-      request =>
-        request.status !== "processed" && moment() < moment(request.from)
-    );
-    if (pendingRequest) {
-      return this.setState(state => ({
-        ...state,
-        pendingRequest
-      }));
-    }
-    const rejectedRequest = this.props.user.Requests.find(request => {
-      if (moment() > moment(request.from)) {
-        return false;
-      }
-      const approval = request.requestApprovals.find(
-        reqApp => reqApp.status === "not-approved"
-      );
-      return approval;
-    });
-    if (rejectedRequest) {
-      return this.setState(state => ({
-        ...state,
-        rejectedRequest
-      }));
-    }
+
+    this.setState(state => ({
+      ...state,
+      message: `Your request for ${utils.formatInterval(
+        { from: approvedRequest.from, to: approvedRequest.to },
+        true
+      )} was approved.`,
+      approvedRequest
+    }));
+
+    // const pendingRequest = this.props.user.Requests.find(
+    //   request =>
+    //     request.status !== "processed" && moment() < moment(request.from)
+    // );
+    // if (pendingRequest) {
+    //   return this.setState(state => ({
+    //     ...state,
+    //     pendingRequest
+    //   }));
+    // }
+    // const rejectedRequest = this.props.user.Requests.find(request => {
+    //   if (moment() > moment(request.from)) {
+    //     return false;
+    //   }
+    //   const approval = this.props.user.RequestApprovals.find(
+    //     reqApp => reqApp.status === "not-approved"
+    //   );
+    //   return approval;
+    // });
+    // if (rejectedRequest) {
+    //   return this.setState(state => ({
+    //     ...state,
+    //     rejectedRequest
+    //   }));
+    // }
   };
 
   onPressButton = () => {
     //TODO: ask how to navigate between stacks in tab navigator
-    this.props.navigation.navigate('CalendarScreen')
-  }
+    this.props.navigation.navigate("CalendarScreen");
+  };
 
   onPressCancel = () => {
     //TODO: what should happen?
-  }
+  };
 
   render() {
-    let message = "You have no requests";
-    if (this.state.rejectedRequest) {
-      message = `Your request for ${utils.formatInterval(
-        {
-          from: this.state.rejectedRequest.from,
-          to: this.state.rejectedRequest.to
-        },
-        true
-      )} has been rejected.`;
-    } else if (this.state.pendingRequest) {
-      message = `Your request for ${utils.formatInterval(
-        {
-          from: this.state.pendingRequest.from,
-          to: this.state.pendingRequest.to
-        },
-        true
-      )} is pending.`;
-    } else if (this.state.approvedRequest) {
-      message = `Your request for ${utils.formatInterval(
-        {
-          from: this.state.approvedRequest.from,
-          to: this.state.approvedRequest.to
-        },
-        true
-      )} has been approved.`;
-    }
+    // let message = "You have no requests";
+    // if (this.state.rejectedRequest) {
+    //   message = `Your request for ${utils.formatInterval(
+    //     {
+    //       from: this.state.rejectedRequest.from,
+    //       to: this.state.rejectedRequest.to
+    //     },
+    //     true
+    //   )} has been rejected.`;
+    // } else if (this.state.pendingRequest) {
+    //   message = `Your request for ${utils.formatInterval(
+    //     {
+    //       from: this.state.pendingRequest.from,
+    //       to: this.state.pendingRequest.to
+    //     },
+    //     true
+    //   )} is pending.`;
+    // } else
+    // if (this.state.approvedRequest) {
+    //   message = `Your request for ${utils.formatInterval(
+    //     {
+    //       from: this.state.approvedRequest.from,
+    //       to: this.state.approvedRequest.to
+    //     },
+    //     true
+    //   )} has been approved.`;
+    // }
     return (
       <View style={styles.base}>
         <Header
@@ -189,24 +204,35 @@ export default class Home extends React.Component {
           <CircularImage source={this.props.user.image} />
         </View>
         <View style={styles.summaryContainer}>
-          <Text customStyle={styles.summaryTxt}>{message}</Text>
+          <Text customStyle={styles.summaryTxt}>{this.state.message}</Text>
         </View>
 
-        {this.state.approvedRequest && (
+        {this.state.nextHoliday || this.state.approvedRequest ? (
           <View style={styles.counterContainer}>
             <Counter
-              toDate={this.state.approvedRequest.from}
-              name="Vacation Day"
+              toDate={
+                this.state.approvedRequest
+                  ? this.state.approvedRequest.from
+                  : this.state.nextHoliday.date.iso
+              }
+              name={this.state.approvedRequest ? "Vacation Day" : this.state.nextHoliday.name}
               counterStyle={styles.counterStyle}
               footerStyle={styles.footerStyle}
             />
           </View>
-        )}
+        ) : null}
         <View style={styles.cancelContainer}>
-          <TextButton onPress={this.onPressCancel} customStyle={styles.cancelTxt}>Cancel request</TextButton>
+          <TextButton
+            onPress={this.onPressCancel}
+            customStyle={styles.cancelTxt}>
+            Cancel request
+          </TextButton>
         </View>
         <View style={styles.setMeFreeBtn}>
-          <PrimaryButton onPress={this.onPressButton} label="REQUEST A DAY OFF" />
+          <PrimaryButton
+            onPress={this.onPressButton}
+            label="REQUEST A DAY OFF"
+          />
         </View>
         <Animated.View
           style={[
@@ -214,8 +240,7 @@ export default class Home extends React.Component {
             {
               top: Animated.add(this.state.cardTop, this.state.moveTop)
             }
-          ]}
-        >
+          ]}>
           <HistoryCard
             data={this.state.historyData}
             panHandlers={

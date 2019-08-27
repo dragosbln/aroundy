@@ -6,7 +6,6 @@ import Button from "../../../../components/Buttons/BaseButton";
 import { dracu } from "../../../../assets/images";
 import { Calendar, LocaleConfig } from "react-native-calendars";
 import colors from "../../../../assets/theme/colors";
-//TODO: get legend from components
 import Legend from "../../../../components/Legend";
 import Day from "./Day";
 import moment from "moment";
@@ -16,7 +15,6 @@ LocaleConfig.locales["custom"] = {
   ...LocaleConfig.locales[""],
   dayNamesShort: ["S", "M", "T", "W", "T", "F", "S"]
 };
-//TODO: set same gray colors
 LocaleConfig.defaultLocale = "custom";
 
 export default class CalendarSCREEN extends React.Component {
@@ -48,28 +46,41 @@ export default class CalendarSCREEN extends React.Component {
       .forEach(el => {
         let dotColor;
         let type;
-        if (el.status === "processing" || el.status === "pending") {
-          dotColor = colors.yellow;
-          type = "pending";
-        } else {
-          //find HR's approval
-          const approval = el.requestApprovals.find(rapp => rapp.type === "hr");
-          dotColor =
-            approval.status === "approved" ? colors.green : colors.pink;
-          type = approval.status;
+        // if (el.status === "processing" || el.status === "pending") {
+        //   dotColor = colors.yellow;
+        //   type = "pending";
+        // } else {
+        //   //find HR's approval
+        //   const approval = el.requestApprovals.find(rapp => rapp.type === "hr");
+        //   dotColor =
+        //     approval.status === "approved" ? colors.green : colors.pink;
+        //   type = approval.status;
+        // }
+        switch (el.status) {
+          case "processing":
+            dotColor = colors.yellow;
+            break;
+          case "pending":
+            dotColor = colors.yellow;
+            break;
+          case "approved":
+            dotColor = colors.green;
+            break;
+          case "not-approved":
+            dotColor = colors.pink;
+            break;
+          default:
         }
 
         utils.getDatesInterval(el.from, el.to).forEach(date => {
           markedDates[date] = {
             marked: true,
             dotColor,
-            type
+            type: el.status
           };
         });
       });
-      
-    
-      
+
     await this.setState(state => ({
       ...state,
       calendar: {
@@ -80,7 +91,6 @@ export default class CalendarSCREEN extends React.Component {
         }
       }
     }));
-    
   };
 
   initHolidaysMarkers = () => {
@@ -106,9 +116,8 @@ export default class CalendarSCREEN extends React.Component {
   };
 
   componentDidMount = () => {
-    
     this.initMarkedDates();
-      this.initHolidaysMarkers();
+    this.initHolidaysMarkers();
   };
 
   onMonthChange = async date => {
@@ -263,8 +272,10 @@ export default class CalendarSCREEN extends React.Component {
                 moment(dateObj.date.dateString) <= moment() ||
                 [0, 6].includes(moment(dateObj.date.dateString).day()) ||
                 (this.state.calendar.markedDates[dateObj.date.dateString] &&
-                  (this.state.calendar.markedDates[dateObj.date.dateString].type === "approved" ||
-                    this.state.calendar.markedDates[dateObj.date.dateString].type === "holiday"));
+                  (this.state.calendar.markedDates[dateObj.date.dateString]
+                    .type === "approved" ||
+                    this.state.calendar.markedDates[dateObj.date.dateString]
+                      .type === "holiday"));
               return (
                 <Day
                   {...dateObj}
@@ -292,8 +303,7 @@ export default class CalendarSCREEN extends React.Component {
             {
               bottom: this.state.animation.buttonsBottom
             }
-          ]}
-        >
+          ]}>
           <View style={styles.buttonView}>
             <Button onPress={this.onCancelPressed} label="CANCEL" />
           </View>

@@ -7,7 +7,6 @@ import Button from "../../../../components/Buttons/BaseButton";
 import appData from "../../../../utils/appData";
 import utils from "../../../../utils/functions";
 import AnimatedHeading from "../../../../components/AnimatedHeading";
-//TODO: add arrows
 export default class CalendarSCREEN extends React.Component {
   constructor(props) {
     super(props);

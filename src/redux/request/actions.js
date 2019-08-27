@@ -8,22 +8,27 @@ const getRequests = () => async (dispatch, getState) => {
   }
   dispatch(requestAC.pending());
   try {
-    if(!getState().user.allUsers){
-      throw new Error('No users in Redux!')
-    }
-    const users = getState().user.allUsers
-    const requests = [];
-    for (let i = 0; i < users.length; i++) {
-      const userRequests = await RequestService.getUserRequests(users[i].id);
+    // if(!getState().user.allUsers){
+    //   throw new Error('No users in Redux!')
+    // }
+    // const users = getState().user.allUsers
+    // const requests = [];
+    // for (let i = 0; i < users.length; i++) {
+    //   const userRequests = await RequestService.getUserRequests(users[i].id);
 
-      if (userRequests.type === responseTypes.SUCCESS) {
-        requests.push(...userRequests.data);
-      } else {
-        throw userRequests;
-      }
+    //   if (userRequests.type === responseTypes.SUCCESS) {
+    //     requests.push(...userRequests.data);
+    //   } else {
+    //     throw userRequests;
+    //   }
+    // }
+    const requestsResp = RequestService.getRequests()
+    if(requestsResp.type !== responseTypes.SUCCESS){
+      //TODO: handle errors
+      throw new Error('fetch requests failed')
     }
 
-    dispatch(requestAC.success(requests));
+    dispatch(requestAC.success(requestsResp.data));
   } catch (e) {
     dispatch(requestAC.error(e));
   }
