@@ -88,7 +88,7 @@ export default StyleSheet.create({
   },
   listContainer: {
     marginBottom: 92,
-    height: '50%'
+    height: '43%'
   },
   separator: { 
     height: 15 

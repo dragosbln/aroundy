@@ -3,7 +3,7 @@ import types from './responseTypes'
 /**
  * creates a succesfull response object
  */
-const success = (data = {}) => ({
+const success = (data) => ({
     type: types.SUCCESS,
     data
   })

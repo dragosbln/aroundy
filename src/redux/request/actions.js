@@ -1,13 +1,34 @@
 import requestAC from "./actionCreators";
-import mock from '../../utils/mockData'
+import RequestService from "../../services/request";
+import responseTypes from "../../utils/responseTypes";
 
-const getTeamRequests = (team) => async (dispatch, getState) => {
+const getRequests = () => async (dispatch, getState) => {
+  if(getState().requests.apiState.pending){
+    return
+  }
   dispatch(requestAC.pending());
   try {
-    await new Promise(res => setTimeout(res, 1500));
-    //GET team requests
+    // if(!getState().user.allUsers){
+    //   throw new Error('No users in Redux!')
+    // }
+    // const users = getState().user.allUsers
+    // const requests = [];
+    // for (let i = 0; i < users.length; i++) {
+    //   const userRequests = await RequestService.getUserRequests(users[i].id);
 
-    dispatch(requestAC.success(mock.requests));
+    //   if (userRequests.type === responseTypes.SUCCESS) {
+    //     requests.push(...userRequests.data);
+    //   } else {
+    //     throw userRequests;
+    //   }
+    // }
+    const requestsResp = RequestService.getRequests()
+    if(requestsResp.type !== responseTypes.SUCCESS){
+      //TODO: handle errors
+      throw new Error('fetch requests failed')
+    }
+
+    dispatch(requestAC.success(requestsResp.data));
   } catch (e) {
     dispatch(requestAC.error(e));
   }
@@ -39,5 +60,5 @@ const cancelRequests = id => async (dispatch, getState) => {
 };
 
 export default {
-    getTeamRequests
+  getRequests
 };

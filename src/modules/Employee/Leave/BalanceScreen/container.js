@@ -4,7 +4,7 @@ import leaveAC from '../../../../redux/leave/actionCreators'
 
 const mapStateToProps = (state) => ({
     periods: state.leave.periods,
-    balance: state.user.data.Balance.remaining
+    balance: state.user.currentUser.Balance && state.user.currentUser.Balance.remaining
 })
 
 const mapDispatchToProps = (dispatch) => ({

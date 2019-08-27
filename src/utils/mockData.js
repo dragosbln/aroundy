@@ -2,11 +2,11 @@ const requests = [
   {
     id: 1,
     user_id: 1,
-    from: "2019-08-26",
-    to: "2019-08-28",
+    from: "2019-09-01",
+    to: "2019-09-05",
     period: 5,
-    type: "anual",
-    status: "processed",
+    type: "annual",
+    status: "approved",
     requestApprovals: [
       {
         id: 1,
@@ -22,7 +22,7 @@ const requests = [
     to: "2019-09-22",
     period: 7,
     type: "medical",
-    status: "processed",
+    status: "not-approved",
     requestApprovals: [
       {
         id: 1,
@@ -37,7 +37,7 @@ const requests = [
     from: "2019-09-26",
     to: "2019-09-26",
     period: 7,
-    type: "compensatedFreeTime",
+    type: "compensated-free-time",
     status: "pending",
     requestApprovals: [
       {
@@ -53,8 +53,8 @@ const requests = [
     from: "2019-07-26",
     to: "2019-07-26",
     period: 7,
-    type: "anual",
-    status: "processed",
+    type: "annual",
+    status: "not-approved",
     requestApprovals: [
       {
         id: 1,
@@ -69,8 +69,8 @@ const requests = [
     from: "2019-08-06",
     to: "2019-08-12",
     period: 7,
-    type: "anual",
-    status: "processed",
+    type: "annual",
+    status: "approved",
     requestApprovals: [
       {
         id: 1,
@@ -85,8 +85,8 @@ const requests = [
     from: "2019-06-26",
     to: "2019-07-02",
     period: 7,
-    type: "anual",
-    status: "processed",
+    type: "annual",
+    status: "not-approved",
     requestApprovals: [
       {
         id: 1,
@@ -102,7 +102,7 @@ const requests = [
     to: "2019-08-23",
     period: 2,
     type: "emergency",
-    status: "processed",
+    status: "not-approved",
     requestApprovals: [
       {
         id: 1,
@@ -118,7 +118,7 @@ const requests = [
     to: "2019-09-01",
     period: 1,
     type: "medical",
-    status: "processed",
+    status: "pending",
     requestApprovals: [
       {
         id: 1,
@@ -149,7 +149,7 @@ const requests = [
     from: "2019-08-30",
     to: "2019-09-06",
     period: 7,
-    type: "anual",
+    type: "annual",
     status: "pending",
     requestApprovals: []
   },
@@ -160,7 +160,7 @@ const requests = [
     to: "2019-09-01",
     period: 1,
     type: "medical",
-    status: "processed",
+    status: "approved",
     requestApprovals: [
       {
         id: 1,
@@ -198,7 +198,8 @@ const loggedUser = {
   id: 1,
   firstName: "Admin",
   lastName: "Istrator",
-  image: 'https://t2.ea.ltmcdn.com/en/images/6/8/9/happy_dog_names_male_and_female_2986_600.jpg',
+  image:
+    "https://t2.ea.ltmcdn.com/en/images/6/8/9/happy_dog_names_male_and_female_2986_600.jpg",
   email: "admin@aroundy.com",
   status: "active",
   createdAt: "2019-08-13T11:45:14.504Z",
@@ -277,14 +278,16 @@ const loggedUser = {
     updatedAt: "2019-08-13T11:45:14.504Z",
     UserId: 1
   },
-  Contract: null,
+  Contract: {
+    
+  },
   Requests: [...requests.filter(el => el.user_id === 1)],
   RequestApprovals: [],
   Teams: [
     {
       id: 1,
-      name: 'pisicile salbatice',
-      Users: [1,2,3,4]
+      name: "pisicile salbatice",
+      Users: [1, 2, 3, 4]
     }
   ],
   Comments: []
@@ -293,24 +296,41 @@ const loggedUser = {
 bosses = [
   {
     id: 1,
-    name: 'Florina Vasile'
+    name: "Florina Vasile"
   },
   {
     id: 2,
-    name: 'Big Shaq'
+    name: "Big Shaq"
   },
   {
     id: 3,
-    name: 'Alexis Sanchez'
+    name: "Alexis Sanchez"
   },
   {
     id: 4,
-    name: 'Milo Yannoupoulos'
-  },
-]
+    name: "Milo Yannoupoulos"
+  }
+];
+
+const tokens = {
+  access_token:
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZmlyc3ROYW1lIjoiTWl0aWPDoyIsImxhc3ROYW1lIjoiQmxuayIsInJvbGVzIjpbImVtcGxveWVlIl0sInJlcXVlc3RJZCI6IjNmZDhjMzRlLTc4ZTktNDcyZS1iYjBhLTMwNWUxYWVmNmM4OCIsImlhdCI6MTU2NjgwNDU5NywiZXhwIjoxNTY3NDA5Mzk3fQ.gXDgxt3tNdR5EVCyZHMH-jPCrrlDMmhXwxgF5uFt8Qg",
+  refresh_token: ""
+};
+
+const contract = {
+  id: 0,
+  name:'Contract',
+  hiredOn: '2019-04-22',
+  number: 1234,
+  position: 'Awesome Dev',
+  vacationDays: 20
+}
 
 export default {
   requests,
   loggedUser,
-  bosses
+  bosses,
+  tokens,
+  contract
 };

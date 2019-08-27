@@ -80,8 +80,8 @@ const calculateDaysTotal = (intervals = []) => {
   );
 };
 
-updateApiState = (initialState = {}, key='', value=null) => ({
-  ...initialState.apiState,
+updateApiState = (initialState = {}, key='', value=null, apiKey = 'apiState') => ({
+  ...initialState[apiKey],
   [key]: value
 })
 

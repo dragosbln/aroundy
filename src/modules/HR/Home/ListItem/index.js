@@ -5,18 +5,23 @@ import Text from "../../../../components/Text/BaseText";
 import CircularImage from "../../../../components/CircularImage";
 import PrimaryButton from "../../../../components/Buttons/PrimaryButton";
 import Button from "../../../../components/Buttons/BaseButton";
+import utils from '../../../../utils/functions'
+import appData from '../../../../utils/appData'
+//TODO: add profile pics and dates
 
 export default props => {
+  console.log('PROPS IN LIST', props.request.type);
+  
   return (
     <View style={styles.base}>
       <View style={styles.imageContainer}>
-        <CircularImage source={props.profilePic} customStyle={styles.image} />
+        <CircularImage source={props.request.image} customStyle={styles.image} />
       </View>
       <View style={styles.infoContainer}>
-        <Text customStyle={styles.nameTxt}>Ann Andria</Text>
+        <Text customStyle={styles.nameTxt}>{props.request.userName}</Text>
         <Text customStyle={styles.descriptionTxt}>
-          Requested Vacation for{" "}
-          <Text customStyle={styles.dateHighlightTxt}>22-27 February</Text>
+          Requested Vacation ({appData.leaveTypes[props.request.type]}) for{" "}
+          <Text customStyle={styles.dateHighlightTxt}>{utils.formatInterval({from: props.request.from, to: props.request.to}, true)}</Text>
         </Text>
         <Text customStyle={styles.timeTxt}>3 minutes ago</Text>
       </View>

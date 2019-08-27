@@ -15,10 +15,17 @@ export default props => {
     case "approved":
       icon = statusAppropved;
       break;
+    //TODO: is processed === approved? doubt so.
+    case "processed":
+      icon = statusAppropved;
+      break;
     case "not-approved":
       icon = statusRejected;
       break;
     case "pending":
+      icon = statusPending;
+      break;
+    case "processing":
       icon = statusPending;
       break;
     default:

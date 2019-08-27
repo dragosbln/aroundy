@@ -6,20 +6,24 @@ import Counter from "../../../components/Counter";
 import { homeBgTop } from "../../../assets/images";
 import HeadingText from "../../../components/Text/HeadingText";
 import ListItem from "./ListItem";
+// import RequestService from "../../../services/request";
 
 export default class Home extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      requests: []
+    };
   }
 
-  componentDidMount = () => {
-    if (!this.props.countdownHoliday) {
-      this.props.getCountdownHoliday();
-    }
-    if(!this.props.balance){
-      this.props.getCurrentUser()
-    }
-  };
+  // componentDidMount = () => {
+  //   this.setState(state => ({
+  //     ...state,
+  //     requests: RequestService.mergeUserRequests(this.props.users, this.props.requests)
+  //   }))
+  // };
+
+
 
   render() {
     return (
@@ -41,7 +45,9 @@ export default class Home extends React.Component {
           </ImageBackground>
         </View>
         <View style={styles.bgCardContainer}>
-          <BalanceCard days={this.props.balance} />
+          <BalanceCard
+            days={this.props.user && this.props.user.Balance && this.props.user.Balance.remaining}
+          />
         </View>
         <View style={styles.mainContainer}>
           <View style={styles.headingContainer}>
@@ -51,8 +57,9 @@ export default class Home extends React.Component {
           </View>
           <View style={styles.listContainer}>
             <FlatList
-              data={[1, 2, 34, 4, 2, 2]}
-              renderItem={({ item, index }) => <ListItem id={index} />}
+              data={this.props.requests}
+              keyExtractor={(item, index) => `hrhome-list-item-${index}`}
+              renderItem={({ item, index }) => <ListItem request={item} />}
               ItemSeparatorComponent={() => <View style={styles.separator} />}
             />
           </View>
