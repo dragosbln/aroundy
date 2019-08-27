@@ -5,7 +5,7 @@ const requests = [
     from: "2019-09-01",
     to: "2019-09-05",
     period: 5,
-    type: "anual",
+    type: "annual",
     status: "approved",
     requestApprovals: [
       {
@@ -37,7 +37,7 @@ const requests = [
     from: "2019-09-26",
     to: "2019-09-26",
     period: 7,
-    type: "compensatedFreeTime",
+    type: "compensated-free-time",
     status: "pending",
     requestApprovals: [
       {
@@ -53,7 +53,7 @@ const requests = [
     from: "2019-07-26",
     to: "2019-07-26",
     period: 7,
-    type: "anual",
+    type: "annual",
     status: "not-approved",
     requestApprovals: [
       {
@@ -69,7 +69,7 @@ const requests = [
     from: "2019-08-06",
     to: "2019-08-12",
     period: 7,
-    type: "anual",
+    type: "annual",
     status: "approved",
     requestApprovals: [
       {
@@ -85,7 +85,7 @@ const requests = [
     from: "2019-06-26",
     to: "2019-07-02",
     period: 7,
-    type: "anual",
+    type: "annual",
     status: "not-approved",
     requestApprovals: [
       {
@@ -149,7 +149,7 @@ const requests = [
     from: "2019-08-30",
     to: "2019-09-06",
     period: 7,
-    type: "anual",
+    type: "annual",
     status: "pending",
     requestApprovals: []
   },

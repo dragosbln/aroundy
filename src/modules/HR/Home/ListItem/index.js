@@ -10,6 +10,8 @@ import appData from '../../../../utils/appData'
 //TODO: add profile pics and dates
 
 export default props => {
+  console.log('PROPS IN LIST', props.request.type);
+  
   return (
     <View style={styles.base}>
       <View style={styles.imageContainer}>

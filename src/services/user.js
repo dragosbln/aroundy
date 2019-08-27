@@ -1,9 +1,6 @@
-import axios from "axios";
-import mock from "../utils/mockData";
-import store from "../redux/store";
-import serverResponse from "../utils/serverResponse";
+import responseTypes from "../utils/responseTypes";
 import UserCacheService from "./cache/userCache";
-import apiService from './api'
+import apiService from "./api";
 
 class UserService {
   static _rootPath = "https://aroundy-03.democlient.info";
@@ -44,7 +41,16 @@ class UserService {
     //   }
     //   throw e;
     // }
-    return apiService.sendRequest('POST', '/auth/login', formData, false)
+    const tokenResponse = await apiService.sendRequest(
+      "POST",
+      "/auth/login",
+      formData,
+      false
+    );
+    if (tokenResponse.type === responseTypes.SUCCESS) {
+      UserCacheService.setTokens(tokenResponse.data);
+    }
+    return tokenResponse
   };
 
   static getCurrentUser = async () => {
@@ -77,7 +83,7 @@ class UserService {
     //   }
     //   throw e;
     // }
-    return apiService.sendRequest('GET','/auth/current-user')
+    return apiService.sendRequest("GET", "/auth/current-user");
   };
 
   static getAllUsers = async () => {
@@ -128,7 +134,7 @@ class UserService {
     //   }
     //   throw e;
     // }
-    return apiService.sendRequest('GET', '/user')
+    return apiService.sendRequest("GET", "/user");
   };
 
   // static getAllTeamUsers = async userIds => {
