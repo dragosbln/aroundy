@@ -11,7 +11,7 @@ export default StyleSheet.create({
         marginBottom: '8%',
         marginLeft: '7%',
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     text: {
         fontFamily: 'Montserrat-Medium'

@@ -115,7 +115,7 @@ export default class Login extends React.Component {
       this.props.requests &&
       this.props.holidays
     ) {
-      return this.props.navigation.navigate("HR");
+      return this.props.navigation.navigate("PM");
     }
     if (
       this.state.mode === "pm" &&
@@ -126,7 +126,7 @@ export default class Login extends React.Component {
     ) {
       console.log('LOGED AS PM, PROMISE!');
       
-      return this.props.navigation.navigate("HR");
+      return this.props.navigation.navigate("PM");
     }
     if (
       this.state.mode === "employee" &&
@@ -201,7 +201,7 @@ export default class Login extends React.Component {
         <Input
           onChangeText={this.onTextChanged(key)}
           value={formConfig[key].value}
-          gradient
+          gradientColors = {["#FAD961", "#E77A39"]}
           placeholder={formConfig[key].placeholder}
           icon={formConfig[key].icon}
           valid={

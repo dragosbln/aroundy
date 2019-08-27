@@ -6,8 +6,8 @@ import Text from '../Text/BaseText'
 
 export default props => {
   let gradientColors = ["#fff", "#fff"]
-  if(props.gradient){
-    gradientColors = ["#FAD961", "#E77A39"]
+  if(props.gradientColors){
+    gradientColors = props.gradientColors
   }
   if(!props.valid){
     gradientColors = ['#de2626', '#730f08']
@@ -18,9 +18,9 @@ export default props => {
         autoCapitalize='none'
         value={props.value}
         onChangeText={props.onChangeText}
-        style={[styles.textInput, !props.icon && { paddingLeft: 0 }]}
+        style={[styles.textInput, props.textStyle, !props.icon && { paddingLeft: 0 }]}
         placeholder={props.placeholder}
-        placeholderTextColor="#fff"
+        placeholderTextColor={props.placeholderTextColor || "#fff"}
       />
       {props.icon && <Image style={styles.icon} source={props.icon} />}
       <LinearGradient

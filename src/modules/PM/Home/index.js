@@ -17,10 +17,10 @@ export default class Home extends React.Component {
   }
 
   // componentDidMount = () => {
-  //   this.setState(state => ({
-  //     ...state,
-  //     requests: RequestService.mergeUserRequests(this.props.users, this.props.requests)
-  //   }))
+    // this.setState(state => ({
+    //   ...state,
+    //   requests: RequestService.mergeUserRequests(this.props.users, this.props.requests)
+    // }))
   // };
 
 

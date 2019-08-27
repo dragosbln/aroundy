@@ -107,7 +107,7 @@ export default class LoadingScreen extends React.Component {
     ) {
       console.log('LOGED AS PM, PROMISE!');
       
-      return this.props.navigation.navigate("HR");
+      return this.props.navigation.navigate("PM");
     }
     if (
       this.state.mode === "employee" &&
