@@ -10,6 +10,7 @@ import Text from "../../components/Text/BaseText";
 import decodeJwt from "jwt-decode";
 import responseTypes from "../../utils/responseTypes";
 import colors from "../../assets/theme/colors";
+import utils from '../../utils/functions'
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -20,7 +21,7 @@ export default class Login extends React.Component {
           value: "",
           placeholder: "Email",
           icon: emailIcon,
-          valid: true,
+          valid: false,
           touched: false,
           validation: {
             required: true,
@@ -31,14 +32,13 @@ export default class Login extends React.Component {
           value: "",
           placeholder: "Password",
           icon: passwordIcon,
-          valid: true,
+          valid: false,
           touched: false,
           validation: {
             required: true
           }
         }
       },
-      triedSubmit: false
     };
   }
 
@@ -115,7 +115,7 @@ export default class Login extends React.Component {
       this.props.requests &&
       this.props.holidays
     ) {
-      return this.props.navigation.navigate("PM");
+      return this.props.navigation.navigate("HR");
     }
     if (
       this.state.mode === "pm" &&
@@ -137,30 +137,30 @@ export default class Login extends React.Component {
     }
   }
 
-  checkInput = (key, value) => {
-    let valid = true;
-    const elememntConfig = this.state.formConfig[key];
-    if (elememntConfig.validation.required) {
-      valid = valid && value !== "";
-    }
-    if (elememntConfig.validation.email) {
-      valid =
-        valid && /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value);
-    }
+  // checkInput = (key, value) => {
+  //   let valid = true;
+  //   const elememntConfig = this.state.formConfig[key];
+  //   if (elememntConfig.validation.required) {
+  //     valid = valid && value !== "";
+  //   }
+  //   if (elememntConfig.validation.email) {
+  //     valid =
+  //       valid && /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value);
+  //   }
 
-    return valid;
-  };
+  //   return valid; 
+  // };
 
-  checkForm = () => {
-    const formConfig = this.state.formConfig;
-    let validForm = true;
-    for (let key in formConfig) {
-      if (!formConfig[key].valid) {
-        validForm = false;
-      }
-    }
-    return validForm;
-  };
+  // checkForm = () => {
+  //   const formConfig = this.state.formConfig;
+  //   let validForm = true;
+  //   for (let key in formConfig) {
+  //     if (!formConfig[key].valid) {
+  //       validForm = false;
+  //     }
+  //   }
+  //   return validForm;
+  // };
 
   onTextChanged = key => async value => {
     await this.setState(state => ({
@@ -171,20 +171,25 @@ export default class Login extends React.Component {
           ...state.formConfig[key],
           value: value,
           touched: true,
-          valid: this.checkInput(key, value)
+          valid: utils.checkInput(this.state.formConfig, key, value)
         }
       }
     }));
   };
 
   onSubmit = async () => {
-    if (!this.state.triedSubmit) {
-      await this.setState(state => ({
-        ...state,
-        triedSubmit: true
-      }));
+    const formConfig = {...this.state.formConfig}
+    for(let key in formConfig){
+      formConfig[key] = {
+        ...this.state.formConfig[key],
+        touched: true
+      }
     }
-    if (!this.checkForm()) {
+    await this.setState(state => ({
+      ...state,
+      formConfig
+    }));
+    if (!utils.checkForm(this.state.formConfig)) {
       return;
     }
     // this.props.login(
@@ -204,11 +209,7 @@ export default class Login extends React.Component {
           gradientColors = {["#FAD961", "#E77A39"]}
           placeholder={formConfig[key].placeholder}
           icon={formConfig[key].icon}
-          valid={
-            this.state.triedSubmit
-              ? formConfig[key].valid || !formConfig[key].touched
-              : true
-          }
+          valid={formConfig[key].valid || !formConfig[key].touched}
         />
       </View>
     ));

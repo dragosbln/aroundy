@@ -20,14 +20,17 @@ export default class apiService {
       }
     }
 
-    console.log(method, `${this._baseUrl}${url}`, data, token);
+    // console.log('====================================');
+    // console.log(method, `${this._baseUrl}${url}`, data, token);
+    // console.log('====================================');
+
     
 
     try {
       const response = await axios({
         method: method,
         url: `${this._baseUrl}${url}`,
-        data: data !== null ? data : "",
+        data: data !== null ? data : null,
         headers: {
           Authorization: token !== null ? `Bearer ${token}` : ""
         },

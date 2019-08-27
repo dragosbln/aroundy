@@ -29,11 +29,43 @@ const allUsersSuccess = (data) => ({
     payload: data
 })
 
+const createPending = () => ({
+    type: types.CREATE_PENDING
+})
+
+const createError = (err) => ({
+    type: types.CREATE_ERROR,
+    payload: err
+})
+
+const createSuccess = () => ({
+    type: types.CREATE_SUCCESS,
+})
+
+const deletePending = () => ({
+    type: types.DELETE_PENDING
+})
+
+const deleteError = (err) => ({
+    type: types.DELETE_ERROR,
+    payload: err
+})
+
+const deleteSuccess = () => ({
+    type: types.DELETE_SUCCESS,
+})
+
 export default {
     currentUserError,
     currentUserPending,
     currentUserSuccess,
     allUsersError,
     allUsersPending,
-    allUsersSuccess
+    allUsersSuccess,
+    createError,
+    createPending,
+    createSuccess,
+    deleteError,
+    deletePending,
+    deleteSuccess
 }

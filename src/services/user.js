@@ -184,6 +184,14 @@ class UserService {
   //     throw e;
   //   }
   // };
+
+  static createUser = (userData) => {
+    return apiService.sendRequest('POST','/user',userData)
+  }
+
+  static deleteUser = (id) => {
+    return apiService.sendRequest('DELETE',`/user/${id}`)
+  }
 }
 
 export default UserService;
