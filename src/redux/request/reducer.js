@@ -1,33 +1,82 @@
 import types from "./types";
-import utils from '../../utils/functions'
+import utils from "../../utils/functions";
 
 const initialState = {
-  data: null,
-  apiState: {
+  allRequests: null,
+  allRequestsApiState: {
     pending: false,
     success: false,
-    error: false
+    error: null
+  },
+  createApiState: {
+    pending: false,
+    success: false,
+    error: null
   }
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case types.PENDING:
+    case types.ALL_PENDING:
       return {
         ...state,
-        apiState: utils.updateApiState(initialState, "pending", true)
+        allRequestsApiState: utils.updateApiState(
+          initialState,
+          "pending",
+          true,
+          "allRequestsApiState"
+        )
       };
-    case types.ERROR:
+    case types.ALL_ERROR:
       return {
         ...state,
-        apiState: utils.updateApiState(initialState, "error", action.payload)
+        allRequestsApiState: utils.updateApiState(
+          initialState,
+          "error",
+          action.payload,
+          "allRequestsApiState"
+        )
       };
-    case types.SUCCESS:
-      const newData = state.data ? [...state.data, ...action.payload] : [...action.payload]
+    case types.ALL_SUCCESS:
       return {
         ...state,
-        data: newData,
-        apiState: utils.updateApiState(initialState, "success", true)
+        allRequests: action.payload,
+        allRequestsApiState: utils.updateApiState(
+          initialState,
+          "success",
+          true,
+          "allRequestsApiState"
+        )
+      };
+    case types.CREATE_PENDING:
+      return {
+        ...state,
+        createApiState: utils.updateApiState(
+          initialState,
+          "pending",
+          true,
+          "createApiState"
+        )
+      };
+    case types.CREATE_ERROR:
+      return {
+        ...state,
+        createApiState: utils.updateApiState(
+          initialState,
+          "error",
+          action.payload,
+          "createApiState"
+        )
+      };
+    case types.CREATE_SUCCESS:
+      return {
+        ...state,
+        createApiState: utils.updateApiState(
+          initialState,
+          "success",
+          true,
+          "createApiState"
+        )
       };
     default:
       return state;

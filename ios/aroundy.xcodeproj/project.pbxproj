@@ -66,6 +66,7 @@
 		00E356F21AD99517003FC87E /* aroundyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = aroundyTests.m; sourceTree = "<group>"; };
 		1109833A2313D48F00880E27 /* aroundy-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "aroundy-Bridging-Header.h"; sourceTree = "<group>"; };
 		1109833B2313D49000880E27 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		116C6C9F2316BF6E00652810 /* libReact-RCTLinking.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libReact-RCTLinking.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		12A810DC606440A5A2807131 /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		135A7485B230477887025B1E /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* aroundy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = aroundy.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -180,6 +181,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				116C6C9F2316BF6E00652810 /* libReact-RCTLinking.a */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				5B9163B421BA4EC9A415FE9F /* libPods-aroundy.a */,
@@ -774,6 +776,37 @@
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/BVLinearGradient\"",
+					"\"${PODS_ROOT}/Headers/Public/DoubleConversion\"",
+					"\"${PODS_ROOT}/Headers/Public/RNGestureHandler\"",
+					"\"${PODS_ROOT}/Headers/Public/RNReanimated\"",
+					"\"${PODS_ROOT}/Headers/Public/RNSVG\"",
+					"\"${PODS_ROOT}/Headers/Public/RNVectorIcons\"",
+					"\"${PODS_ROOT}/Headers/Public/React-Core\"",
+					"\"${PODS_ROOT}/Headers/Public/React-DevSupport\"",
+					"\"${PODS_ROOT}/Headers/Public/React-RCTActionSheet\"",
+					"\"${PODS_ROOT}/Headers/Public/React-RCTAnimation\"",
+					"\"${PODS_ROOT}/Headers/Public/React-RCTBlob\"",
+					"\"${PODS_ROOT}/Headers/Public/React-RCTImage\"",
+					"\"${PODS_ROOT}/Headers/Public/React-RCTLinking\"",
+					"\"${PODS_ROOT}/Headers/Public/React-RCTNetwork\"",
+					"\"${PODS_ROOT}/Headers/Public/React-RCTSettings\"",
+					"\"${PODS_ROOT}/Headers/Public/React-RCTText\"",
+					"\"${PODS_ROOT}/Headers/Public/React-RCTVibration\"",
+					"\"${PODS_ROOT}/Headers/Public/React-RCTWebSocket\"",
+					"\"${PODS_ROOT}/Headers/Public/React-cxxreact\"",
+					"\"${PODS_ROOT}/Headers/Public/React-fishhook\"",
+					"\"${PODS_ROOT}/Headers/Public/React-jsi\"",
+					"\"${PODS_ROOT}/Headers/Public/React-jsiexecutor\"",
+					"\"${PODS_ROOT}/Headers/Public/React-jsinspector\"",
+					"\"${PODS_ROOT}/Headers/Public/glog\"",
+					"\"${PODS_ROOT}/Headers/Public/lottie-react-native\"",
+					"\"${PODS_ROOT}/Headers/Public/yoga\"",
+					"$(SRCROOT)/../node_modules/react-native/Libraries/LinkingIOS/**",
+				);
 				INFOPLIST_FILE = aroundy/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -798,6 +831,37 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/BVLinearGradient\"",
+					"\"${PODS_ROOT}/Headers/Public/DoubleConversion\"",
+					"\"${PODS_ROOT}/Headers/Public/RNGestureHandler\"",
+					"\"${PODS_ROOT}/Headers/Public/RNReanimated\"",
+					"\"${PODS_ROOT}/Headers/Public/RNSVG\"",
+					"\"${PODS_ROOT}/Headers/Public/RNVectorIcons\"",
+					"\"${PODS_ROOT}/Headers/Public/React-Core\"",
+					"\"${PODS_ROOT}/Headers/Public/React-DevSupport\"",
+					"\"${PODS_ROOT}/Headers/Public/React-RCTActionSheet\"",
+					"\"${PODS_ROOT}/Headers/Public/React-RCTAnimation\"",
+					"\"${PODS_ROOT}/Headers/Public/React-RCTBlob\"",
+					"\"${PODS_ROOT}/Headers/Public/React-RCTImage\"",
+					"\"${PODS_ROOT}/Headers/Public/React-RCTLinking\"",
+					"\"${PODS_ROOT}/Headers/Public/React-RCTNetwork\"",
+					"\"${PODS_ROOT}/Headers/Public/React-RCTSettings\"",
+					"\"${PODS_ROOT}/Headers/Public/React-RCTText\"",
+					"\"${PODS_ROOT}/Headers/Public/React-RCTVibration\"",
+					"\"${PODS_ROOT}/Headers/Public/React-RCTWebSocket\"",
+					"\"${PODS_ROOT}/Headers/Public/React-cxxreact\"",
+					"\"${PODS_ROOT}/Headers/Public/React-fishhook\"",
+					"\"${PODS_ROOT}/Headers/Public/React-jsi\"",
+					"\"${PODS_ROOT}/Headers/Public/React-jsiexecutor\"",
+					"\"${PODS_ROOT}/Headers/Public/React-jsinspector\"",
+					"\"${PODS_ROOT}/Headers/Public/glog\"",
+					"\"${PODS_ROOT}/Headers/Public/lottie-react-native\"",
+					"\"${PODS_ROOT}/Headers/Public/yoga\"",
+					"$(SRCROOT)/../node_modules/react-native/Libraries/LinkingIOS/**",
+				);
 				INFOPLIST_FILE = aroundy/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (

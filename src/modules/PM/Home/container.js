@@ -5,7 +5,7 @@ import holidaysActions from "../../../redux/holidays/actions";
 import userActions from '../../../redux/user/actions'
 
 const mapStateTorProps = state => ({
-  requests: state.requests.data,
+  requests: state.requests.allRequests,
   users: state.user.allUsers,
   countdownHoliday: state.holidays.countdownHoliday,
   user: state.user.currentUser

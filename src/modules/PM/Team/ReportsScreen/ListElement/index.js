@@ -23,7 +23,7 @@ export default props => {
     return(
         <View style={styles.base}>
         <View style={styles.imageContainer}>
-        <CircularImage radius={30} border='red' source={profilePic} />
+        <CircularImage size={60} borderColor='red' borderWidth={4} source={profilePic} />
 
         </View>
             <View style={styles.bar} />

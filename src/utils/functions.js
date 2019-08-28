@@ -85,11 +85,37 @@ updateApiState = (initialState = {}, key='', value=null, apiKey = 'apiState') =>
   [key]: value
 })
 
+const checkForm = (formConfig = {}) => {
+  let validForm = true;
+  for (let key in formConfig) {
+    if (!formConfig[key].valid) {
+      validForm = false;
+    }
+  }
+  return validForm;
+};
+
+const checkInput = (formConfig, key, value) => {
+  let valid = true;
+  const elememntConfig = formConfig[key];
+  if (elememntConfig.validation.required) {
+    valid = valid && value !== "";
+  }
+  if (elememntConfig.validation.email) {
+    valid =
+      valid && /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value);
+  }
+
+  return valid; 
+};
+
 export default {
   getDatesInterval,
   makeDatesInterval,
   formatInterval,
   resetNavigation,
   calculateDaysTotal,
-  updateApiState
+  updateApiState,
+  checkForm,
+  checkInput
 };

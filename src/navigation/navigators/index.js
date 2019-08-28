@@ -1,15 +1,19 @@
 import {createSwitchNavigator} from 'react-navigation'
 
 import Loading from './loading'
-import HR from './tabBar/HR'
+import PM from './tabBar/PM'
 import Employee from './tabBar/employee'
 import Login from './login'
+import HR from './tabBar/HR'
+import SetPassword from './setPassword'
 
 const switchNavigator = createSwitchNavigator({
     Loading,
     Login,
+    PM,
+    Employee,
     HR,
-    Employee
+    SetPassword
 },{
     initialRouteName: 'Loading'
 })

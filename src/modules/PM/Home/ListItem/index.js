@@ -10,15 +10,13 @@ import appData from '../../../../utils/appData'
 //TODO: add profile pics and dates
 
 export default props => {
-  console.log('PROPS IN LIST', props.request.type);
-  
   return (
     <View style={styles.base}>
       <View style={styles.imageContainer}>
-        <CircularImage source={props.request.image} customStyle={styles.image} />
+        <CircularImage source={props.request.User.image} customStyle={styles.image} />
       </View>
       <View style={styles.infoContainer}>
-        <Text customStyle={styles.nameTxt}>{props.request.userName}</Text>
+        <Text customStyle={styles.nameTxt}>{`${props.request.User.firstName} ${props.request.User.lastName}`}</Text>
         <Text customStyle={styles.descriptionTxt}>
           Requested Vacation ({appData.leaveTypes[props.request.type]}) for{" "}
           <Text customStyle={styles.dateHighlightTxt}>{utils.formatInterval({from: props.request.from, to: props.request.to}, true)}</Text>

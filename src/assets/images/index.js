@@ -10,6 +10,8 @@ export const globeActive = require('./globe-active.png')
 export const rocketActive = require('./rocket-active.png')
 export const helmetActive = require('./helmet-active.png')
 export const astronautActive = require('./astronaut-active.png')
+export const settings = require('./settings.png')
+export const settingsActive = require('./settings-active.png')
 
 
 export const homeBgTop = require('./home-bg-top.png')

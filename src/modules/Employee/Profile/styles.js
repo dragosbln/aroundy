@@ -12,8 +12,9 @@ export default StyleSheet.create({
     alignItems: "flex-end"
   },
   textContainerStyle: {
-    marginRight: 50,
-    marginBottom: 20
+    marginRight: 20,
+    marginBottom: 20,
+    width: '50%'
   },
   headerTextStyle:{
     fontSize: 24

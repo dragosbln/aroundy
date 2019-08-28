@@ -4,7 +4,12 @@ import utils from "../../utils/functions";
 
 const initialState = {
   tokens: null,
-  apiState: {
+  loginApiState: {
+    pending: false,
+    success: false,
+    error: null
+  },
+  setPasswordApiState: {
     pending: false,
     success: false,
     error: null
@@ -16,18 +21,18 @@ const reducer = (state = initialState, action) => {
     case types.PENDING:
       return {
         ...state,
-        apiState: utils.updateApiState(initialState, "pending", true)
+        loginApiState: utils.updateApiState(initialState, "pending", true, 'loginApiState')
       };
     case types.ERROR:
       return {
         ...state,
-        apiState: utils.updateApiState(initialState, "error", action.payload)
+        loginApiState: utils.updateApiState(initialState, "error", action.payload, 'loginApiState')
       };
     case types.SET_TOKENS:
       return {
         ...state,
         tokens: action.payload,
-        apiState: utils.updateApiState(initialState, "success", true)
+        loginApiState: utils.updateApiState(initialState, "success", true, 'loginApiState')
       };
     default:
       return state;

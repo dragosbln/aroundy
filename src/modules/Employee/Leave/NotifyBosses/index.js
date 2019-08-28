@@ -25,10 +25,7 @@ export default class CalendarSCREEN extends React.Component {
   }
 
   componentDidMount = () => {
-    const bosses = mockData.bosses.map(el => ({
-      ...el,
-      active: false
-    }));
+    const bosses = this.props.managers;
     this.setState(state => ({
       ...state,
       bosses,
@@ -156,7 +153,7 @@ export default class CalendarSCREEN extends React.Component {
                 onPress={() => this.onItemPressed(index)}
                 id={`${index}`}
                 key={`${index}`}
-                name={item.name}
+                name={`${item.firstName} ${item.lastName}`}
               />
             )}
           />

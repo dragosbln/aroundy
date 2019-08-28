@@ -10,7 +10,7 @@ const success = (data) => ({
 })
 
 const error = (err) => ({
-    type: types.SUCCESS,
+    type: types.ERROR,
     payload: err
 })
 

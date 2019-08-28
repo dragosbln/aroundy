@@ -19,9 +19,14 @@ const success = (data) => ({
     type: types.TIMEOUT
   })
   
+  const nonexistent = () => ({
+    type: types.NONEXISTENT
+  })
+
   export default {
     success,
     unauthorized,
-    timeout
+    timeout,
+    nonexistent
   };
   

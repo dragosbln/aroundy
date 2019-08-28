@@ -20,14 +20,17 @@ export default class apiService {
       }
     }
 
-    console.log(method, `${this._baseUrl}${url}`, data, token);
+    // console.log('====================================');
+    // console.log(method, `${this._baseUrl}${url}`, data, token);
+    // console.log('====================================');
+
     
 
     try {
       const response = await axios({
         method: method,
         url: `${this._baseUrl}${url}`,
-        data: data !== null ? data : "",
+        data: data !== null ? data : null,
         headers: {
           Authorization: token !== null ? `Bearer ${token}` : ""
         },
@@ -46,6 +49,9 @@ export default class apiService {
       }
       if (e.response && e.response.status === 401) {
         return serverResponse.unauthorized();
+      }
+      if (e.response && e.response.data && e.response.data.message === "Cannot read property 'password' of null") {
+        return serverResponse.nonexistent();
       }
       throw e;
     }

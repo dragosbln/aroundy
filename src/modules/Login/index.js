@@ -10,6 +10,7 @@ import Text from "../../components/Text/BaseText";
 import decodeJwt from "jwt-decode";
 import responseTypes from "../../utils/responseTypes";
 import colors from "../../assets/theme/colors";
+import utils from '../../utils/functions'
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -20,7 +21,7 @@ export default class Login extends React.Component {
           value: "",
           placeholder: "Email",
           icon: emailIcon,
-          valid: true,
+          valid: false,
           touched: false,
           validation: {
             required: true,
@@ -31,7 +32,7 @@ export default class Login extends React.Component {
           value: "",
           placeholder: "Password",
           icon: passwordIcon,
-          valid: true,
+          valid: false,
           touched: false,
           validation: {
             required: true
@@ -44,6 +45,7 @@ export default class Login extends React.Component {
 
   componentDidMount() {
     this.props.getCountdownHoliday();
+    this.props.getHolidays()
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -55,112 +57,101 @@ export default class Login extends React.Component {
       this.props.setCountdownHoliday(this.props.countdownHoliday);
     }
 
-    if (prevProps.tokens !== this.props.tokens) {
-      const decoded = decodeJwt(this.props.tokens.access_token);
+    if (prevProps.authTokens !== this.props.authTokens) {
+      const decoded = decodeJwt(this.props.authTokens.access_token);
+      this.props.getCurrentUser();
+      this.props.getManagers();
+
       if (decoded.roles.includes("human-resources")) {
         this.setState(state => ({
           ...state,
           mode: "hr"
         }));
-        this.props.getCurrentUser();
-        this.props.getHolidays();
+
         return;
-        // return this.props.navigation.navigate("HR");
       }
       if (decoded.roles.includes("project-manager")) {
         this.setState(state => ({
           ...state,
           mode: "pm"
         }));
-        this.props.getCurrentUser();
-        this.props.getHolidays();
         return;
-        // return this.props.navigation.navigate("HR");
       }
-      //TODO: PM
       this.setState(state => ({
         ...state,
         mode: "employee"
       }));
-      this.props.getCurrentUser();
-      this.props.getHolidays();
       return;
-      // return this.props.navigation.navigate("Employee");
     }
 
-    if(this.state.mode === 'pm' && this.props.currentUser && !this.props.users){
-      //TODO: ask how to get team users, as PM
-      this.props.getAllTeamUsers()
-    }
-
-    if(this.state.mode === 'hr' && this.props.currentUser && !this.props.users){
-      //TODO: ask how to get team users, as PM
-      this.props.getAllUsers()
-    }
 
     if (
-      (this.state.mode === "hr" || this.state.mode === 'pm') &&
-      this.props.currentUser &&
-      this.props.users &&
-      !this.props.requests &&
-      !this.props.getRequestsPending
+      this.state.mode === "pm" &&
+      this.props.authTokens &&
+      !this.props.users
     ) {
-      this.props.getRequests();
+      //TODO: check out this method
+      this.props.getAllTeamUsers();
     }
 
     if (
       this.state.mode === "hr" &&
+      this.props.authTokens &&
       this.props.currentUser &&
-      this.props.users &&
-      this.props.requests &&
-      this.props.holidays
+      !this.props.users
     ) {
-      return this.props.navigation.navigate("HR");
+      this.props.getAllUsers();
     }
+
     if (
-      this.state.mode === "pm" &&
-      this.props.currentUser &&
-      this.props.users &&
-      this.props.requests &&
-      this.props.holidays
+      (this.state.mode === "hr" || this.state.mode === "pm") &&
+      this.props.authTokens &&
+      !this.props.allRequests
     ) {
-      console.log('LOGED AS PM, PROMISE!');
-      
-      return this.props.navigation.navigate("HR");
+      this.props.getAllRequests();
     }
+
     if (
-      this.state.mode === "employee" &&
       this.props.currentUser &&
-      this.props.holidays
+      this.props.holidays &&
+      this.props.managers
     ) {
-      return this.props.navigation.navigate("Employee");
+      if (this.state.mode === "hr" && this.props.users && this.props.allRequests) {
+        return this.props.navigation.navigate("HR");
+      }
+      if (this.state.mode === "pm" && this.props.users && this.props.allRequests) {
+        return this.props.navigation.navigate("PM");
+      }
+      if(this.state.mode === 'employee'){
+        return this.props.navigation.navigate("Employee");
+      }
     }
   }
 
-  checkInput = (key, value) => {
-    let valid = true;
-    const elememntConfig = this.state.formConfig[key];
-    if (elememntConfig.validation.required) {
-      valid = valid && value !== "";
-    }
-    if (elememntConfig.validation.email) {
-      valid =
-        valid && /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value);
-    }
+  // checkInput = (key, value) => {
+  //   let valid = true;
+  //   const elememntConfig = this.state.formConfig[key];
+  //   if (elememntConfig.validation.required) {
+  //     valid = valid && value !== "";
+  //   }
+  //   if (elememntConfig.validation.email) {
+  //     valid =
+  //       valid && /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value);
+  //   }
 
-    return valid;
-  };
+  //   return valid; 
+  // };
 
-  checkForm = () => {
-    const formConfig = this.state.formConfig;
-    let validForm = true;
-    for (let key in formConfig) {
-      if (!formConfig[key].valid) {
-        validForm = false;
-      }
-    }
-    return validForm;
-  };
+  // checkForm = () => {
+  //   const formConfig = this.state.formConfig;
+  //   let validForm = true;
+  //   for (let key in formConfig) {
+  //     if (!formConfig[key].valid) {
+  //       validForm = false;
+  //     }
+  //   }
+  //   return validForm;
+  // };
 
   onTextChanged = key => async value => {
     await this.setState(state => ({
@@ -171,22 +162,28 @@ export default class Login extends React.Component {
           ...state.formConfig[key],
           value: value,
           touched: true,
-          valid: this.checkInput(key, value)
+          valid: utils.checkInput(this.state.formConfig, key, value)
         }
       }
     }));
   };
 
   onSubmit = async () => {
-    if (!this.state.triedSubmit) {
-      await this.setState(state => ({
-        ...state,
-        triedSubmit: true
-      }));
-    }
-    if (!this.checkForm()) {
-      return;
-    }
+    // const formConfig = {...this.state.formConfig}
+    // for(let key in formConfig){
+    //   formConfig[key] = {
+    //     ...this.state.formConfig[key],
+    //     touched: true
+    //   }
+    // }
+    // await this.setState(state => ({
+    //   ...state,
+    //   formConfig,
+    //   triedSubmit: true
+    // }));
+    // if (!utils.checkForm(this.state.formConfig)) {
+    //   return;
+    // }
     // this.props.login(
     //   this.state.formConfig.email.value,
     //   this.state.formConfig.password.value
@@ -194,24 +191,23 @@ export default class Login extends React.Component {
     this.props.login('admin@aroundy.com', 'secret')
   };
 
-  render() {
+  renderForm(){
     const formConfig = this.state.formConfig;
-    const form = Object.keys(formConfig).map((key, index) => (
+    return Object.keys(formConfig).sort().map((key, index) => (
       <View key={index} style={styles.input}>
         <Input
           onChangeText={this.onTextChanged(key)}
           value={formConfig[key].value}
-          gradient
+          gradientColors = {["#FAD961", "#E77A39"]}
           placeholder={formConfig[key].placeholder}
           icon={formConfig[key].icon}
-          valid={
-            this.state.triedSubmit
-              ? formConfig[key].valid || !formConfig[key].touched
-              : true
-          }
+          valid={this.state.triedSubmit ? (formConfig[key].valid || !formConfig[key].touched) : true}
         />
       </View>
     ));
+  }
+
+  render() {
     let status = null;
     if (this.props.pending) {
       status = <ActivityIndicator size="small" color={colors.orange} />;
@@ -221,13 +217,20 @@ export default class Login extends React.Component {
       this.props.error.type === responseTypes.UNAUTHORIZED
     ) {
       status = (
-        <Text customStyle={styles.errorTxt}>Invalid user/password!</Text>
+        <Text customStyle={styles.errorTxt}>Invalid password!</Text>
       );
     }
     if (this.props.error && this.props.error.type === responseTypes.TIMEOUT) {
       status = (
         <Text customStyle={styles.errorTxt}>
           Server didn't respond. Check your internet connection!
+        </Text>
+      );
+    }
+    if (this.props.error && this.props.error.type === responseTypes.NONEXISTENT) {
+      status = (
+        <Text customStyle={styles.errorTxt}>
+          This email is not registered.
         </Text>
       );
     }
@@ -238,7 +241,7 @@ export default class Login extends React.Component {
         </View>
         <View style={styles.statusContainer}>{status}</View>
         <View style={styles.inputsContainer}>
-          {form}
+          {this.renderForm()}
           <View style={styles.textBtn}>
             <TextButton customStyle={styles.textBtnTxt}>
               forgot pass?

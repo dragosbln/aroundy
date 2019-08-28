@@ -10,13 +10,13 @@ export default props => {
       style={[
         styles.base,
         props.customStyle,
-        props.border && {
-          borderWidth: 4,
-          borderColor: props.border
+        props.borderWidth && {
+          borderWidth: props.borderWidth,
+          borderColor: props.borderColor || '#000'
         },
-        props.radius && {
-          width: props.radius * 2,
-          height: props.radius * 2
+        props.size && {
+          width: props.size,
+          height: props.size
         }
       ]}
     />
