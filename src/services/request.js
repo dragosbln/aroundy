@@ -1,4 +1,4 @@
-import axios from 'axios'
+import apiService from './api'
 import mockData from '../utils/mockData'
 import serverResponse from '../utils/serverResponse'
 import store from '../redux/store'
@@ -35,7 +35,7 @@ class RequestService{
 
     static getRequests = () => {
         //GET /requests
-        return serverResponse.success(mockData.requests)
+        return apiService.sendRequest('GET', '/request')
     }
     // static mergeUserRequests = (users, requests) => {
     //     return requests.map(request => {

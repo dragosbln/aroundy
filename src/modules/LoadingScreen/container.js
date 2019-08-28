@@ -5,15 +5,18 @@ import requestActions from "../../redux/request/actions";
 import holidaysActions from "../../redux/holidays/actions";
 import userActions from '../../redux/user/actions'
 import authAC from "../../redux/auth/actionCreators";
+import teamActions from '../../redux/team/actions'
 
 const mapStateToProps = state => ({
-  tokens: state.app.tokens,
+  cacheTokens: state.app.tokens,
+  authTokens: state.auth.tokens,
   countdownHoliday: state.app.countdownHoliday,
-  requests: state.requests.data,
+  allRequests: state.requests.allRequests,
   users: state.user.allUsers,
   currentUser: state.user.currentUser,
-  getRequestsPending: state.requests.apiState.pending,
-  holidays: state.holidays.data
+  // getRequestsPending: state.requests.apiState.pending,
+  holidays: state.holidays.data,
+  managers: state.team.managers
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -24,8 +27,9 @@ const mapDispatchToProps = dispatch => ({
   setTokens: tokens => dispatch(authAC.setTokens(tokens)),
   getCurrentUser: () => dispatch(userActions.getCurrentUser()),
   getAllUsers: () => dispatch(userActions.getAllUsers()),
-  getRequests: () => dispatch(requestActions.getRequests()),
-  getHolidays: () => dispatch(holidaysActions.getHolidays())
+  getAllRequests: () => dispatch(requestActions.getAllRequests()),
+  getHolidays: () => dispatch(holidaysActions.getHolidays()),
+  getManagers: () => dispatch(teamActions.getManagers())
 });
 
 export default connect(

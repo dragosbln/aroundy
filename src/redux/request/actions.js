@@ -2,35 +2,21 @@ import requestAC from "./actionCreators";
 import RequestService from "../../services/request";
 import responseTypes from "../../utils/responseTypes";
 
-const getRequests = () => async (dispatch, getState) => {
-  if(getState().requests.apiState.pending){
+
+const getAllRequests = () => async (dispatch, getState) => {
+  if(getState().requests.allRequestsApiState.pending){
     return
   }
-  dispatch(requestAC.pending());
+  dispatch(requestAC.allRequestsPending());
   try {
-    // if(!getState().user.allUsers){
-    //   throw new Error('No users in Redux!')
-    // }
-    // const users = getState().user.allUsers
-    // const requests = [];
-    // for (let i = 0; i < users.length; i++) {
-    //   const userRequests = await RequestService.getUserRequests(users[i].id);
-
-    //   if (userRequests.type === responseTypes.SUCCESS) {
-    //     requests.push(...userRequests.data);
-    //   } else {
-    //     throw userRequests;
-    //   }
-    // }
-    const requestsResp = RequestService.getRequests()
+    const requestsResp = await RequestService.getRequests()
     if(requestsResp.type !== responseTypes.SUCCESS){
-      //TODO: handle errors
-      throw new Error('fetch requests failed')
+      dispatch(requestAC.allRequestsError(requestsResp));
     }
 
-    dispatch(requestAC.success(requestsResp.data));
+    dispatch(requestAC.allRequestsSuccess(requestsResp.data.filter(req => req.user_id !== getState().user.currentUser.id)));
   } catch (e) {
-    dispatch(requestAC.error(e));
+    dispatch(requestAC.allRequestsError(e));
   }
 };
 
@@ -60,5 +46,5 @@ const cancelRequests = id => async (dispatch, getState) => {
 };
 
 export default {
-  getRequests
+  getAllRequests
 };
