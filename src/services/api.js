@@ -50,6 +50,9 @@ export default class apiService {
       if (e.response && e.response.status === 401) {
         return serverResponse.unauthorized();
       }
+      if (e.response && e.response.data && e.response.data.message === "Cannot read property 'password' of null") {
+        return serverResponse.nonexistent();
+      }
       throw e;
     }
   };

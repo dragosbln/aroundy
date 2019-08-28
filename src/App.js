@@ -18,7 +18,6 @@ const App = () => {
   return (
     <Provider store={store}>
       <AppContainer />
-
     </Provider>
   );
 };

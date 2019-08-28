@@ -27,6 +27,12 @@ export default class ManageUsers extends React.Component {
     this.props.navigation.navigate({routeName: 'CreateUser'})
   }
 
+  componentDidUpdate = (prevProps) => {
+    if(this.props.deleteSuccess && prevProps.deleteSuccess !== this.props.deleteSuccess){
+      this.props.getAllUsers()
+    }
+  }
+
   render() {
     return (
       <View style={styles.base}>

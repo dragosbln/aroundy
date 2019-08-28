@@ -5,15 +5,17 @@ import PM from './tabBar/PM'
 import Employee from './tabBar/employee'
 import Login from './login'
 import HR from './tabBar/HR'
+import SetPassword from './setPassword'
 
 const switchNavigator = createSwitchNavigator({
     Loading,
     Login,
     PM,
     Employee,
-    HR
+    HR,
+    SetPassword
 },{
-    initialRouteName: 'Loading'
+    initialRouteName: 'SetPassword'
 })
 
 export default switchNavigator

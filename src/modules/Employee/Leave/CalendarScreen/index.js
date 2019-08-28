@@ -93,6 +93,7 @@ export default class CalendarSCREEN extends React.Component {
     }));
   };
 
+  //TODO: fix periods select
   initHolidaysMarkers = () => {
     const newMarkedDates = { ...this.state.calendar.markedDates };
     this.props.holidays.forEach(holiday => {

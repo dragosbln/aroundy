@@ -43,7 +43,9 @@ export default StyleSheet.create({
   },
   picker: {
     width: '65%',
-    fontFamily: 'Montserrat'
+    fontFamily: 'Montserrat',
+    marginTop: -20,
+    zIndex: -1
   },
   errorText: {
     color: colors.pink
@@ -53,6 +55,11 @@ export default StyleSheet.create({
     width: '110%',
     height: '110%',
     bottom: -90,
-    zIndex: -1
+    zIndex: -1,
+  },
+  animationContainerIOS: {
+    width: '100%',
+    height: '100%',
+    transform: [{rotate: '90deg'}]
   }
 });

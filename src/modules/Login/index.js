@@ -39,6 +39,7 @@ export default class Login extends React.Component {
           }
         }
       },
+      triedSubmit: false
     };
   }
 
@@ -178,20 +179,21 @@ export default class Login extends React.Component {
   };
 
   onSubmit = async () => {
-    const formConfig = {...this.state.formConfig}
-    for(let key in formConfig){
-      formConfig[key] = {
-        ...this.state.formConfig[key],
-        touched: true
-      }
-    }
-    await this.setState(state => ({
-      ...state,
-      formConfig
-    }));
-    if (!utils.checkForm(this.state.formConfig)) {
-      return;
-    }
+    // const formConfig = {...this.state.formConfig}
+    // for(let key in formConfig){
+    //   formConfig[key] = {
+    //     ...this.state.formConfig[key],
+    //     touched: true
+    //   }
+    // }
+    // await this.setState(state => ({
+    //   ...state,
+    //   formConfig,
+    //   triedSubmit: true
+    // }));
+    // if (!utils.checkForm(this.state.formConfig)) {
+    //   return;
+    // }
     // this.props.login(
     //   this.state.formConfig.email.value,
     //   this.state.formConfig.password.value
@@ -199,9 +201,9 @@ export default class Login extends React.Component {
     this.props.login('admin@aroundy.com', 'secret')
   };
 
-  render() {
+  renderForm(){
     const formConfig = this.state.formConfig;
-    const form = Object.keys(formConfig).map((key, index) => (
+    return Object.keys(formConfig).sort().map((key, index) => (
       <View key={index} style={styles.input}>
         <Input
           onChangeText={this.onTextChanged(key)}
@@ -209,10 +211,16 @@ export default class Login extends React.Component {
           gradientColors = {["#FAD961", "#E77A39"]}
           placeholder={formConfig[key].placeholder}
           icon={formConfig[key].icon}
-          valid={formConfig[key].valid || !formConfig[key].touched}
+          valid={this.state.triedSubmit ? (formConfig[key].valid || !formConfig[key].touched) : true}
         />
       </View>
     ));
+  }
+
+  render() {
+    console.log('====================================');
+    console.log(this.props);
+    console.log('====================================');
     let status = null;
     if (this.props.pending) {
       status = <ActivityIndicator size="small" color={colors.orange} />;
@@ -222,13 +230,20 @@ export default class Login extends React.Component {
       this.props.error.type === responseTypes.UNAUTHORIZED
     ) {
       status = (
-        <Text customStyle={styles.errorTxt}>Invalid user/password!</Text>
+        <Text customStyle={styles.errorTxt}>Invalid password!</Text>
       );
     }
     if (this.props.error && this.props.error.type === responseTypes.TIMEOUT) {
       status = (
         <Text customStyle={styles.errorTxt}>
           Server didn't respond. Check your internet connection!
+        </Text>
+      );
+    }
+    if (this.props.error && this.props.error.type === responseTypes.NONEXISTENT) {
+      status = (
+        <Text customStyle={styles.errorTxt}>
+          This email is not registered.
         </Text>
       );
     }
@@ -239,7 +254,7 @@ export default class Login extends React.Component {
         </View>
         <View style={styles.statusContainer}>{status}</View>
         <View style={styles.inputsContainer}>
-          {form}
+          {this.renderForm()}
           <View style={styles.textBtn}>
             <TextButton customStyle={styles.textBtnTxt}>
               forgot pass?

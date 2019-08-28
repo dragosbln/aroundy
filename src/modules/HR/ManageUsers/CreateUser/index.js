@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Picker, ActivityIndicator } from "react-native";
+import { View, Picker, ActivityIndicator, Platform } from "react-native";
 import styles from "./styles";
 import Header from "../../../../components/Header";
 import { teamHeaderBg } from "../../../../assets/images";
@@ -72,41 +72,42 @@ export default class ManageUsers extends React.Component {
     }));
   };
 
-  componentDidUpdate = async (prevProps) => {
-    if(prevProps.success !== this.props.success){
-      await new Promise(res => setTimeout(res, 4050))
-      this.props.navigation.navigate('UsersList')
-    }
+  //TODO: fix animation timing
+  nextScreen = () => {
+    this.props.navigation.navigate('UsersList')
   }
 
+  
+
   onSubmit = async () => {
-    const formConfig = { ...this.state.formConfig };
-    for (let key in formConfig) {
-      formConfig[key] = {
-        ...this.state.formConfig[key],
-        touched: true
-      };
-    }
-    await this.setState(state => ({
-      ...state,
-      formConfig
-    }));
-    if (!utils.checkForm(this.state.formConfig)) {
-      return;
-    }
-    const userData = {
-      email: formConfig.email.value,
-      firstName: formConfig.firstName.value,
-      lastName: formConfig.lastName.value,
-      role: this.state.picker.selectedValue
-    }
-    this.props.createUser(userData)
-    // this.props.createUser({
-    //   email: 'test@testovich.com',
-    //   firstName: 'formConfig.firstName.value',
-    //   lastName: 'formConfig.lastName.value',
-    //   role: 'employee'
-    // })
+    // const formConfig = { ...this.state.formConfig };
+    // for (let key in formConfig) {
+    //   formConfig[key] = {
+    //     ...this.state.formConfig[key],
+    //     touched: true
+    //   };
+    // }
+    // await this.setState(state => ({
+    //   ...state,
+    //   formConfig,
+    //    triedSubmit: true
+    // }));
+    // if (!utils.checkForm(this.state.formConfig)) {
+    //   return;
+    // }
+    // const userData = {
+    //   email: formConfig.email.value,
+    //   firstName: formConfig.firstName.value,
+    //   lastName: formConfig.lastName.value,
+    //   role: this.state.picker.selectedValue
+    // }
+    // this.props.createUser(userData)
+    this.props.createUser({
+      email: 'dragos.bilaniuc.around25+1@gmail.com',
+      firstName: 'test',
+      lastName: 'testovich',
+      role: 'employee'
+    })
   };
 
   renderForm() {
@@ -122,7 +123,7 @@ export default class ManageUsers extends React.Component {
           gradientColors={[colors.gray_primary, colors.gray_light]}
           textStyle={styles.textStyle}
           placeholderTextColor={colors.gray_primary}
-          valid={formConfig[key].valid || !formConfig[key].touched}
+          valid={this.state.triedSubmit ? (formConfig[key].valid || !formConfig[key].touched) : true}
         />
       </View>
     ));
@@ -155,8 +156,8 @@ export default class ManageUsers extends React.Component {
       <View style={styles.base}>
         <Header bg={teamHeaderBg} title="Manage Users" />
         {this.props.success ? (
-          <View style={styles.animationContainer}>
-            <LottieView source={rocket} autoPlay loop={false}/>
+          <View style={[styles.animationContainer, Platform.OS === 'ios' && styles.animationContainerIOS]}>
+            <LottieView source={rocket} autoPlay onAnimationFinish={this.nextScreen} loop={false}/>
           </View>
         ) : (
           <>

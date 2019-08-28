@@ -9,17 +9,16 @@ export default StyleSheet.create({
   contentContainer: {
     height: '100%',
     width: '100%',
-    marginTop: '10%',
     alignItems: "center",
 
   },
   listContainer: {
     width: '100%',
-    height: '50%'
+    height: '55%'
   },
   buttonContainer: {
     height: 60,
-    marginTop: 30,
+    marginTop: 10,
     width: '80%'
   },
   buttonTextStyle: {

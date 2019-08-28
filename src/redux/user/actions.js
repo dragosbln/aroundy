@@ -30,7 +30,8 @@ const getAllUsers = () => async (dispatch, getState) => {
     if (resp.type !== responseTypes.SUCCESS) {
       return dispatch(userAC.allUsersError(resp));
     }
-    dispatch(userAC.allUsersSuccess(resp.data));
+    //FIXME: fix filter
+    dispatch(userAC.allUsersSuccess(resp.data.filter(user => user.status!=='inactive')));
   } catch (e) {
     console.log("error from redux getCurrentUser", e);
     dispatch(userAC.allUsersError(e));
@@ -97,7 +98,6 @@ const deleteUser = (id) => async (dispatch, getState) => {
       return dispatch(userAC.deleteError(resp));
     }
     dispatch(userAC.deleteSuccess());
-    dispatch(getAllUsers())
   }catch (e) {
     console.log("error from redux deleteUser", {e});
     dispatch(userAC.deleteError(e));

@@ -8,8 +8,8 @@ import userActions from '../../redux/user/actions'
 import { connect } from "react-redux";
 
 const mapStateToProps = state => ({
-  error: state.auth.apiState.error,
-  pending: state.auth.apiState.pending,
+  error: state.auth.loginApiState.error,
+  pending: state.auth.loginApiState.pending,
   tokens: state.auth.tokens,
   countdownHoliday: state.app.countdownHoliday,
   requests: state.requests.data,
