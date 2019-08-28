@@ -51,28 +51,28 @@ export default class Login extends React.Component {
   //   this.props.getCountdownHoliday();
   // }
 
-  componentDidMount() {
-    if (Platform.OS === "android") {
-      Linking.getInitialURL().then(url => {
-        console.log("YAOOOOO", url);
-      });
-    } else {
-      Linking.addEventListener("url", this.handleOpenURL);
-    }
-  }
+  // componentDidMount() {
+  //   if (Platform.OS === "android") {
+  //     Linking.getInitialURL().then(url => {
+  //       console.log("YAOOOOO", url);
+  //     });
+  //   } else {
+  //     Linking.addEventListener("url", this.handleOpenURL);
+  //   }
+  // }
 
-  componentWillUnmount() {
-    Linking.removeEventListener("url", this.handleOpenURL);
-  }
-  handleOpenURL = event => {
-    console.log("YAOOOOO", event);
-  };
+  // componentWillUnmount() {
+  //   Linking.removeEventListener("url", this.handleOpenURL);
+  // }
+  // handleOpenURL = event => {
+  //   console.log("YAOOOOO", event);
+  // };
 
-  componentDidUpdate = (prevProps, prevState) => {
-    if (prevProps === this.props) {
-      return;
-    }
-  };
+  // componentDidUpdate = (prevProps, prevState) => {
+  //   if (prevProps === this.props) {
+  //     return;
+  //   }
+  // };
 
   // checkInput = (key, value) => {
   //   let valid = true;
