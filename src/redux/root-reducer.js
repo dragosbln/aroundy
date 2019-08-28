@@ -5,6 +5,7 @@ import holidays from './holidays/reducer'
 import leave from './leave/reducer'
 import requests from './request/reducer'
 import app from './app/reducer'
+import team from './team/reducer'
 
 export default combineReducers({
     auth,
@@ -12,5 +13,6 @@ export default combineReducers({
     holidays,
     leave,
     requests,
-    app
+    app,
+    team
 })

@@ -65,6 +65,7 @@ export default class Login extends React.Component {
         }));
         this.props.getCurrentUser();
         this.props.getHolidays();
+        this.props.getManagers();
         return;
         // return this.props.navigation.navigate("HR");
       }
@@ -75,6 +76,7 @@ export default class Login extends React.Component {
         }));
         this.props.getCurrentUser();
         this.props.getHolidays();
+        this.props.getManagers();
         return;
         // return this.props.navigation.navigate("HR");
       }
@@ -85,6 +87,7 @@ export default class Login extends React.Component {
       }));
       this.props.getCurrentUser();
       this.props.getHolidays();
+      this.props.getManagers();
       return;
       // return this.props.navigation.navigate("Employee");
     }
@@ -114,7 +117,8 @@ export default class Login extends React.Component {
       this.props.currentUser &&
       this.props.users &&
       this.props.requests &&
-      this.props.holidays
+      this.props.holidays &&
+      this.props.managers
     ) {
       return this.props.navigation.navigate("HR");
     }
@@ -123,7 +127,8 @@ export default class Login extends React.Component {
       this.props.currentUser &&
       this.props.users &&
       this.props.requests &&
-      this.props.holidays
+      this.props.holidays &&
+      this.props.managers
     ) {
       console.log('LOGED AS PM, PROMISE!');
       
@@ -132,7 +137,8 @@ export default class Login extends React.Component {
     if (
       this.state.mode === "employee" &&
       this.props.currentUser &&
-      this.props.holidays
+      this.props.holidays &&
+      this.props.managers
     ) {
       return this.props.navigation.navigate("Employee");
     }

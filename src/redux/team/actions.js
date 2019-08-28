@@ -1,19 +1,21 @@
 import teamAC from './actionCreators'
+import TeamService from '../../services/team'
+import responseTypes from '../../utils/responseTypes'
 
 const getManagers = () => async (dispatch, getState) => {
     if(getState().user.createApiState.pending){
         return
       }
-      dispatch(userAC.createPending())
+      dispatch(teamAC.pending())
       try{
-        const resp = await UserService.createUser(userData)
+        const resp = await TeamService.getManagers()
         if (resp.type !== responseTypes.SUCCESS) {
-          return dispatch(userAC.createError(resp));
+          return dispatch(teamAC.error(resp));
         }
-        dispatch(userAC.createSuccess());
+        dispatch(teamAC.success(resp.data));
       }catch (e) {
-        console.log("error from redux createUser", e.response);
-        dispatch(userAC.createError(e));
+        console.log("error from redux getTeam", e.response);
+        dispatch(teamAC.error(e));
         // dispatch(userAC.createSuccess());
       }
 }

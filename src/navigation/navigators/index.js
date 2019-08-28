@@ -15,7 +15,7 @@ const switchNavigator = createSwitchNavigator({
     HR,
     SetPassword
 },{
-    initialRouteName: 'SetPassword'
+    initialRouteName: 'Login'
 })
 
 export default switchNavigator

@@ -18,7 +18,7 @@ console.disableYellowBox=true
 class App extends React.Component {
   async componentDidMount() {
       const initialURL = await Linking.getInitialURL()
-      Alert.alert('initialURL', initialURL)
+      // Alert.alert('initialURL', initialURL)
       Linking.addEventListener("url", this.handleOpenURL);
   }
 

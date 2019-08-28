@@ -1,9 +1,11 @@
 import {connect} from 'react-redux'
 import NotifyBosses from './'
 import leaveAC from '../../../../redux/leave/actionCreators'
+import teamActions from '../../../../redux/team/actions'
 
 const mapStateToProps = (state) => ({
-    periods: state.leave.periods
+    periods: state.leave.periods,
+    managers: state.team.managers
 })
 
 const mapDispatchToProps = (dispatch) => ({

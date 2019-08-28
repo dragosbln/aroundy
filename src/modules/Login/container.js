@@ -4,6 +4,7 @@ import appActions from "../../redux/app/actions";
 import requestActions from "../../redux/request/actions";
 import holidaysActions from "../../redux/holidays/actions";
 import userActions from '../../redux/user/actions'
+import teamActions from '../../redux/team/actions'
 
 import { connect } from "react-redux";
 
@@ -16,7 +17,8 @@ const mapStateToProps = state => ({
   users: state.user.allUsers,
   currentUser: state.user.currentUser,
   getRequestsPending: state.requests.apiState.pending,
-  holidays: state.holidays.data
+  holidays: state.holidays.data,
+  managers: state.team.managers
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -28,7 +30,8 @@ const mapDispatchToProps = dispatch => ({
   getAllUsers: () => dispatch(userActions.getAllUsers()),
   getRequests: () => dispatch(requestActions.getRequests()),
   getHolidays: () => dispatch(holidaysActions.getHolidays()),
-  getAllTeamUsers: () => dispatch(userActions.getAllTeamUsers())
+  getAllTeamUsers: () => dispatch(userActions.getAllTeamUsers()),
+  getManagers: () => dispatch(teamActions.getManagers())
 });
 
 export default connect(
