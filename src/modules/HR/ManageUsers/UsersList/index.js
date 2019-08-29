@@ -10,6 +10,8 @@ import { SwipeListView } from "react-native-swipe-list-view";
 import ListItem from "./ListItem";
 import ListHiddenItem from "./ListHiddenItem";
 
+//URGENT: show confirm delete modal
+
 export default class ManageUsers extends React.Component {
   onDeletePress = (index, rowMap, rowKey) => {
     if(rowMap[rowKey]){
@@ -29,7 +31,7 @@ export default class ManageUsers extends React.Component {
 
   componentDidUpdate = (prevProps) => {
     if(this.props.deleteSuccess && prevProps.deleteSuccess !== this.props.deleteSuccess){
-      this.props.getAllUsers()
+      this.props.getTeamMembers()
     }
   }
 
@@ -47,6 +49,7 @@ export default class ManageUsers extends React.Component {
                 <ListItem
                   name={`${item.firstName} ${item.lastName}`}
                   role={item.Contract ? item.Contract.role : ""}
+                  inactive={item.status === 'inactive'}
                   imageSource={item.image}
                 />
               )}

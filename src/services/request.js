@@ -1,18 +1,21 @@
 import apiService from './api'
-import mockData from '../utils/mockData'
-import serverResponse from '../utils/serverResponse'
-import store from '../redux/store'
+import moment from 'moment'
 //TODO: add logic
 
 class RequestService{
     static baseUrl = 'https://aroundy-03.democlient.info'
 
-    static sendRequest = async (request) => {
-        //logic here
-        await new Promise(res => setTimeout(res, 500))
-        return {
-            success: true
+    static sendUserRequest = async (request) => {
+        const formattedRequest = {
+            from: moment(request.from).format('DD/MM/YYYY'),
+            to: moment(request.to).format('DD/MM/YYYY'),
+            type: request.type,
+            half_day: request.from === request.to ? request.halfDay : null,
+            notify: request.notify,
+            comment: request.comment
         }
+        
+        return apiService.sendRequest('POST', '/user/request',formattedRequest)
     }
 
     static cancelRequest = async (request) => {
@@ -23,30 +26,18 @@ class RequestService{
         }
     }
 
-    // static getUserRequests = async (id) => {
-    //     if(!store.getState().user.allUsers){
-    //         throw new Error('No users in Redux!')
-    //     }
-
-    //     const user = store.getState().user.allUsers.find(user => user.id === id)
-
-    //     return serverResponse.success(user.Requests)
-    // }
 
     static getRequests = () => {
-        //GET /requests
-        return apiService.sendRequest('GET', '/request')
+        return apiService.sendRequest('GET', '/request/approval')
     }
-    // static mergeUserRequests = (users, requests) => {
-    //     return requests.map(request => {
-    //         const user = users.find(usr => usr.id === request.user_id)
-    //         return{
-    //             ...request,
-    //             userName: `${user.firstName} ${user.lastName}`,
-    //             image: user.image
-    //         }
-    //     })
-    // }
+
+    static setRequestApproved = (id, approved) => {
+        const data = {
+            status: approved ? 'approved' : 'not-approved'
+        }
+        return apiService.sendRequest('PUT',`/request/approval/${id}`, data)
+    }
+
 }
 
 export default RequestService

@@ -155,12 +155,11 @@ export default class Home extends React.Component {
   };
 
   onPressButton = () => {
-    //TODO: ask how to navigate between stacks in tab navigator
-    this.props.navigation.navigate("CalendarScreen");
+    this.props.navigation.navigate("Leave");
   };
 
   onPressCancel = () => {
-    //TODO: what should happen?
+    //TODO: implement cancel logic
   };
 
   render() {

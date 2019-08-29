@@ -15,7 +15,6 @@ export default props => {
     case "approved":
       icon = statusAppropved;
       break;
-    //TODO: is processed === approved? doubt so.
     case "processed":
       icon = statusAppropved;
       break;

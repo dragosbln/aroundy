@@ -18,13 +18,25 @@ const createPending = () => ({
     type: types.CREATE_PENDING
 })
 
-const createSuccess = (requests) => ({
+const createSuccess = () => ({
     type: types.CREATE_SUCCESS,
-    payload: requests
 })
 
 const createError = (err) => ({
     type: types.CREATE_ERROR,
+    payload: err
+})
+
+const approvalPending = () => ({
+    type: types.APPROVAL_PENDING
+})
+
+const approvalSuccess = () => ({
+    type: types.APPROVAL_SUCCESS,
+})
+
+const approvalError = (err) => ({
+    type: types.APPROVAL_ERROR,
     payload: err
 })
 
@@ -34,5 +46,8 @@ export default {
     createSuccess,
     allRequestsError,
     allRequestsPending,
-    allRequestsSuccess
+    allRequestsSuccess,
+    approvalError,
+    approvalPending,
+    approvalSuccess
 }

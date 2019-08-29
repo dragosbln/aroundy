@@ -1,7 +1,6 @@
 import userAC from "./actionCreators";
 import UserService from "../../services/user";
 import responseTypes from "../../utils/responseTypes";
-//TODO: split login - get user logic
 
 const getCurrentUser = () => async (dispatch, getState) => {
   if (getState().user.currentUserApiState.pending) {
@@ -30,8 +29,7 @@ const getAllUsers = () => async (dispatch, getState) => {
     if (resp.type !== responseTypes.SUCCESS) {
       return dispatch(userAC.allUsersError(resp));
     }
-    //FIXME: fix filter
-    dispatch(userAC.allUsersSuccess(resp.data.filter(user => user.status!=='inactive')));
+    dispatch(userAC.allUsersSuccess(resp.data));
   } catch (e) {
     console.log("error from redux getCurrentUser", e);
     dispatch(userAC.allUsersError(e));

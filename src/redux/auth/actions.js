@@ -1,7 +1,6 @@
 import userAC from "./actionCreators";
 import UserService from "../../services/user";
 import responseTypes from "../../utils/responseTypes";
-//TODO: split login - get user logic
 
 const login = (email, password) => async (dispatch, getState) => {
   if (getState().auth.loginApiState.pending) {

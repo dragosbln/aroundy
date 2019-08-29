@@ -2,10 +2,10 @@ import types from "./types";
 import utils from '../../utils/functions'
 
 const mockData = [
-  { id: 0, from: "2019-08-23", to: "2019-08-23", halfDay: true },
-  { id: 1, from: "2019-09-02", to: "2019-09-05" },
-  { id: 2, from: "2019-09-10", to: "2019-09-11" },
-  { id: 3, from: "2019-09-13", to: "2019-09-13" }
+  { id: 0, from: "2019-09-23", to: "2019-09-25", type: 'medical', notify: [1], comment: 'nada' },
+  // { id: 1, from: "2019-09-02", to: "2019-09-05" },
+  // { id: 2, from: "2019-09-10", to: "2019-09-11" },
+  // { id: 3, from: "2019-09-13", to: "2019-09-13" }
 ];
 
 const initialState = {
@@ -77,7 +77,7 @@ const reducer = (state = initialState, action) => {
       newState.periods = [...state.periods];
       newState.periods[action.payload.id] = {
         ...newState.periods[action.payload.id],
-        bosses: action.payload.bosses
+        notify: action.payload.bosses
       };
 
       return newState;

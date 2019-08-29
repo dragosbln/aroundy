@@ -47,7 +47,6 @@ class UserCacheService {
   };
 
   // static getRefreshToken = async () => {
-  //     //TODO: token expiry logic
   //     const tokenData = await StorageService.get(this._refreshTokenKey)
   //     if(!tokenData){
   //         return null

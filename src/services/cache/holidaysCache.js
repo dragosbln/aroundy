@@ -7,7 +7,7 @@ class holidaysCacheService {
   static save = (holidays = {}) => {
     const data = {
       holidays,
-      expiresAt: new Date().valueOf() + 604800000
+      expiresAt: new Date().valueOf() + 604800000 * 4
     };
     storageService.save(this._key, data);
   };
@@ -32,7 +32,7 @@ class holidaysCacheService {
   };
 
   static setCountdownHoliday = (countdownHoliday = {}) => {
-      storageService.save(this._countdownKey, countdownHoliday)
+    storageService.save(this._countdownKey, countdownHoliday);
   };
 }
 
