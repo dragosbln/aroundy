@@ -2,20 +2,19 @@ import Home from "./";
 import { connect } from "react-redux";
 import requestActions from "../../../redux/request/actions";
 import holidaysActions from "../../../redux/holidays/actions";
-import userActions from '../../../redux/user/actions'
 
 const mapStateTorProps = state => ({
   requests: state.requests.allRequests,
   users: state.user.allUsers,
   countdownHoliday: state.holidays.countdownHoliday,
-  user: state.user.currentUser
+  user: state.user.currentUser,
+  requestApprovalSucccess: state.requests.approvalApiState.success
 }); 
 
 const mapDispatchToProps = dispatch => ({
-  getTeamRequests: user => dispatch(requestActions.getTeamRequests(user)),
   getCountdownHoliday: () => dispatch(holidaysActions.getCountdownHoliday()),
-  getCurrentUser: () => dispatch(userActions.getCurrentUser()),
-  getAllUsers: () => dispatch(userActions.getAllUsers())
+  setRequestApproved: (id, approved) => dispatch(requestActions.setRequestApproved(id, approved)),
+  getAllRequests: () => dispatch(requestActions.getAllRequests())
 });
 
 export default connect(

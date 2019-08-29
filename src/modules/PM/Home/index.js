@@ -7,23 +7,22 @@ import { homeBgTop } from "../../../assets/images";
 import HeadingText from "../../../components/Text/HeadingText";
 import ListItem from "./ListItem";
 // import RequestService from "../../../services/request";
-
+//TODO: show approved/rejected in list
 export default class Home extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      requests: []
-    };
+
+  componentDidUpdate = (prevProps) => {
+    if(prevProps === this.props){
+      return
+    }
+    if(!prevProps.requestApprovalSucccess && this.props.requestApprovalSucccess){
+      this.props.getAllRequests()
+    }
   }
 
-  // componentDidMount = () => {
-    // this.setState(state => ({
-    //   ...state,
-    //   requests: RequestService.mergeUserRequests(this.props.users, this.props.requests)
-    // }))
-  // };
-
-
+  setRequestApproved = (id, approved) => {
+    this.props.setRequestApproved(id, approved);
+    this.setState
+  };
 
   render() {
     return (
@@ -46,7 +45,11 @@ export default class Home extends React.Component {
         </View>
         <View style={styles.bgCardContainer}>
           <BalanceCard
-            days={this.props.user && this.props.user.Balance && this.props.user.Balance.remaining}
+            days={
+              this.props.user &&
+              this.props.user.Balance &&
+              this.props.user.Balance.remaining
+            }
           />
         </View>
         <View style={styles.mainContainer}>
@@ -59,7 +62,17 @@ export default class Home extends React.Component {
             <FlatList
               data={this.props.requests}
               keyExtractor={(item, index) => `hrhome-list-item-${index}`}
-              renderItem={({ item, index }) => <ListItem request={item} />}
+              renderItem={({ item, index }) => (
+                <ListItem
+                  request={item}
+                  onApprovePress={() =>
+                    this.setRequestApproved(item.Request.id, true)
+                  }
+                  onRejectPress={() =>
+                    this.setRequestApproved(item.Request.id, false)
+                  }
+                />
+              )}
               ItemSeparatorComponent={() => <View style={styles.separator} />}
             />
           </View>

@@ -17,6 +17,8 @@ LocaleConfig.locales["custom"] = {
 };
 LocaleConfig.defaultLocale = "custom";
 
+
+//URGENT: fix multi select
 export default class CalendarSCREEN extends React.Component {
   constructor(props) {
     super(props);

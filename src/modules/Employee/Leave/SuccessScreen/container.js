@@ -1,17 +1,18 @@
 import {connect} from 'react-redux'
 import SuccessScreen from './'
-import actions from '../../../../redux/leave/actions'
+import requestActions from '../../../../redux/request/actions'
+import userActions from '../../../../redux/user/actions'
 
 const mapStateToProps = (state) => ({
     periods: state.leave.periods,
-    pending: state.leave.apiState.pending,
-    success: state.leave.apiState.success,
-    error: state.leave.apiState.error
+    createPending: state.requests.createApiState.pending,
+    createSuccess: state.requests.createApiState.success,
+    createError: state.requests.createApiState.error
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    sendRequests: () => dispatch(actions.sendRequest()),
-    cancelRequests: () => dispatch(actions.cancelRequests())
+    createRequest: (request) => dispatch(requestActions.sendRequest(request)),
+    refreshUser: () => dispatch(userActions.getCurrentUser())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SuccessScreen)

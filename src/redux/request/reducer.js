@@ -12,6 +12,11 @@ const initialState = {
     pending: false,
     success: false,
     error: null
+  },
+  approvalApiState: {
+    pending: false,
+    success: false,
+    error: null
   }
 };
 
@@ -76,6 +81,36 @@ const reducer = (state = initialState, action) => {
           "success",
           true,
           "createApiState"
+        )
+      };
+      case types.APPROVAL_PENDING:
+      return {
+        ...state,
+        approvalApiState: utils.updateApiState(
+          initialState,
+          "pending",
+          true,
+          "approvalApiState"
+        )
+      };
+    case types.APPROVAL_ERROR:
+      return {
+        ...state,
+        approvalApiState: utils.updateApiState(
+          initialState,
+          "error",
+          action.payload,
+          "approvalApiState"
+        )
+      };
+    case types.APPROVAL_SUCCESS:
+      return {
+        ...state,
+        approvalApiState: utils.updateApiState(
+          initialState,
+          "success",
+          true,
+          "approvalApiState"
         )
       };
     default:

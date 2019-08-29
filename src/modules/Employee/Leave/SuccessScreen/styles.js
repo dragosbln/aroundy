@@ -92,6 +92,10 @@ export default StyleSheet.create({
   cancelTxt: {
     color: colors.orange,
     fontSize: 18
+  },
+  animationContainer: {
+    height: '75%',
+    width: '100%'
   }
 
 });

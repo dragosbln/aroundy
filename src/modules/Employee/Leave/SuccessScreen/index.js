@@ -8,10 +8,20 @@ import TextButton from "../../../../components/Buttons/TextButton";
 import { scale, askQuestion } from "../../../../assets/images";
 import utils from "../../../../utils/functions";
 import colors from '../../../../assets/theme/colors'
+import LottieView from 'lottie-react-native'
+import {loadingRocket} from '../../../../assets/animations'
 
 export default class CalendarSCREEN extends React.Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      sendingRequestIndex: 0,
+      sendingDone: false
+    }
+  } 
+
   componentDidMount() {
-    this.sendRequests()
+    this.startSendRequests()
   }
 
   sendRequests = () => {
@@ -27,10 +37,38 @@ export default class CalendarSCREEN extends React.Component {
     utils.resetNavigation(this.props.navigation, 'CalendarScreen')
   }
 
+  startSendRequests = () => {
+    this.props.createRequest(this.props.periods[0])
+  }
+
+  componentDidUpdate = async (prevProps, prevState) => {
+    if(prevProps === this.props){
+      return
+    }
+    console.log(prevProps, this.props);
+    
+    if(!prevProps.createSuccess && this.props.createSuccess){
+      await this.setState(state => ({
+        ...state,
+        sendingRequestIndex: state.sendingRequestIndex + 1
+      }))
+      
+      if(this.state.sendingRequestIndex < this.props.periods.length){
+        this.props.createRequest(this.props.periods[this.state.sendingRequestIndex])
+      } else {
+        this.props.refreshUser()
+        await new Promise(res => setTimeout(res, 3000))
+        this.setState(state => ({
+          ...state,
+          sendingDone: true
+        }))
+      }
+    }
+  }
+
   render() {
     let toRender = (
       <>
-        <Header title="Success" />
         <View style={styles.balanceContainer}>
           <View style={styles.row}>
             <View style={styles.rowName}>
@@ -74,14 +112,19 @@ export default class CalendarSCREEN extends React.Component {
       </>
     );
 
-    if (this.props.pending) {
+    let headerMessage = `Sending your request${this.props.periods.length > 1 ? 's' : ''}...`
+    if(this.state.sendingDone){
+      headerMessage='Success'
+    }
+    if (!this.state.sendingDone) {
       toRender= (
-        <View style={styles.contentContainer}>
-          <ActivityIndicator size='large' color={colors.orange} />
+        <View style={styles.animationContainer}>
+          <LottieView source={loadingRocket} autoPlay />
         </View>
       )
     }
     if(this.props.error) {
+      headerMessage='Error'
       toRender = (
         <View style={styles.contentContainer}>
           <Text>Something went wrong!</Text>
@@ -90,6 +133,10 @@ export default class CalendarSCREEN extends React.Component {
       )
     }
 
-    return <View style={styles.base}>{toRender}</View>;
+    return <View style={styles.base}>
+        <Header title={headerMessage} />
+
+    {toRender}
+    </View>;
   }
 }

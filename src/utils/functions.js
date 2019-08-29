@@ -109,6 +109,32 @@ const checkInput = (formConfig, key, value) => {
   return valid; 
 };
 
+const timePassedFrom = (date) => {
+  const target = moment(date)
+  const now = moment()
+  const duration = moment.duration(now - target)
+  
+  if(Math.floor(duration.asYears())>0){
+    return `${Math.floor(duration.asYears())} year${Math.floor(duration.asYears()) > 1 ? 's' : ''} ago`
+  }
+  if(Math.floor(duration.asMonths())>0){
+    return `${Math.floor(duration.asMonths())} month${Math.floor(duration.asMonths()) > 1 ? 's' : ''} ago`
+  }
+  if(Math.floor(duration.asWeeks())>0){
+    return `${Math.floor(duration.asWeeks())} week${Math.floor(duration.asWeeks()) > 1 ? 's' : ''} ago`
+  }
+  if(Math.floor(duration.asDays())>0){
+    return `${Math.floor(duration.asDays())} day${Math.floor(duration.asDays()) > 1 ? 's' : ''} ago`
+  }
+  if(Math.floor(duration.asHours())>0){
+    return `${Math.floor(duration.asHours())} hour${Math.floor(duration.asHours()) > 1 ? 's' : ''} ago`
+  }
+  if(Math.floor(duration.asMinutes())>0){
+    return `${Math.floor(duration.asMinutes())} minute${Math.floor(duration.asMinutes()) > 1 ? 's' : ''} ago`
+  }
+  
+}
+
 export default {
   getDatesInterval,
   makeDatesInterval,
@@ -117,5 +143,6 @@ export default {
   calculateDaysTotal,
   updateApiState,
   checkForm,
-  checkInput
+  checkInput,
+  timePassedFrom
 };

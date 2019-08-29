@@ -10,6 +10,8 @@ import { SwipeListView } from "react-native-swipe-list-view";
 import ListItem from "./ListItem";
 import ListHiddenItem from "./ListHiddenItem";
 
+//URGENT: show confirm delete modal
+
 export default class ManageUsers extends React.Component {
   onDeletePress = (index, rowMap, rowKey) => {
     if(rowMap[rowKey]){
