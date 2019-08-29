@@ -3,8 +3,7 @@ import {
   ImageBackground,
   View,
   ActivityIndicator,
-  Platform,
-  Linking
+  Alert
 } from "react-native";
 import { loginBg } from "../../assets/images";
 import styles from "./styles";
@@ -51,15 +50,9 @@ export default class Login extends React.Component {
   //   this.props.getCountdownHoliday();
   // }
 
-  // componentDidMount() {
-  //   if (Platform.OS === "android") {
-  //     Linking.getInitialURL().then(url => {
-  //       console.log("YAOOOOO", url);
-  //     });
-  //   } else {
-  //     Linking.addEventListener("url", this.handleOpenURL);
-  //   }
-  // }
+  componentDidMount() {
+    Alert.alert('propssiees', this.props.passwordToken)
+  }
 
   // componentWillUnmount() {
   //   Linking.removeEventListener("url", this.handleOpenURL);
@@ -99,6 +92,12 @@ export default class Login extends React.Component {
   //   return validForm;
   // };
 
+  componentDidUpdate = (prevProps) => {
+    if(!prevProps.setPasswordSuccess && this.props.setPasswordSuccess){
+      this.props.navigation.navigate({routeName: 'Login'})
+    }
+  }
+
   onTextChanged = key => async value => {
     await this.setState(state => ({
       ...state,
@@ -115,26 +114,29 @@ export default class Login extends React.Component {
   };
 
   onSubmit = async () => {
-    const formConfig = { ...this.state.formConfig };
-    for (let key in formConfig) {
-      formConfig[key] = {
-        ...this.state.formConfig[key],
-        touched: true
-      };
-    }
-    await this.setState(state => ({
-      ...state,
-      formConfig,
-      triedSubmit: true
-    }));
-    if (!utils.checkForm(this.state.formConfig)) {
-      return;
-    }
+    // const formConfig = { ...this.state.formConfig };
+    // for (let key in formConfig) {
+    //   formConfig[key] = {
+    //     ...this.state.formConfig[key],
+    //     touched: true
+    //   };
+    // }
+    // await this.setState(state => ({
+    //   ...state,
+    //   formConfig,
+    //   triedSubmit: true
+    // }));
+    // if (!utils.checkForm(this.state.formConfig)) {
+    //   return;
+    // }
+    //FIXME: check password matching
+    this.props.setPassword('secret')
     // this.props.login(
     //   this.state.formConfig.email.value,
     //   this.state.formConfig.password.value
     // );
     // this.props.login('admin@aroundy.com', 'secret')
+
   };
 
   renderForm() {

@@ -103,10 +103,29 @@ const deleteUser = (id) => async (dispatch, getState) => {
   }
 }
 
+const setPassword = (password) => async (dispatch, getState) => {
+  if(getState().user.deleteApiState.pending){
+    return
+  }
+  dispatch(userAC.setPasswordPending())
+  try{
+    const resp = await UserService.setPassword(password)
+    if (resp.type !== responseTypes.SUCCESS) {
+      return dispatch(userAC.setPasswordError(resp));
+    }
+    dispatch(userAC.setPasswordSuccess());
+  }catch (e) {
+    console.log("error from redux deleteUser", {e});
+    dispatch(userAC.setPasswordError(e));
+    // dispatch(userAC.createSuccess());
+  }
+}
+
 export default {
   getCurrentUser,
   getAllUsers,
   createUser,
-  deleteUser
+  deleteUser,
+  setPassword
   // getAllTeamUsers
 };

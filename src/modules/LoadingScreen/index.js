@@ -1,5 +1,5 @@
 import React from "react";
-import { ImageBackground, View } from "react-native";
+import { ImageBackground, View, Linking, Alert } from "react-native";
 import styles from "./styles";
 import { loginBg } from "../../assets/images";
 import LottieView from "lottie-react-native";
@@ -14,15 +14,37 @@ export default class LoadingScreen extends React.Component {
     };
   }
 
-  componentDidMount = async () => {
-    // await new Promise(res => setTimeout(res, 3000));
-    this.props.getCountdownHoliday();
-    this.props.getCachedTokens();
+  // componentDidMount = async () => {
+  //   // await new Promise(res => setTimeout(res, 3000));
+  //   this.props.getCountdownHoliday();
+  //   this.props.getCachedTokens();
+  // };
+  async componentDidMount() {
+    const initialURL = await Linking.getInitialURL();
+
+    Linking.addEventListener("url", this.handleOpenURL);
+    if (initialURL) {
+      this.props.setPasswordToken(initialURL.split('token=')[1])
+    } else {
+      this.props.getCountdownHoliday();
+      this.props.getCachedTokens();
+    }
+  }
+
+  componentWillUnmount() {
+    Linking.removeEventListener("url", this.handleOpenURL);
+  }
+  handleOpenURL = event => {
+    this.props.setPasswordToken(event.url.split('token=')[1])
   };
 
   componentDidUpdate = prevProps => {
     if (prevProps === this.props) {
       return;
+    }
+
+    if(!prevProps.passwordToken && this.props.passwordToken){
+      this.props.navigation.navigate("SetPassword");
     }
 
     if (prevProps.countdownHoliday !== this.props.countdownHoliday) {
@@ -82,18 +104,22 @@ export default class LoadingScreen extends React.Component {
       this.props.getAllRequests();
     }
 
-    if (
-      this.props.currentUser &&
-      this.props.holidays &&
-      this.props.managers
-    ) {
-      if (this.state.mode === "hr" && this.props.users && this.props.allRequests) {
+    if (this.props.currentUser && this.props.holidays && this.props.managers) {
+      if (
+        this.state.mode === "hr" &&
+        this.props.users &&
+        this.props.allRequests
+      ) {
         return this.props.navigation.navigate("HR");
       }
-      if (this.state.mode === "pm" && this.props.users && this.props.allRequests) {
+      if (
+        this.state.mode === "pm" &&
+        this.props.users &&
+        this.props.allRequests
+      ) {
         return this.props.navigation.navigate("PM");
       }
-      if(this.state.mode === 'employee'){
+      if (this.state.mode === "employee") {
         return this.props.navigation.navigate("Employee");
       }
     }

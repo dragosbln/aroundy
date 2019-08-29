@@ -192,6 +192,10 @@ class UserService {
   static deleteUser = (id) => {
     return apiService.sendRequest('DELETE',`/user/${id}`)
   }
+
+  static setPassword = (password) => {
+    return apiService.sendRequest('POST', '/user/set-password', {password})
+  }
 }
 
 export default UserService;

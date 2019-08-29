@@ -55,6 +55,19 @@ const deleteSuccess = () => ({
     type: types.DELETE_SUCCESS,
 })
 
+const setPasswordPending = () => ({
+    type: types.SET_PASSWORD_PENDING
+})
+
+const setPasswordError = (err) => ({
+    type: types.SET_PASSWORD_ERROR,
+    payload: err
+})
+
+const setPasswordSuccess = () => ({
+    type: types.SET_PASSWORD_SUCCESS,
+})
+
 export default {
     currentUserError,
     currentUserPending,
@@ -67,5 +80,8 @@ export default {
     createSuccess,
     deleteError,
     deletePending,
-    deleteSuccess
+    deleteSuccess,
+    setPasswordError,
+    setPasswordPending,
+    setPasswordSuccess
 }
