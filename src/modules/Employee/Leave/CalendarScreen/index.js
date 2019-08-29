@@ -17,8 +17,6 @@ LocaleConfig.locales["custom"] = {
 };
 LocaleConfig.defaultLocale = "custom";
 
-
-//URGENT: fix multi select
 export default class CalendarSCREEN extends React.Component {
   constructor(props) {
     super(props);
@@ -174,11 +172,21 @@ export default class CalendarSCREEN extends React.Component {
         return;
       }
       const dates = utils.getDatesInterval(period.from, period.to);
-
+      const markedDates = this.state.calendar.markedDates;
       dates.forEach((date, i) => {
+        let selectedFreeDay = true;
+        if (
+          (!markedDates[date] ||
+            (markedDates[date].type !== "approved" &&
+              markedDates[date].type !== "holiday")) &&
+          ![0, 6].includes(moment(date).day())
+        ) {
+          selectedFreeDay = false;
+        }
         newMarkedDates[date] = {
           ...this.state.calendar.markedDates[date],
-          selected: true
+          selected: true,
+          selectedFreeDay
         };
         if (i === 0) {
           newMarkedDates[date].startingDay = true;
@@ -197,14 +205,9 @@ export default class CalendarSCREEN extends React.Component {
     }));
   };
 
+  //TODO: split intervals on click
   onDayPress = date => {
-    if (
-      moment(date) <= moment() ||
-      [0, 6].includes(moment(date).day()) ||
-      (this.state.calendar.markedDates[date] &&
-        (this.state.calendar.markedDates[date].type === "approved" ||
-          this.state.calendar.markedDates[date].type === "holiday"))
-    ) {
+    if (moment(date) <= moment()) {
       return;
     }
 
@@ -215,37 +218,54 @@ export default class CalendarSCREEN extends React.Component {
       }));
       return this.props.setFrom(date);
     }
-    const selectedDates = utils.getDatesInterval(
-      this.props.selectedPeriods[this.props.selectedPeriods.length - 1].from,
-      date
-    );
-    const markedDates = this.state.calendar.markedDates;
-    const newlySelectedDates = selectedDates.filter(
-      date =>
-        (!markedDates[date] ||
-          (markedDates[date].type !== "approved" &&
-            markedDates[date].type !== "holiday")) &&
-        ![0, 6].includes(moment(date).day())
-    );
-    const intervalsToSave = utils.makeDatesInterval(newlySelectedDates);
-    intervalsToSave.forEach((interval, i) => {
-      if (i === 0) {
-        this.props.setTo(interval.to);
-      } else {
-        this.props.setFrom(interval.from);
-        this.props.setTo(interval.to);
-      }
-    });
+    // const selectedDates = utils.getDatesInterval(
+    //   this.props.selectedPeriods[this.props.selectedPeriods.length - 1].from,
+    //   date
+    // );
+    // const markedDates = this.state.calendar.markedDates;
+    // const markedSelectedDates = selectedDates.map(date => {
+    //   if (
+    //     (!markedDates[date] ||
+    //       (markedDates[date].type !== "approved" &&
+    //         markedDates[date].type !== "holiday")) &&
+    //     ![0, 6].includes(moment(date).day())
+    //   ) {
+    //     return{
+    //       ...date,
+    //       selectedFreeDay: true
+    //     }
+    //   }
+    //   return date
+    // });
+    // const newlySelectedDates = selectedDates.filter(
+    //   date =>
+    //     (!markedDates[date] ||
+    //       (markedDates[date].type !== "approved" &&
+    //         markedDates[date].type !== "holiday")) &&
+    //     ![0, 6].includes(moment(date).day())
+    // );
+    // const intervalsToSave = utils.makeDatesInterval(newlySelectedDates);
+    // intervalsToSave.forEach((interval, i) => {
+    //   if (i === 0) {
+    //     this.props.setTo(interval.to);
+    //   } else {
+    //     this.props.setFrom(interval.from);
+    //     this.props.setTo(interval.to);
+    //   }
+    // });
 
     this.setState(state => ({
       ...state,
       proceedDisabled: false
     }));
 
+    //FIXME: add state showing buttons
     if (this.state.animation.buttonsBottom._value === -60) {
       this.showButtons();
     }
-    return;
+
+    //FIXME: block user from making request only for free days
+    return this.props.setTo(date);
   };
 
   onCancelPressed = () => {
@@ -269,15 +289,13 @@ export default class CalendarSCREEN extends React.Component {
             markedDates={this.state.calendar.markedDates}
             onMonthChange={this.onMonthChange}
             firstDay={1}
+            markingType="custom"
             dayComponent={dateObj => {
               const disabled =
                 moment(dateObj.date.dateString) <= moment() ||
-                [0, 6].includes(moment(dateObj.date.dateString).day()) ||
                 (this.state.calendar.markedDates[dateObj.date.dateString] &&
                   (this.state.calendar.markedDates[dateObj.date.dateString]
-                    .type === "approved" ||
-                    this.state.calendar.markedDates[dateObj.date.dateString]
-                      .type === "holiday"));
+                    .selected && !this.state.calendar.markedDates[dateObj.date.dateString].startingDay));
               return (
                 <Day
                   {...dateObj}
@@ -288,6 +306,9 @@ export default class CalendarSCREEN extends React.Component {
               );
             }}
             theme={{
+              "stylesheet.calendar.main": {
+                week: styles.week
+              },
               "stylesheet.calendar.header": {
                 header: styles.header,
                 monthText: styles.monthText,

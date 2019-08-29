@@ -13,6 +13,7 @@ export default StyleSheet.create({
     height: '60%',
     position: 'relative'
   },
+  //FIXME: arrange legend
   legendContainer:{
     marginBottom: 30,
     width: '90%',
@@ -70,5 +71,9 @@ export default StyleSheet.create({
     fontFamily: "Montserrat-Medium",
     marginBottom: 20
   },
-  
+  week: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginVertical: 1
+    }
 });
