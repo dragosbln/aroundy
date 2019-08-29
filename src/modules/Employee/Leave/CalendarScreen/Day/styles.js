@@ -1,10 +1,10 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import colors from '../../../../../assets/theme/colors'
 
 export default StyleSheet.create({
     base: {
         width: '100%',
-        height: 25,
+        height: Dimensions.get('window').width/11,
         
       },
       dayContainer: {
@@ -12,7 +12,7 @@ export default StyleSheet.create({
         height: '100%',
         justifyContent: 'flex-start',
         alignItems: 'center',
-        paddingTop: 1,
+        paddingTop: Dimensions.get('window').width/75,
       },
       selectedDay:{
           backgroundColor: colors.green_dark
@@ -45,5 +45,11 @@ export default StyleSheet.create({
       },
       selectedText: {
         color: '#fff'
+      },
+      selectedFreeDay: {
+        backgroundColor: '#759c73'
+      },
+      selectedWeekendDay: {
+        color: colors.pink
       }
 })
