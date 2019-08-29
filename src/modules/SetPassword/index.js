@@ -3,8 +3,7 @@ import {
   ImageBackground,
   View,
   ActivityIndicator,
-  Platform,
-  Linking
+  Alert
 } from "react-native";
 import { loginBg } from "../../assets/images";
 import styles from "./styles";
@@ -29,7 +28,6 @@ export default class Login extends React.Component {
           touched: false,
           validation: {
             required: true,
-            email: true
           }
         },
         passwordConfirm: {
@@ -43,7 +41,8 @@ export default class Login extends React.Component {
           }
         }
       },
-      triedSubmit: false
+      triedSubmit: false,
+      passwordsNotMatching: false
     };
   }
 
@@ -52,13 +51,7 @@ export default class Login extends React.Component {
   // }
 
   // componentDidMount() {
-  //   if (Platform.OS === "android") {
-  //     Linking.getInitialURL().then(url => {
-  //       console.log("YAOOOOO", url);
-  //     });
-  //   } else {
-  //     Linking.addEventListener("url", this.handleOpenURL);
-  //   }
+  //   Alert.alert('propssiees', this.props.passwordToken)
   // }
 
   // componentWillUnmount() {
@@ -99,6 +92,12 @@ export default class Login extends React.Component {
   //   return validForm;
   // };
 
+  componentDidUpdate = (prevProps) => {
+    if(!prevProps.success && this.props.success){
+      this.props.navigation.navigate({routeName: 'Login'})
+    }
+  }
+
   onTextChanged = key => async value => {
     await this.setState(state => ({
       ...state,
@@ -110,7 +109,8 @@ export default class Login extends React.Component {
           touched: true,
           valid: utils.checkInput(this.state.formConfig, key, value)
         }
-      }
+      },
+      passwordsNotMatching: false
     }));
   };
 
@@ -130,11 +130,21 @@ export default class Login extends React.Component {
     if (!utils.checkForm(this.state.formConfig)) {
       return;
     }
+
+    if(this.state.formConfig.password.value !== this.state.formConfig.passwordConfirm.value){
+      return this.setState(state => ({
+        ...state,
+        passwordsNotMatching: true
+      }))
+    }
+
+    this.props.setPassword(this.state.formConfig.password.value)
     // this.props.login(
     //   this.state.formConfig.email.value,
     //   this.state.formConfig.password.value
     // );
     // this.props.login('admin@aroundy.com', 'secret')
+
   };
 
   renderForm() {
@@ -176,6 +186,13 @@ export default class Login extends React.Component {
       status = (
         <Text customStyle={styles.errorTxt}>
           Server didn't respond. Check your internet connection!
+        </Text>
+      );
+    }
+    if (this.state.passwordsNotMatching) {
+      status = (
+        <Text customStyle={styles.errorTxt}>
+          Passwords are not matching!
         </Text>
       );
     }

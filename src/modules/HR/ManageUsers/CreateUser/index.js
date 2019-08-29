@@ -16,6 +16,16 @@ export default class ManageUsers extends React.Component {
     super(props);
     this.state = {
       formConfig: {
+        email: {
+          value: "",
+          placeholder: "Email",
+          valid: false,
+          touched: false,
+          validation: {
+            required: true,
+            email: true
+          }
+        },
         firstName: {
           value: "",
           placeholder: "First Name",
@@ -34,16 +44,7 @@ export default class ManageUsers extends React.Component {
             required: true
           }
         },
-        email: {
-          value: "",
-          placeholder: "Email",
-          valid: false,
-          touched: false,
-          validation: {
-            required: true,
-            email: true
-          }
-        }
+        
       },
       picker: {
         items: {
@@ -80,39 +81,39 @@ export default class ManageUsers extends React.Component {
   
 
   onSubmit = async () => {
-    // const formConfig = { ...this.state.formConfig };
-    // for (let key in formConfig) {
-    //   formConfig[key] = {
-    //     ...this.state.formConfig[key],
-    //     touched: true
-    //   };
-    // }
-    // await this.setState(state => ({
-    //   ...state,
-    //   formConfig,
-    //    triedSubmit: true
-    // }));
-    // if (!utils.checkForm(this.state.formConfig)) {
-    //   return;
-    // }
-    // const userData = {
-    //   email: formConfig.email.value,
-    //   firstName: formConfig.firstName.value,
-    //   lastName: formConfig.lastName.value,
-    //   role: this.state.picker.selectedValue
-    // }
-    // this.props.createUser(userData)
-    this.props.createUser({
-      email: 'dragos.bilaniuc.around25+1@gmail.com',
-      firstName: 'test',
-      lastName: 'testovich',
-      role: 'employee'
-    })
+    const formConfig = { ...this.state.formConfig };
+    for (let key in formConfig) {
+      formConfig[key] = {
+        ...this.state.formConfig[key],
+        touched: true
+      };
+    }
+    await this.setState(state => ({
+      ...state,
+      formConfig,
+       triedSubmit: true
+    }));
+    if (!utils.checkForm(this.state.formConfig)) {
+      return;
+    }
+    const userData = {
+      email: formConfig.email.value,
+      firstName: formConfig.firstName.value,
+      lastName: formConfig.lastName.value,
+      role: this.state.picker.selectedValue
+    }
+    this.props.createUser(userData)
+    // this.props.createUser({
+    //   email: 'dragos.bilaniuc.around25+1@gmail.com',
+    //   firstName: 'test',
+    //   lastName: 'testovich',
+    //   role: 'employee'
+    // })
   };
 
   renderForm() {
     const formConfig = this.state.formConfig;
-    return Object.keys(formConfig).map((key, index) => (
+    return Object.keys(formConfig).sort().map((key, index) => (
       <View key={index} style={styles.input}>
         <Input
           key={index}

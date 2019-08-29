@@ -16,7 +16,8 @@ export default props => {
           props.marking.selected && styles.selectedDay,
           props.marking.startingDay && styles.startingDay,
           props.marking.endingDay && styles.endingDay,
-          props.marking.selectedFreeDay && styles.selectedFreeDay
+          props.marking.selectedFreeDay && styles.selectedFreeDay,
+          isThisDay && styles.thisDay
         ]}>
         <Text
           customStyle={[

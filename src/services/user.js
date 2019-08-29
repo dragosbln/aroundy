@@ -1,6 +1,7 @@
 import responseTypes from "../utils/responseTypes";
 import UserCacheService from "./cache/userCache";
 import apiService from "./api";
+import store from '../redux/store'
 
 class UserService {
   static _rootPath = "https://aroundy-03.democlient.info";
@@ -191,6 +192,11 @@ class UserService {
 
   static deleteUser = (id) => {
     return apiService.sendRequest('DELETE',`/user/${id}`)
+  }
+
+  static setPassword = (password) => {
+    const token = store.getState().auth.setPasswordToken
+    return apiService.sendRequest('POST', '/user/set-password', {password}, true, token) 
   }
 }
 

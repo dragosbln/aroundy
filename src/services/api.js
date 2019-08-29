@@ -9,11 +9,14 @@ export default class apiService {
     method = "GET",
     url = "",
     data = null,
-    tokenRequired = true
+    tokenRequired = true,
+    mToken = null
   ) => {
     let token = null;
 
-    if (tokenRequired) {
+    if(mToken !== null){
+      token = mToken
+    } else if (tokenRequired) {
       token = store.getState().auth.tokens.access_token;
       if (!token) {
         return serverResponse.unauthorized();

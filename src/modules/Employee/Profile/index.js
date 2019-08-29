@@ -220,13 +220,13 @@ export default class Home extends React.Component {
             />
           </View>
         ) : null}
-        <View style={styles.cancelContainer}>
+        {this.state.approvedRequest && <View style={styles.cancelContainer}>
           <TextButton
             onPress={this.onPressCancel}
             customStyle={styles.cancelTxt}>
             Cancel request
           </TextButton>
-        </View>
+        </View>}
         <View style={styles.setMeFreeBtn}>
           <PrimaryButton
             onPress={this.onPressButton}

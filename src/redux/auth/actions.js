@@ -6,21 +6,22 @@ const login = (email, password) => async (dispatch, getState) => {
   if (getState().auth.loginApiState.pending) {
     return;
   }
-  dispatch(userAC.pending());
+  dispatch(userAC.loginPending());
   try {
     const resp = await UserService.login(email, password);
     if (resp.type !== responseTypes.SUCCESS) {
-      return dispatch(userAC.error(resp));
+      return dispatch(userAC.loginError(resp));
     }
     dispatch(userAC.setTokens(resp.data));
   } catch (e) {
     console.log("error from redux login", e);
-    dispatch(userAC.error(e));
+    dispatch(userAC.loginError(e));
   }
 };
 
-
+const setPasswordToken = (token) => userAC.setPasswordToken(token)
 
 export default {
   login,
+  setPasswordToken
 };

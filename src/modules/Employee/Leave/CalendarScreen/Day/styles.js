@@ -39,8 +39,13 @@ export default StyleSheet.create({
       weekendDayText:{
         color: '#f59898'
       },
+      thisDay: {
+        // backgroundColor: colors.orange,
+        // borderRadius: 100,
+        // borderWidth: 1
+      },
       thisDayText:{
-        color: colors.blue,
+        color: '#03dffc',
         fontFamily: 'Montserrat-Medium',
       },
       selectedText: {

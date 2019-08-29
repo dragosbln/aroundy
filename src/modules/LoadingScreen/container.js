@@ -6,6 +6,9 @@ import holidaysActions from "../../redux/holidays/actions";
 import userActions from '../../redux/user/actions'
 import authAC from "../../redux/auth/actionCreators";
 import teamActions from '../../redux/team/actions'
+import authActions from '../../redux/auth/actions'
+
+//TODO: be consistent with using redux actions (actionCreators)
 
 const mapStateToProps = state => ({
   cacheTokens: state.app.tokens,
@@ -16,7 +19,8 @@ const mapStateToProps = state => ({
   currentUser: state.user.currentUser,
   // getRequestsPending: state.requests.apiState.pending,
   holidays: state.holidays.data,
-  managers: state.team.managers
+  managers: state.team.managers,
+  passwordToken: state.auth.setPasswordToken
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -29,7 +33,8 @@ const mapDispatchToProps = dispatch => ({
   getTeamMembers: () => dispatch(teamActions.getTeamMembers()),
   getAllRequests: () => dispatch(requestActions.getAllRequests()),
   getHolidays: () => dispatch(holidaysActions.getHolidays()),
-  getManagers: () => dispatch(teamActions.getManagers())
+  getManagers: () => dispatch(teamActions.getManagers()),
+  setPasswordToken: (token) => dispatch(authActions.setPasswordToken(token))
 });
 
 export default connect(

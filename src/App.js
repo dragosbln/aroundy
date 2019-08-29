@@ -16,24 +16,24 @@ import sandbox from './sandbox'
 console.disableYellowBox=true
 
 class App extends React.Component {
-  async componentDidMount() {
-      const initialURL = await Linking.getInitialURL()
-      // Alert.alert('initialURL', initialURL)
-      Linking.addEventListener("url", this.handleOpenURL);
-  }
+  // async componentDidMount() {
+  //     const initialURL = await Linking.getInitialURL()
+  //     Alert.alert('initialURL', initialURL)
+  //     Linking.addEventListener("url", this.handleOpenURL);
+  // }
 
-  componentWillUnmount() {
-    Linking.removeEventListener("url", this.handleOpenURL);
-  }
-  handleOpenURL = event => {
-    console.log("url", event);
-  };
+  // componentWillUnmount() {
+  //   Linking.removeEventListener("url", this.handleOpenURL);
+  // }
+  // handleOpenURL = event => {
+  //   console.log("url", event);
+  // };
 
-  componentDidUpdate = (prevProps, prevState) => {
-    if (prevProps === this.props) {
-      return;
-    }
-  };
+  // componentDidUpdate = (prevProps, prevState) => {
+  //   if (prevProps === this.props) {
+  //     return;
+  //   }
+  // };
 
   render(){
     return (

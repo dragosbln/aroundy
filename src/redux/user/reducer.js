@@ -24,9 +24,14 @@ const initialState = {
     pending: false,
     success: false,
     error: null
+  },
+  setPasswordApiState: {
+    pending: false,
+    success: false,
+    error: null
   }
 };
-
+//TODO: handle delete actions
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case types.CURRENT_USER_PENDING:
@@ -121,36 +126,36 @@ const reducer = (state = initialState, action) => {
           "createApiState"
         )
       };
-      case types.DELETE_PENDING:
-      return {
-        ...state,
-        deleteApiState: utils.updateApiState(
-          initialState,
-          "pending",
-          true,
-          "deleteApiState"
-        )
-      };
-    case types.DELETE_ERROR:
-      return {
-        ...state,
-        deleteApiState: utils.updateApiState(
-          initialState,
-          "error",
-          action.payload,
-          "deleteApiState"
-        )
-      };
-    case types.DELETE_SUCCESS:
-      return {
-        ...state,
-        deleteApiState: utils.updateApiState(
-          initialState,
-          "success",
-          true,
-          "deleteApiState"
-        )
-      };
+      case types.SET_PASSWORD_PENDING:
+        return {
+          ...state,
+          setPasswordApiState: utils.updateApiState(
+            initialState,
+            "pending",
+            true,
+            "setPasswordApiState"
+          )
+        };
+      case types.SET_PASSWORD_ERROR:
+        return {
+          ...state,
+          setPasswordApiState: utils.updateApiState(
+            initialState,
+            "error",
+            action.payload,
+            "createApiState"
+          )
+        };
+      case types.SET_PASSWORD_SUCCESS:
+        return {
+          ...state,
+          setPasswordApiState: utils.updateApiState(
+            initialState,
+            "success",
+            true,
+            "setPasswordApiState"
+          )
+        };
     default:
       return state;
   }
