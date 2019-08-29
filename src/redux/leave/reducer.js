@@ -9,7 +9,7 @@ const mockData = [
 ];
 
 const initialState = {
-  periods: mockData,
+  periods: [],
   selectStopPeriod: false,
   apiState: {
     pending: false,

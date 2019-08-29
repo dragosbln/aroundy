@@ -31,7 +31,7 @@ export default class ManageUsers extends React.Component {
 
   componentDidUpdate = (prevProps) => {
     if(this.props.deleteSuccess && prevProps.deleteSuccess !== this.props.deleteSuccess){
-      this.props.getAllUsers()
+      this.props.getTeamMembers()
     }
   }
 
@@ -49,6 +49,7 @@ export default class ManageUsers extends React.Component {
                 <ListItem
                   name={`${item.firstName} ${item.lastName}`}
                   role={item.Contract ? item.Contract.role : ""}
+                  inactive={item.status === 'inactive'}
                   imageSource={item.image}
                 />
               )}

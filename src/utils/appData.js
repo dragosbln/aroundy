@@ -2,7 +2,7 @@ const leaveTypes = {
     'medical': 'MEDICAL',
     'sick-day': 'SICK DAY',
     'emergency': 'EMERGENCY',
-    'bloodDonation': 'BLOOD DONATION',
+    'blood-donation': 'BLOOD DONATION',
     'compensated-free-time': 'COMPENSATED FREE TIME',
     'annual': 'ANNUAL',
     'delegation': 'DELEGATION',

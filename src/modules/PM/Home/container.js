@@ -8,7 +8,8 @@ const mapStateTorProps = state => ({
   users: state.user.allUsers,
   countdownHoliday: state.holidays.countdownHoliday,
   user: state.user.currentUser,
-  requestApprovalSucccess: state.requests.approvalApiState.success
+  requestApprovalSucccess: state.requests.approvalApiState.success,
+  allRequestsSuccess: state.requests.allRequestsApiState.success
 }); 
 
 const mapDispatchToProps = dispatch => ({

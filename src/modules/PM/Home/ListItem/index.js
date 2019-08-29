@@ -7,9 +7,7 @@ import PrimaryButton from "../../../../components/Buttons/PrimaryButton";
 import Button from "../../../../components/Buttons/BaseButton";
 import utils from "../../../../utils/functions";
 import appData from "../../../../utils/appData";
-//TODO: add profile pics and dates
 
-//URGENT: compute time past since request
 export default props => {
   return (
     <View style={styles.base}>
@@ -24,10 +22,10 @@ export default props => {
           customStyle={styles.nameTxt}
         >{`${props.request.Request.User.firstName} ${props.request.Request.User.lastName}`}</Text>
         <Text customStyle={styles.descriptionTxt}>
-          Requested Vacation ({appData.leaveTypes[props.request.type]}) for{" "}
+          Requested Vacation ({appData.leaveTypes[props.request.Request.type]}) for{" "}
           <Text customStyle={styles.dateHighlightTxt}>
             {utils.formatInterval(
-              { from: props.request.from, to: props.request.to },
+              { from: props.request.Request.from, to: props.request.Request.to },
               true
             )}
           </Text>
@@ -39,16 +37,18 @@ export default props => {
       <View style={styles.buttonsContainer}>
         <View style={styles.btnContainer}>
           <PrimaryButton
-            label="APPROVE"
+            label={`APPROVE${props.request.showApprovedInList ? 'D' : ''}`}
             customTextStyle={styles.approveBtnTxt}
             onPress={props.onApprovePress}
+            disabled={props.request.showApprovedInList || props.request.showRejectedInList}
           />
         </View>
         <View style={styles.btnContainer}>
           <Button
-            label="REJECT"
+            label={`REJECT${props.request.showRejectedInList ? 'ED' : ''}`}
             customTextStyle={styles.rejectButtonTxt}
             onPress={props.onRejectPress}
+            disabled={props.request.showApprovedInList || props.request.showRejectedInList}
           />
         </View>
       </View>

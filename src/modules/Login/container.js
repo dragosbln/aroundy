@@ -14,7 +14,7 @@ const mapStateToProps = state => ({
   authTokens: state.auth.tokens,
   countdownHoliday: state.app.countdownHoliday,
   allRequests: state.requests.allRequests,
-  users: state.user.allUsers,
+  users: state.team.users,
   currentUser: state.user.currentUser,
   // getRequestsPending: state.requests.apiState.pending,
   holidays: state.holidays.data,
@@ -28,7 +28,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(holidaysActions.setCountdownHoliday(holiday)),
   setTokens: tokens => dispatch(authAC.setTokens(tokens)),
   getCurrentUser: () => dispatch(userActions.getCurrentUser()),
-  getAllUsers: () => dispatch(userActions.getAllUsers()),
+  getTeamMembers: () => dispatch(teamActions.getTeamMembers()),
   getAllRequests: () => dispatch(requestActions.getAllRequests()),
   getHolidays: () => dispatch(holidaysActions.getHolidays()),
   getManagers: () => dispatch(teamActions.getManagers())

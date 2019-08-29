@@ -7,6 +7,8 @@ import Login from './login'
 import HR from './tabBar/HR'
 import SetPassword from './setPassword'
 
+//URGENT: check internet connection
+
 const switchNavigator = createSwitchNavigator({
     Loading,
     Login,
@@ -15,7 +17,7 @@ const switchNavigator = createSwitchNavigator({
     HR,
     SetPassword
 },{
-    initialRouteName: 'Loading'
+    initialRouteName: 'Login'
 })
 
 export default switchNavigator

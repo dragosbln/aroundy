@@ -30,6 +30,7 @@ export default class CalendarSCREEN extends React.Component {
 
   onBackPressed = () => {
     utils.resetNavigation(this.props.navigation, 'CalendarScreen')
+    this.props.navigation.navigate('Home')
   }
 
   onCancelRequests = () => {
@@ -123,7 +124,7 @@ export default class CalendarSCREEN extends React.Component {
         </View>
       )
     }
-    if(this.props.error) {
+    if(this.props.createError) {
       headerMessage='Error'
       toRender = (
         <View style={styles.contentContainer}>

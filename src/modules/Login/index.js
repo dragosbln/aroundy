@@ -84,23 +84,12 @@ export default class Login extends React.Component {
       return;
     }
 
-
     if (
-      this.state.mode === "pm" &&
-      this.props.authTokens &&
-      !this.props.users
-    ) {
-      //TODO: check out this method
-      this.props.getAllTeamUsers();
-    }
-
-    if (
-      this.state.mode === "hr" &&
-      this.props.authTokens &&
+      (this.state.mode === "hr" || this.state.mode === "pm") &&
       this.props.currentUser &&
       !this.props.users
     ) {
-      this.props.getAllUsers();
+      this.props.getTeamMembers();
     }
 
     if (

@@ -9,19 +9,103 @@ import ListItem from "./ListItem";
 // import RequestService from "../../../services/request";
 //TODO: show approved/rejected in list
 export default class Home extends React.Component {
-
-  componentDidUpdate = (prevProps) => {
-    if(prevProps === this.props){
-      return
-    }
-    if(!prevProps.requestApprovalSucccess && this.props.requestApprovalSucccess){
-      this.props.getAllRequests()
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      requests: [],
+      lastActionIsApprove: null
+    };
   }
+
+  componentDidMount = () => {
+    this.props.getAllRequests();
+  };
+
+  componentDidUpdate = prevProps => {
+    if (prevProps === this.props) {
+      return;
+    }
+
+    if (
+      !prevProps.requestApprovalSucccess &&
+      this.props.requestApprovalSucccess
+    ) {
+    this.props.getAllRequests();
+
+      // this.props.getAllRequests()
+      // const updatedRequests = []
+      // this.state.requests.forEach(request => {
+      //   const propsRequest = this.props.requests.find(propsReq => propsReq.id === request.id)
+      //   if(propsRequest || request.showApprovedInList || request.showRejectedInList){
+      //     updatedRequests.push(request)
+      //   } else {
+      //     updatedRequests.push({
+      //       ...request,
+      //       showApprovedInList: this.state.lastActionIsApprove,
+      //       showRejectedInList: !this.state.lastActionIsApprove
+      //     })
+      //   }
+      // });
+      // this.setState(state => ({
+      //   ...state,
+      //   requests: updatedRequests
+      // }))
+    }
+    if (!prevProps.allRequestsSuccess && this.props.allRequestsSuccess) {
+      // this.setState(state => ({
+      //   ...state,
+      //   requests: this.props.requests.map(request => ({
+      //     ...request,
+      //     showApprovedInList: false,
+      //     showRejectedInList: false
+      //   }))
+      // }))
+      if (this.state.requests.length === 0) {
+        return this.setState(state => ({
+          ...state,
+          requests: this.props.requests.map(request => ({
+            ...request,
+            showApprovedInList: false,
+            showRejectedInList: false
+          }))
+        }));
+      }
+      const updatedRequests = [];
+      this.state.requests.forEach((request, index) => {
+        const propsRequest = this.props.requests.find(
+          propsReq => propsReq.id === request.id
+        );
+        if (
+          propsRequest ||
+          request.showApprovedInList ||
+          request.showRejectedInList
+        ) {
+          updatedRequests.push(request);
+        } else {
+          console.log('replacing request '+index);
+          
+          updatedRequests.push({
+            ...request,
+            showApprovedInList: this.state.lastActionIsApprove,
+            showRejectedInList: !this.state.lastActionIsApprove
+          });
+        }
+      });
+      console.log('NEXT REQUESTS', updatedRequests);
+      
+      this.setState(state => ({
+        ...state,
+        requests: updatedRequests
+      }));
+    }
+  };
 
   setRequestApproved = (id, approved) => {
     this.props.setRequestApproved(id, approved);
-    this.setState
+    this.setState(state => ({
+      ...state,
+      lastActionIsApprove: approved
+    }));
   };
 
   render() {
@@ -60,16 +144,16 @@ export default class Home extends React.Component {
           </View>
           <View style={styles.listContainer}>
             <FlatList
-              data={this.props.requests}
+              data={this.state.requests}
               keyExtractor={(item, index) => `hrhome-list-item-${index}`}
               renderItem={({ item, index }) => (
                 <ListItem
                   request={item}
                   onApprovePress={() =>
-                    this.setRequestApproved(item.Request.id, true)
+                    this.setRequestApproved(item.id, true)
                   }
                   onRejectPress={() =>
-                    this.setRequestApproved(item.Request.id, false)
+                    this.setRequestApproved(item.id, false)
                   }
                 />
               )}

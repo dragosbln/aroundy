@@ -35,9 +35,9 @@ export default class apiService {
         headers: {
           Authorization: token !== null ? `Bearer ${token}` : ""
         },
-        timeout: 3000
+        timeout: 5000
       });
-        console.log('=============RESPONSEEEE=======================');
+        console.log(`=============RESPONSEEEE ${url}=======================`);
         console.log({response});
         console.log('====================================');
       

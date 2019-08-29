@@ -16,7 +16,7 @@ export default props => {
             {props.name || "Test Testovich"}
           </Text>
           <Text customStyle={styles.roleTxt}>
-            {props.role || "Tester(lol)"}
+            {props.role || "Tester(lol)"}{props.inactive && ' - Inactive'}
           </Text>
         </View>
       </View>
