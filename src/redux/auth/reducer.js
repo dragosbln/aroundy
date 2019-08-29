@@ -3,7 +3,7 @@ import utils from "../../utils/functions";
 
 const initialState = {
   tokens: null,
-  setPasswordToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NzUsIm9yZ2FuaXphdGlvbl9pZCI6MSwiZmlyc3ROYW1lIjoidGVzdCIsImxhc3ROYW1lIjoidGVzdG92aWNoIiwicm9sZXMiOlsiZW1wbG95ZWUiXSwicmVxdWVzdElkIjoiMGY3NTk1ZDgtMTVhMC00ZGE5LWEyMmItYmU2ZTNjNGRkOWVmIiwiaWF0IjoxNTY3MDkxNzU4LCJleHAiOjE1Njc2OTY1NTh9.uJ7J7HyblwZlmn-8mGS1tEvSRXVgQ1fVwxeBUZDb-y8',
+  setPasswordToken: null,
   loginApiState: {
     pending: false,
     success: false,

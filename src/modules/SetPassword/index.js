@@ -28,7 +28,6 @@ export default class Login extends React.Component {
           touched: false,
           validation: {
             required: true,
-            email: true
           }
         },
         passwordConfirm: {
@@ -42,7 +41,8 @@ export default class Login extends React.Component {
           }
         }
       },
-      triedSubmit: false
+      triedSubmit: false,
+      passwordsNotMatching: false
     };
   }
 
@@ -50,9 +50,9 @@ export default class Login extends React.Component {
   //   this.props.getCountdownHoliday();
   // }
 
-  componentDidMount() {
-    Alert.alert('propssiees', this.props.passwordToken)
-  }
+  // componentDidMount() {
+  //   Alert.alert('propssiees', this.props.passwordToken)
+  // }
 
   // componentWillUnmount() {
   //   Linking.removeEventListener("url", this.handleOpenURL);
@@ -93,7 +93,7 @@ export default class Login extends React.Component {
   // };
 
   componentDidUpdate = (prevProps) => {
-    if(!prevProps.setPasswordSuccess && this.props.setPasswordSuccess){
+    if(!prevProps.success && this.props.success){
       this.props.navigation.navigate({routeName: 'Login'})
     }
   }
@@ -109,28 +109,36 @@ export default class Login extends React.Component {
           touched: true,
           valid: utils.checkInput(this.state.formConfig, key, value)
         }
-      }
+      },
+      passwordsNotMatching: false
     }));
   };
 
   onSubmit = async () => {
-    // const formConfig = { ...this.state.formConfig };
-    // for (let key in formConfig) {
-    //   formConfig[key] = {
-    //     ...this.state.formConfig[key],
-    //     touched: true
-    //   };
-    // }
-    // await this.setState(state => ({
-    //   ...state,
-    //   formConfig,
-    //   triedSubmit: true
-    // }));
-    // if (!utils.checkForm(this.state.formConfig)) {
-    //   return;
-    // }
-    //FIXME: check password matching
-    this.props.setPassword('secret')
+    const formConfig = { ...this.state.formConfig };
+    for (let key in formConfig) {
+      formConfig[key] = {
+        ...this.state.formConfig[key],
+        touched: true
+      };
+    }
+    await this.setState(state => ({
+      ...state,
+      formConfig,
+      triedSubmit: true
+    }));
+    if (!utils.checkForm(this.state.formConfig)) {
+      return;
+    }
+
+    if(this.state.formConfig.password.value !== this.state.formConfig.passwordConfirm.value){
+      return this.setState(state => ({
+        ...state,
+        passwordsNotMatching: true
+      }))
+    }
+
+    this.props.setPassword(this.state.formConfig.password.value)
     // this.props.login(
     //   this.state.formConfig.email.value,
     //   this.state.formConfig.password.value
@@ -178,6 +186,13 @@ export default class Login extends React.Component {
       status = (
         <Text customStyle={styles.errorTxt}>
           Server didn't respond. Check your internet connection!
+        </Text>
+      );
+    }
+    if (this.state.passwordsNotMatching) {
+      status = (
+        <Text customStyle={styles.errorTxt}>
+          Passwords are not matching!
         </Text>
       );
     }

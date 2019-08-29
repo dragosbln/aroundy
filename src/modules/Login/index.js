@@ -158,26 +158,26 @@ export default class Login extends React.Component {
   };
 
   onSubmit = async () => {
-    // const formConfig = {...this.state.formConfig}
-    // for(let key in formConfig){
-    //   formConfig[key] = {
-    //     ...this.state.formConfig[key],
-    //     touched: true
-    //   }
-    // }
-    // await this.setState(state => ({
-    //   ...state,
-    //   formConfig,
-    //   triedSubmit: true
-    // }));
-    // if (!utils.checkForm(this.state.formConfig)) {
-    //   return;
-    // }
-    // this.props.login(
-    //   this.state.formConfig.email.value,
-    //   this.state.formConfig.password.value
-    // );
-    this.props.login('admin@aroundy.com', 'secret')
+    const formConfig = {...this.state.formConfig}
+    for(let key in formConfig){
+      formConfig[key] = {
+        ...this.state.formConfig[key],
+        touched: true
+      }
+    }
+    await this.setState(state => ({
+      ...state,
+      formConfig,
+      triedSubmit: true
+    }));
+    if (!utils.checkForm(this.state.formConfig)) {
+      return;
+    }
+    this.props.login(
+      this.state.formConfig.email.value,
+      this.state.formConfig.password.value
+    );
+    // this.props.login('admin@aroundy.com', 'secret')
   };
 
   renderForm(){

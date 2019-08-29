@@ -5,7 +5,9 @@ import { connect } from "react-redux";
 
 const mapStateToProps = state => ({
   passwordToken: state.auth.setPasswordToken,
-  setPasswordSuccess: state.user.setPasswordApiState.pending
+  pending: state.user.setPasswordApiState.pending,
+  success: state.user.setPasswordApiState.success,
+  error: state.user.setPasswordApiState.error
 });
 
 const mapDispatchToProps = dispatch => ({
