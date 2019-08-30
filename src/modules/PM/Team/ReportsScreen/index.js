@@ -6,6 +6,7 @@ import { teamHeaderBg } from "../../../../assets/images";
 import ListElement from './ListElement'
 import Legend from '../../../../components/Legend'
 import colors from '../../../../assets/theme/colors'
+import appData from '../../../../utils/appData'
 
 const dummy = [
   {
@@ -28,10 +29,47 @@ const dummy = [
 
 export default class Home extends React.Component {
 
-  state={modal: false}
+  constructor(props){
+    super(props)
+    this.state = {
+      maxNoRequests: -1,
+      legendData: []
+    }
+  }
   
   componentDidMount = () => {
     this.props.getReport(this.props.filter)
+  }
+
+  componentDidUpdate = (prevProps) => {
+    if(prevProps === this.props) {
+      return
+    }
+
+    if(!prevProps.getReportSuccess && this.props.getReportSuccess){
+      console.log('==============GOOOOT>>>>>>>', this.props);
+      
+      let maxNoRequests = -1
+      const legendData = []
+      this.props.report.forEach(report => {
+        Object.keys(report.report).forEach(key => {
+          if(!legendData.find(data => data.label === appData.leaveTypes[key])){
+            legendData.push({
+              label: appData.leaveTypes[key],
+              color: appData.leaveColors[key]
+            })
+          }
+        }) 
+        if(report.requests.length > maxNoRequests){
+          maxNoRequests = report.requests.length
+        }
+      });
+      this.setState(state => ({
+        ...state,
+        maxNoRequests,
+        legendData
+      }))
+    }
   }
 
   onModalOpen = () => {
@@ -46,12 +84,12 @@ export default class Home extends React.Component {
     return (
       <View style={styles.base}>
         <Header bg={teamHeaderBg} title="My Team" />
-        <View style={styles.mainContainer}>
-          <FlatList horizontal data={[1,1,1,1,1,1,1,1]} 
-          renderItem={() => <ListElement name='joe' />} />
-        </View>
+        {this.state.maxNoRequests !== -1 && <View style={styles.mainContainer}>
+          <FlatList horizontal data={this.props.report} 
+          renderItem={({item, index}) => <ListElement maxNoRequests={this.state.maxNoRequests} report={item} />} />
+        </View>}
         <View style={styles.legendContainer}>
-          <Legend data={dummy} />
+          <Legend data={this.state.legendData} />
         </View>
       </View>
     );

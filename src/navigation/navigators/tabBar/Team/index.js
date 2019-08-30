@@ -10,7 +10,7 @@ const navigator = createStackNavigator({
     IndividualReportScreen,
     RequestDetailsScreen
 },{
-    initialRouteName: 'ReportsScreen',
+    initialRouteName: 'TeamListScreen',
     headerMode: 'none'
 })
 

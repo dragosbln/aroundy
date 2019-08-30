@@ -165,8 +165,8 @@ export default class Home extends React.Component {
 
     const filterData = {
       users: filteredByName.map(user => user.id),
-      from: moment(this.state.filter.date.from).format('DD/MM/YYYY'),
-      to: moment(this.state.filter.date.to).format('DD/MM/YYYY'),
+      from: this.state.filter.date.from ? moment(this.state.filter.date.from).format('DD/MM/YYYY') : null,
+      to: this.state.filter.date.from ? moment(this.state.filter.date.to).format('DD/MM/YYYY') : null,
       types: this.state.filter.type.filter(t => t.active).map(el => el.name),
       statuses: this.state.filter.status.filter(s => s.active).map(el => el.name)
     }

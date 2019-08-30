@@ -4,7 +4,8 @@ import reportActions from '../../../../redux/report/actions'
 
 const mapStateToProps = (state) => ({
     report: state.report.data,
-    filter: state.filter.data
+    filter: state.filter.data,
+    getReportSuccess: state.report.apiState.success
 })
 
 const mapDispatchToProps = (dispatch) => ({

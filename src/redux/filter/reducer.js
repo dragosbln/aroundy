@@ -10,7 +10,7 @@ const mockData = {
 }
 
 const initialState = {
-  data: mockData
+  data: []
 };
 
 const reducer = (state = initialState, action) => {
