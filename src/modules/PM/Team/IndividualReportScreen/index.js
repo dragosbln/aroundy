@@ -158,7 +158,7 @@ export default class Home extends React.Component {
         ) : (
           this.state.chartData !== null && (
             <>
-              <Header bg={teamHeaderBg} title="Ann Andria" />
+              <Header bg={teamHeaderBg} title={this.props.report[0] && `${this.props.report[0].user.firstName} ${this.props.report[0].user.lastName}`} />
 
               <View style={styles.headingContainer}>
                 <Text customStyle={styles.headingTxt}>BOOK DAYS OFF</Text>

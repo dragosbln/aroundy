@@ -15,6 +15,7 @@ export default props => {
   return (
     <View style={styles.base}>
       <TextInput
+      secureTextEntry={props.hideText}
       editable={props.editable}
         onFocus={props.onFocus}
         autoCapitalize='none'

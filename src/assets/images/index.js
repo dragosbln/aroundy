@@ -1,3 +1,5 @@
+export const logo = require('./logo.png')
+export const logout = require('./logout.png')
 export const loginBg = require('./login-bg.png')
 export const passwordIcon = require('./password-icon.png')
 export const emailIcon = require('./email-icon.png')

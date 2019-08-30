@@ -6,7 +6,7 @@ import userActions from '../../../redux/user/actions'
 const mapStateToProps = (state) => ({
     holidays: state.holidays.data,
     countdownHoliday: state.holidays.countdownHoliday,
-    balance: state.user.currentUser ? state.user.currentUser.Balance.remaining : null
+    balance: state.user.currentUser ? state.user.currentUser.Balance ? state.user.currentUser.Balance.remaining : null : null
 })
 
 const mapDispatchToProps = (dispatch) => ({

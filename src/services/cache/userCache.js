@@ -46,6 +46,10 @@ class UserCacheService {
     StorageService.save(this._tokensKey, toSave);
   };
 
+  static clearTokens = () => {
+    StorageService.clear()
+  }
+
   // static getRefreshToken = async () => {
   //     const tokenData = await StorageService.get(this._refreshTokenKey)
   //     if(!tokenData){

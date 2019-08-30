@@ -2,7 +2,7 @@ import React from "react";
 import { View, Animated, PanResponder, Dimensions } from "react-native";
 import styles from "./styles";
 import Header from "../../../components/Header";
-import { profileBg } from "../../../assets/images";
+import { profileBg, logout } from "../../../assets/images";
 import CircularImage from "../../../components/CircularImage";
 import Text from "../../../components/Text/BaseText";
 import TextButton from "../../../components/Buttons/TextButton";
@@ -12,10 +12,11 @@ import HistoryCard from "../../../components/HistoryCard";
 import utils from "../../../utils/functions";
 import moment from "moment";
 import appData from "../../../utils/appData";
+import UserService from '../../../services/user'
 
 export default class Home extends React.Component {
   constructor(props) {
-    super(props);
+    super(props); 
 
     this.screen = {
       width: Dimensions.get("window").width,
@@ -154,6 +155,11 @@ export default class Home extends React.Component {
     // }
   };
 
+  logout = () => {
+    UserService.logout()
+    this.props.navigation.navigate('Login')
+  }
+
   onPressButton = () => {
     this.props.navigation.navigate("Leave");
   };
@@ -198,6 +204,8 @@ export default class Home extends React.Component {
           customStyle={styles.header}
           textContainerStyle={styles.textContainerStyle}
           textStyle={styles.headerTextStyle}
+          option={logout}
+          onOptionPressed={this.logout}
         />
         <View style={styles.profilePicContainer}>
           <CircularImage source={this.props.user.image} />

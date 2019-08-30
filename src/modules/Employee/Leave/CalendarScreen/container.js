@@ -8,7 +8,7 @@ const mapStateToProps = (state) => ({
     requests: state.user.currentUser.Requests,
     selectedPeriods: state.leave.periods,
     selectStopPeriod: state.leave.selectStopPeriod,
-    holidays: state.holidays.data
+    holidays: state.holidays.data,
 })
 
 const mapDispatchToProps = (dispatch) => ({

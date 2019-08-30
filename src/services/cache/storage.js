@@ -11,6 +11,10 @@ class StorageService {
     const parsedData = JSON.parse(data);
     return parsedData;
   };
+
+  static clear = async () => {
+    AsyncStorage.clear()
+  }
 }
 
 export default StorageService

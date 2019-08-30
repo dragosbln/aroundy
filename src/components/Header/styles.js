@@ -19,7 +19,7 @@ export default StyleSheet.create({
     optionContainer: {
         position: 'absolute',
         right: '4%',
-        bottom: '25%',
+        bottom: '35%',
         padding: 5,
     },
     icon:{

@@ -138,6 +138,9 @@ export default class CalendarSCREEN extends React.Component {
     if (prevProps.selectedPeriods !== this.props.selectedPeriods) {
       this.updateSelected();
     }
+    if(prevProps.requests !== this.props.requests){
+      this.initMarkedDates()
+    }
   };
 
   updateSelected = () => {

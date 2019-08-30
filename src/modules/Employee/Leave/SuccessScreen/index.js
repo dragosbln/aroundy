@@ -105,7 +105,7 @@ export default class CalendarSCREEN extends React.Component {
           <Text customStyle={styles.fingersCrossedText}>Fingers crossed!</Text>
         </View>
         <View style={styles.cancelContainer}>
-          <TextButton onPress={this.onCancelRequests} customStyle={styles.cancelTxt}>Cancel request</TextButton>
+          <TextButton  customStyle={styles.cancelTxt}>Cancel request</TextButton>
         </View>
         <View style={styles.buttonView}>
           <Button onPress={this.onBackPressed} label="BACK TO PLANNET EARTH" />

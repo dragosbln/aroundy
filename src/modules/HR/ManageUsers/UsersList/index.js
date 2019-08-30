@@ -30,7 +30,9 @@ export default class ManageUsers extends React.Component {
   }
 
   componentDidUpdate = (prevProps) => {
-    if(this.props.deleteSuccess && prevProps.deleteSuccess !== this.props.deleteSuccess){
+    console.log('=>>>>>>>>', prevProps);
+    
+    if(!prevProps.deleteSuccess && this.props.deleteSuccess){
       this.props.getTeamMembers()
     }
   }
