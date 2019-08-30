@@ -6,6 +6,7 @@ import leave from './leave/reducer'
 import requests from './request/reducer'
 import app from './app/reducer'
 import team from './team/reducer'
+import filter from './filter/reducer'
 
 export default combineReducers({
     auth,
@@ -14,5 +15,6 @@ export default combineReducers({
     leave,
     requests,
     app,
-    team
+    team,
+    filter
 })

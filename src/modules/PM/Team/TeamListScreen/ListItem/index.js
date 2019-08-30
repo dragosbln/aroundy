@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Image } from "react-native";
+import { View, Image, TouchableOpacity } from "react-native";
 import styles from "./styles";
 import { checked, checkedActive } from "../../../..//../assets/images";
 import Text from "../../../../../components/Text/BaseText";
@@ -9,15 +9,15 @@ import PrimaryButton from "../../../../../components/Buttons/PrimaryButton";
 export default props => {
   return (
     <View style={styles.base}>
-    <View style={styles.checkedContainer}>
+    <TouchableOpacity onPress={props.onToggleActive} style={styles.checkedContainer}>
       <Image source={props.active ? checkedActive : checked} style={styles.checkIcon} />
-    </View>
+    </TouchableOpacity>
       <View style={styles.imageContainer}>
-        <CircularImage source={props.profilePic} customStyle={styles.image} />
+        <CircularImage source={props.user.image} customStyle={styles.image} />
       </View>
       <View style={styles.infoContainer}>
-        <Text customStyle={styles.nameTxt}>Ann Andria</Text>
-        <Text customStyle={styles.descriptionTxt}>Awesome PM</Text>
+        <Text customStyle={styles.nameTxt}>{`${props.user.firstName} ${props.user.lastName}`}</Text>
+        <Text customStyle={styles.descriptionTxt}>{`${props.user.role}`}</Text>
       </View>
       <View style={styles.buttonsContainer}>
         <View style={styles.btnContainer}>

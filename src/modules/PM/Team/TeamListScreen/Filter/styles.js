@@ -23,11 +23,11 @@ export default StyleSheet.create({
   },
   nameFilterContainer: {
     width: '100%',
-    height: '30%'
+    maxHeight: '30%'
   },
   timeFilterContainer:{
     width: '100%',
-    height: '20%',
+    height: '15%',
     alignItems: 'flex-end',
     marginTop: 30
   },
@@ -49,6 +49,10 @@ export default StyleSheet.create({
   },
   statusFilterContainer: {
     height: '15%'
+  },
+  buttonView: {
+    width: '100%',
+    height: 50
   }
   
 });

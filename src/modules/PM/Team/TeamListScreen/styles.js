@@ -23,5 +23,18 @@ export default StyleSheet.create({
     bottom: -50,
     zIndex: 1000,
     backgroundColor: 'red'
+  },
+  buttonView: {
+    width: '80%',
+    height: 50,
+    position: 'absolute',
+    bottom: '6%',
+    elevation: 1,
+    shadowColor:'#000',
+    shadowRadius: 2,
+    shadowOffset: {
+      width: 1,
+      height: 1
+    }
   }
 });

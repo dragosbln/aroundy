@@ -9,7 +9,7 @@ export default props => {
   return (
     <View style={styles.base}>
       <Text customStyle={styles.text}>{props.name}</Text>
-      <TouchableOpacity style={styles.checkContainer}>
+      <TouchableOpacity onPress={props.onToggleNameActive} style={styles.checkContainer}>
         {props.squareCheck ? (
           <SquareCheck active={props.active} />
         ) : (

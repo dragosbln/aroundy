@@ -15,6 +15,8 @@ export default props => {
   return (
     <View style={styles.base}>
       <TextInput
+      editable={props.editable}
+        onFocus={props.onFocus}
         autoCapitalize='none'
         value={props.value}
         onChangeText={props.onChangeText}

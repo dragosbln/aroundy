@@ -1,5 +1,5 @@
 import {createStackNavigator} from 'react-navigation'
-import TeamListScreen from '../../../../modules/PM/Team/TeamListScreen'
+import TeamListScreen from '../../../../modules/PM/Team/TeamListScreen/container'
 import ReportsScreen from '../../../../modules/PM/Team/ReportsScreen'
 import IndividualReportScreen from '../../../../modules/PM/Team/IndividualReportScreen'
 import RequestDetailsScreen from '../../../../modules/PM/Team/RequestDetailsScreen'
