@@ -107,7 +107,6 @@ export default class Home extends React.Component {
 
   componentDidUpdate = prevProps => {
     if (!prevProps.getReportSuccess && this.props.getReportSuccess) {
-    this.initRequestsHistoryData();
 
       const chartData = [];
       const colorScale = [];
@@ -125,6 +124,8 @@ export default class Home extends React.Component {
         "===============>>>>>>akafkljbdiajfbviuaOBFDSIUAH>>>",
         report
       );
+    this.initRequestsHistoryData();
+
 
       Object.keys(report).forEach(key => {
         chartData.push({
