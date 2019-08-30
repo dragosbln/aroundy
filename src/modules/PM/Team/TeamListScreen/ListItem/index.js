@@ -22,6 +22,7 @@ export default props => {
       <View style={styles.buttonsContainer}>
         <View style={styles.btnContainer}>
           <PrimaryButton
+            onPress={props.onSeeReportPress}
             label="SEE REPORT"
             customTextStyle={styles.approveBtnTxt}
           />

@@ -33,11 +33,16 @@ export default class Home extends React.Component {
     super(props)
     this.state = {
       maxNoRequests: -1,
-      legendData: []
+      legendData: [],
+      showingUsers: []
     }
   }
   
   componentDidMount = () => {
+    this.setState(state => ({
+      ...state,
+      showingUsers: this.props.navigation.getParam('showingUsers')
+    }))
     this.props.getReport(this.props.filter)
   }
 
@@ -85,7 +90,7 @@ export default class Home extends React.Component {
       <View style={styles.base}>
         <Header bg={teamHeaderBg} title="My Team" />
         {this.state.maxNoRequests !== -1 && <View style={styles.mainContainer}>
-          <FlatList horizontal data={this.props.report} 
+          <FlatList horizontal data={this.props.report.filter(rep => this.state.showingUsers.includes(rep.user.id))} 
           renderItem={({item, index}) => <ListElement maxNoRequests={this.state.maxNoRequests} report={item} />} />
         </View>}
         <View style={styles.legendContainer}>

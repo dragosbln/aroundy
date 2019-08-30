@@ -121,6 +121,10 @@ export default class Home extends React.Component {
     }
   }
 
+  onSeeReportPress = (id) => {
+    this.props.navigation.navigate('IndividualReportScreen', {id})
+  }
+
   onChooseDate = async (key, date) => {
     const dateString = moment(date).format('YYYY-MM-DD')
     await this.setState(state => ({
@@ -136,7 +140,7 @@ export default class Home extends React.Component {
   }
 
   onProceedPress = () => {
-    this.props.navigation.navigate('ReportsScreen')
+    this.props.navigation.navigate('ReportsScreen', {showingUsers: this.state.showingUsers.filter(user => user.active).map(user => user.id)})
   }
 
   triggerButtonAnimation = () => {
@@ -196,6 +200,7 @@ export default class Home extends React.Component {
                 active={this.state.showingUsers[index].active}
                 onToggleActive={() => this.onToggleActive(index)}
                 user={item}
+                onSeeReportPress = {() => this.onSeeReportPress(item.id)}
               />
             )}
             keyExtractor={index => `teamlist-item-${index}`}

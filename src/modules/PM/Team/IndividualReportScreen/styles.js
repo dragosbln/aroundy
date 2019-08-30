@@ -40,5 +40,14 @@ export default StyleSheet.create({
     borderTopRightRadius: 60,
     elevation: 5
   },
-  
+  errorHeadingContainer:{
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  errorHeadingTxt: {
+    color: colors.red,
+    fontSize: 36
+  }
 });
