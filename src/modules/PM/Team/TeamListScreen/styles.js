@@ -14,7 +14,7 @@ export default StyleSheet.create({
   
   mainContainer: {
     width: "100%",
-    height: "100%",
+    height: "80%",
   },
   filterContainer: {
     position: 'absolute',
