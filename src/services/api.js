@@ -23,9 +23,9 @@ export default class apiService {
       }
     }
 
-      console.log('==================================== SENDING');
-      console.log(method, `${this._baseUrl}${url}`, data, token);
-      console.log('====================================');
+      // console.log('==================================== SENDING');
+      // console.log(method, `${this._baseUrl}${url}`, data, token);
+      // console.log('====================================');
    
 
     
@@ -40,9 +40,9 @@ export default class apiService {
         },
         timeout: 5000
       });
-        console.log(`=============RESPONSEEEE ${url}=======================`);
-        console.log({response});
-        console.log('====================================');
+        // console.log(`=============RESPONSEEEE ${url}=======================`);
+        // console.log({response});
+        // console.log('====================================');
       
       if (response.data.success) {
         return serverResponse.success(response.data.data);

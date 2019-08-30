@@ -46,7 +46,6 @@ export default class CalendarSCREEN extends React.Component {
     if(prevProps === this.props){
       return
     }
-    console.log(prevProps, this.props);
     
     if(!prevProps.createSuccess && this.props.createSuccess){
       await this.setState(state => ({

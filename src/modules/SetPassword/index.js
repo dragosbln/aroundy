@@ -46,51 +46,7 @@ export default class Login extends React.Component {
     };
   }
 
-  // componentDidMount() {
-  //   this.props.getCountdownHoliday();
-  // }
-
-  // componentDidMount() {
-  //   Alert.alert('propssiees', this.props.passwordToken)
-  // }
-
-  // componentWillUnmount() {
-  //   Linking.removeEventListener("url", this.handleOpenURL);
-  // }
-  // handleOpenURL = event => {
-  //   console.log("YAOOOOO", event);
-  // };
-
-  // componentDidUpdate = (prevProps, prevState) => {
-  //   if (prevProps === this.props) {
-  //     return;
-  //   }
-  // };
-
-  // checkInput = (key, value) => {
-  //   let valid = true;
-  //   const elememntConfig = this.state.formConfig[key];
-  //   if (elememntConfig.validation.required) {
-  //     valid = valid && value !== "";
-  //   }
-  //   if (elememntConfig.validation.email) {
-  //     valid =
-  //       valid && /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value);
-  //   }
-
-  //   return valid;
-  // };
-
-  // checkForm = () => {
-  //   const formConfig = this.state.formConfig;
-  //   let validForm = true;
-  //   for (let key in formConfig) {
-  //     if (!formConfig[key].valid) {
-  //       validForm = false;
-  //     }
-  //   }
-  //   return validForm;
-  // };
+  
 
   componentDidUpdate = (prevProps) => {
     if(!prevProps.success && this.props.success){

@@ -82,7 +82,6 @@ export default class Home extends React.Component {
         ) {
           updatedRequests.push(request);
         } else {
-          console.log('replacing request '+index);
           
           updatedRequests.push({
             ...request,
@@ -91,7 +90,6 @@ export default class Home extends React.Component {
           });
         }
       });
-      console.log('NEXT REQUESTS', updatedRequests);
       
       this.setState(state => ({
         ...state,

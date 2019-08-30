@@ -120,10 +120,7 @@ export default class Home extends React.Component {
           noHistory: true
         }));
       }
-      console.log(
-        "===============>>>>>>akafkljbdiajfbviuaOBFDSIUAH>>>",
-        report
-      );
+      
     this.initRequestsHistoryData();
 
 

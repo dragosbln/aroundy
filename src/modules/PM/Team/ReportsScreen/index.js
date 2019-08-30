@@ -52,7 +52,6 @@ export default class Home extends React.Component {
     }
 
     if(!prevProps.getReportSuccess && this.props.getReportSuccess){
-      console.log('==============GOOOOT>>>>>>>', this.props);
       
       let maxNoRequests = -1
       const legendData = []
