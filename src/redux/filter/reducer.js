@@ -1,15 +1,16 @@
 import types from "./types";
 import utils from '../../utils/functions'
 
-const mockData = [
-  { id: 0, from: "2019-09-23", to: "2019-09-25", type: 'medical', notify: [1], comment: 'nada' },
-  // { id: 1, from: "2019-09-02", to: "2019-09-05" },
-  // { id: 2, from: "2019-09-10", to: "2019-09-11" },
-  // { id: 3, from: "2019-09-13", to: "2019-09-13" }
-];
+const mockData = {
+  from: "24/08/2019", 
+  to: "30/10/2019",
+  statuses: ["approved", "not-approved", "processed"],
+  types: ["medical", "annual", "emergency"],
+  users: [4, 2, 3]
+}
 
 const initialState = {
-  data: null
+  data: mockData
 };
 
 const reducer = (state = initialState, action) => {

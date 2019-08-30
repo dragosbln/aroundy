@@ -30,6 +30,9 @@ export default class Home extends React.Component {
 
   state={modal: false}
   
+  componentDidMount = () => {
+    this.props.getReport(this.props.filter)
+  }
 
   onModalOpen = () => {
    this.setState({modal: true})

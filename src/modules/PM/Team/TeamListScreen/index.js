@@ -59,7 +59,7 @@ export default class Home extends React.Component {
           name: key,
           active: false
         })),
-        status: ["approved", "waiting", "false"].map(el => ({
+        status: ["pending", "processing", "approved", "not-approved", "processed"].map(el => ({
           name: el,
           active: false
         }))
@@ -135,6 +135,10 @@ export default class Home extends React.Component {
     }))
   }
 
+  onProceedPress = () => {
+    this.props.navigation.navigate('ReportsScreen')
+  }
+
   triggerButtonAnimation = () => {
     if(!this.state.showButton){
       Animated.spring(this.state.animations.buttonBottom, {
@@ -161,9 +165,10 @@ export default class Home extends React.Component {
 
     const filterData = {
       users: filteredByName.map(user => user.id),
-      date: this.state.filter.date,
-      type: this.state.filter.type.filter(t => t.active).map(el => el.name),
-      status: this.state.filter.status.filter(s => s.active).map(el => el.name)
+      from: moment(this.state.filter.date.from).format('DD/MM/YYYY'),
+      to: moment(this.state.filter.date.to).format('DD/MM/YYYY'),
+      types: this.state.filter.type.filter(t => t.active).map(el => el.name),
+      statuses: this.state.filter.status.filter(s => s.active).map(el => el.name)
     }
 
     this.props.setFilters(filterData)
@@ -180,7 +185,7 @@ export default class Home extends React.Component {
         <Header
           bg={teamHeaderBg}
           title="My Team"
-          onOptionPressed={this.triggerButtonAnimation}
+          onOptionPressed={this.onModalOpen}
           option={filter}
         />
         <View style={styles.mainContainer}>
@@ -197,7 +202,7 @@ export default class Home extends React.Component {
           />
         </View>
         <Animated.View style={[styles.buttonView, {bottom: this.state.animations.buttonBottom}]}>
-          <Button label='PROCEED'/>
+          <Button onPress={this.onProceedPress} label='PROCEED'/>
         </Animated.View>
         <Modal animationType="fade" visible={this.state.modal}>
           <Filter
