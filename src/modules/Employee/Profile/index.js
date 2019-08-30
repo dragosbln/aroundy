@@ -30,7 +30,7 @@ export default class Home extends React.Component {
       nextHoliday: null,
       // pendingRequest: null,
       // rejectedRequest: null,
-      message: "",
+      message: "", 
       historyData: null
     };
   }
