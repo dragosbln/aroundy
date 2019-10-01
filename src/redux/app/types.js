@@ -1,0 +1,4 @@
+export default {
+    SET_TOKENS: 'app/SET_TOKENS',
+    SET_COUNTDOWN_HOLIDAY: 'app/SET_COUNTDOWN_HOLIDAY'
+}
