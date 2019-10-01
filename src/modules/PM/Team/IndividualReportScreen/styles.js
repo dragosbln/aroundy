@@ -38,7 +38,22 @@ export default StyleSheet.create({
     backgroundColor: "#fff",
     borderTopLeftRadius: 60,
     borderTopRightRadius: 60,
-    elevation: 5
+    elevation: 5,
+    shadowRadius: 3,
+    shadowOpacity: 0.2,
+    shadowOffset: {
+      height: 1,
+      width: 1
+    }
   },
-  
+  errorHeadingContainer:{
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  errorHeadingTxt: {
+    color: colors.red,
+    fontSize: 36
+  }
 });

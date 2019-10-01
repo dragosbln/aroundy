@@ -9,12 +9,12 @@ export default StyleSheet.create({
         marginBottom: 5
     },
     text: {
-        color: colors.gray_light,
+        color: '#aaa',
         marginRight: 20
     },
     line: {
         height: 1,
         flex: 1,
-        backgroundColor: colors.gray_light
+        backgroundColor: '#aaa'
     }
 })

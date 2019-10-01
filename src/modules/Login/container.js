@@ -3,8 +3,8 @@ import authActions from "../../redux/auth/actions";
 import appActions from "../../redux/app/actions";
 import requestActions from "../../redux/request/actions";
 import holidaysActions from "../../redux/holidays/actions";
-import userActions from '../../redux/user/actions'
-import teamActions from '../../redux/team/actions'
+import userActions from "../../redux/user/actions";
+import teamActions from "../../redux/team/actions";
 
 import { connect } from "react-redux";
 
@@ -16,7 +16,6 @@ const mapStateToProps = state => ({
   allRequests: state.requests.allRequests,
   users: state.team.users,
   currentUser: state.user.currentUser,
-  // getRequestsPending: state.requests.apiState.pending,
   holidays: state.holidays.data,
   managers: state.team.managers
 });

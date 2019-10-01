@@ -1,8 +1,8 @@
 import React from "react";
-import { View } from "react-native";
+import { View, Image } from "react-native";
 import styles from "./styles";
 import Header from "../../../../components/Header";
-import { teamHeaderBg } from "../../../../assets/images";
+import { teamHeaderBg, nope, nein } from "../../../../assets/images";
 import Input from "../../../../components/Input";
 import colors from "../../../../assets/theme/colors";
 import PrimaryButton from "../../../../components/Buttons/PrimaryButton";
@@ -13,16 +13,41 @@ import ListHiddenItem from "./ListHiddenItem";
 //URGENT: show confirm delete modal
 
 export default class ManageUsers extends React.Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      nope: false,
+      nein: false
+    }
+  }
+
   onDeletePress = (index, rowMap, rowKey) => {
     if(rowMap[rowKey]){
       rowMap[rowKey].closeRowWithoutAnimation()
     }
     this.props.deleteUser(this.props.users[index].id)
+    this.setState(state => ({
+      ...state,
+      nope: false,
+      nein: false
+    }))
   };
 
-  onEditPress = index => {};
+  onEditPress = index => {
+    this.setState(state => ({
+      ...state,
+      nein: false,
+      nope:true
+    }))
+  };
 
-  onLoginPress = index => {};
+  onLoginPress = index => {
+    this.setState(state => ({
+      ...state,
+      nein: true,
+      nope:false
+    }))
+  };
 
 
   onResiterPress = () => {
@@ -30,7 +55,8 @@ export default class ManageUsers extends React.Component {
   }
 
   componentDidUpdate = (prevProps) => {
-    if(this.props.deleteSuccess && prevProps.deleteSuccess !== this.props.deleteSuccess){
+    
+    if(!prevProps.deleteSuccess && this.props.deleteSuccess){
       this.props.getTeamMembers()
     }
   }
@@ -40,6 +66,8 @@ export default class ManageUsers extends React.Component {
       <View style={styles.base}>
         <Header bg={teamHeaderBg} title="Manage Users" />
         <View style={styles.contentContainer}>
+        {this.state.nope ? <Image source={nope} width={100} height={100} resizeMode='contain' />:null}
+        {this.state.nein ? <Image source={nein} width={100} height={100} resizeMode='contain' />:null}
           <View style={styles.listContainer}>
             <SwipeListView
               data={this.props.users}

@@ -46,7 +46,6 @@ export default class CalendarSCREEN extends React.Component {
     if(prevProps === this.props){
       return
     }
-    console.log(prevProps, this.props);
     
     if(!prevProps.createSuccess && this.props.createSuccess){
       await this.setState(state => ({
@@ -105,7 +104,7 @@ export default class CalendarSCREEN extends React.Component {
           <Text customStyle={styles.fingersCrossedText}>Fingers crossed!</Text>
         </View>
         <View style={styles.cancelContainer}>
-          <TextButton onPress={this.onCancelRequests} customStyle={styles.cancelTxt}>Cancel request</TextButton>
+          <TextButton  customStyle={styles.cancelTxt}>Cancel request</TextButton>
         </View>
         <View style={styles.buttonView}>
           <Button onPress={this.onBackPressed} label="BACK TO PLANNET EARTH" />

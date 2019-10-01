@@ -47,7 +47,7 @@ const reducer = (state = initialState, action) => {
     case types.CURRENT_USER_ERROR:
       return {
         ...state,
-        apiState: utils.updateApiState(
+        currentUserApiState: utils.updateApiState(
           initialState,
           "error",
           action.payload,
@@ -58,7 +58,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         currentUser: action.payload,
-        apiState: utils.updateApiState(
+        currentUserApiState: utils.updateApiState(
           initialState,
           "success",
           true,
@@ -143,7 +143,7 @@ const reducer = (state = initialState, action) => {
             initialState,
             "error",
             action.payload,
-            "createApiState"
+            "setPasswordApiState"
           )
         };
       case types.SET_PASSWORD_SUCCESS:
@@ -156,6 +156,36 @@ const reducer = (state = initialState, action) => {
             "setPasswordApiState"
           )
         };
+        case types.DELETE_PENDING:
+      return {
+        ...state,
+        deleteApiState: utils.updateApiState(
+          initialState,
+          "pending",
+          true,
+          "deleteApiState"
+        )
+      };
+    case types.DELETE_ERROR:
+      return {
+        ...state,
+        deleteApiState: utils.updateApiState(
+          initialState,
+          "error",
+          action.payload,
+          "deleteApiState"
+        )
+      };
+    case types.DELETE_SUCCESS:
+      return {
+        ...state,
+        deleteApiState: utils.updateApiState(
+          initialState,
+          "success",
+          true,
+          "deleteApiState"
+        )
+      };
     default:
       return state;
   }

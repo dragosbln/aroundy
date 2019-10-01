@@ -29,7 +29,7 @@ export default createBottomTabNavigator(
     ManageUsers
   },
   {
-    initialRouteName: "Leave",
+    initialRouteName: "Home",
     defaultNavigationOptions: ({ navigation }) => {
       return {
         tabBarIcon: ({ focused }) => {

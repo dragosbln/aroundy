@@ -1,16 +1,16 @@
 import React from "react";
-import { ImageBackground, View, ActivityIndicator } from "react-native";
+import { ImageBackground, View, ActivityIndicator, Image } from "react-native";
 import { loginBg } from "../../assets/images";
 import styles from "./styles";
 import Input from "../../components/Input";
 import TextButton from "../../components/Buttons/TextButton";
 import Button from "../../components/Buttons/PrimaryButton";
-import { passwordIcon, emailIcon } from "../../assets/images";
+import { passwordIcon, emailIcon, logo } from "../../assets/images";
 import Text from "../../components/Text/BaseText";
 import decodeJwt from "jwt-decode";
 import responseTypes from "../../utils/responseTypes";
 import colors from "../../assets/theme/colors";
-import utils from '../../utils/functions'
+import utils from "../../utils/functions";
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -34,6 +34,7 @@ export default class Login extends React.Component {
           icon: passwordIcon,
           valid: false,
           touched: false,
+          hideText: true,
           validation: {
             required: true
           }
@@ -45,7 +46,7 @@ export default class Login extends React.Component {
 
   componentDidMount() {
     this.props.getCountdownHoliday();
-    this.props.getHolidays()
+    this.props.getHolidays();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -100,47 +101,26 @@ export default class Login extends React.Component {
       this.props.getAllRequests();
     }
 
-    if (
-      this.props.currentUser &&
-      this.props.holidays &&
-      this.props.managers
-    ) {
-      if (this.state.mode === "hr" && this.props.users && this.props.allRequests) {
+    if (this.props.currentUser && this.props.holidays && this.props.managers) {
+      if (
+        this.state.mode === "hr" &&
+        this.props.users &&
+        this.props.allRequests
+      ) {
         return this.props.navigation.navigate("HR");
       }
-      if (this.state.mode === "pm" && this.props.users && this.props.allRequests) {
+      if (
+        this.state.mode === "pm" &&
+        this.props.users &&
+        this.props.allRequests
+      ) {
         return this.props.navigation.navigate("PM");
       }
-      if(this.state.mode === 'employee'){
+      if (this.state.mode === "employee") {
         return this.props.navigation.navigate("Employee");
       }
     }
   }
-
-  // checkInput = (key, value) => {
-  //   let valid = true;
-  //   const elememntConfig = this.state.formConfig[key];
-  //   if (elememntConfig.validation.required) {
-  //     valid = valid && value !== "";
-  //   }
-  //   if (elememntConfig.validation.email) {
-  //     valid =
-  //       valid && /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value);
-  //   }
-
-  //   return valid; 
-  // };
-
-  // checkForm = () => {
-  //   const formConfig = this.state.formConfig;
-  //   let validForm = true;
-  //   for (let key in formConfig) {
-  //     if (!formConfig[key].valid) {
-  //       validForm = false;
-  //     }
-  //   }
-  //   return validForm;
-  // };
 
   onTextChanged = key => async value => {
     await this.setState(state => ({
@@ -158,12 +138,12 @@ export default class Login extends React.Component {
   };
 
   onSubmit = async () => {
-    const formConfig = {...this.state.formConfig}
-    for(let key in formConfig){
+    const formConfig = { ...this.state.formConfig };
+    for (let key in formConfig) {
       formConfig[key] = {
         ...this.state.formConfig[key],
         touched: true
-      }
+      };
     }
     await this.setState(state => ({
       ...state,
@@ -180,20 +160,27 @@ export default class Login extends React.Component {
     // this.props.login('admin@aroundy.com', 'secret')
   };
 
-  renderForm(){
+  renderForm() {
     const formConfig = this.state.formConfig;
-    return Object.keys(formConfig).sort().map((key, index) => (
-      <View key={index} style={styles.input}>
-        <Input
-          onChangeText={this.onTextChanged(key)}
-          value={formConfig[key].value}
-          gradientColors = {["#FAD961", "#E77A39"]}
-          placeholder={formConfig[key].placeholder}
-          icon={formConfig[key].icon}
-          valid={this.state.triedSubmit ? (formConfig[key].valid || !formConfig[key].touched) : true}
-        />
-      </View>
-    ));
+    return Object.keys(formConfig)
+      .sort()
+      .map((key, index) => (
+        <View key={index} style={styles.input}>
+          <Input
+            onChangeText={this.onTextChanged(key)}
+            value={formConfig[key].value}
+            gradientColors={["#FAD961", "#E77A39"]}
+            placeholder={formConfig[key].placeholder}
+            icon={formConfig[key].icon}
+            hideText={formConfig[key].hideText}
+            valid={
+              this.state.triedSubmit
+                ? formConfig[key].valid || !formConfig[key].touched
+                : true
+            }
+          />
+        </View>
+      ));
   }
 
   render() {
@@ -205,9 +192,7 @@ export default class Login extends React.Component {
       this.props.error &&
       this.props.error.type === responseTypes.UNAUTHORIZED
     ) {
-      status = (
-        <Text customStyle={styles.errorTxt}>Invalid password!</Text>
-      );
+      status = <Text customStyle={styles.errorTxt}>Invalid password!</Text>;
     }
     if (this.props.error && this.props.error.type === responseTypes.TIMEOUT) {
       status = (
@@ -216,17 +201,18 @@ export default class Login extends React.Component {
         </Text>
       );
     }
-    if (this.props.error && this.props.error.type === responseTypes.NONEXISTENT) {
+    if (
+      this.props.error &&
+      this.props.error.type === responseTypes.NONEXISTENT
+    ) {
       status = (
-        <Text customStyle={styles.errorTxt}>
-          This email is not registered.
-        </Text>
+        <Text customStyle={styles.errorTxt}>This email is not registered.</Text>
       );
     }
     return (
       <ImageBackground source={loginBg} style={styles.base}>
         <View style={styles.logoContainer}>
-          <Text>logo</Text>
+          <Image source={logo} />
         </View>
         <View style={styles.statusContainer}>{status}</View>
         <View style={styles.inputsContainer}>
