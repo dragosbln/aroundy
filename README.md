@@ -5,7 +5,7 @@
 This is a mobile application for managing employees' vacations. It supports 3 types of users: emplyee, Project Manager and HR. Thus, it offers and end-to-end solution to get rid of the hassle of spreadsheets and 20th-century paper based tracking systems. The applications runs on both Android and iOS devices.
 I developed this app during the 2019 summer internship, at Around25. The app was designed by a professional designer, and I worked together with an experienced software developer, that developed the backend of the app.
 
-## Technologies used: 
+## Technologies used
 * React Native
 * React Navigation
 * Javascript
@@ -14,6 +14,33 @@ I developed this app during the 2019 summer internship, at Around25. The app was
 * GitHub
 * NPM
 * Stackoverflow 😬
+
+## Installation
+_You will need React Native up and running. Read more on https://facebook.github.io/react-native/ _
+
+```
+npm install
+```
+
+* For mac users:
+```
+cd ios && pod install
+cd .. && react-native run-ios
+```
+
+* For android users:
+```
+react-native run-android
+```
+
+If you encounter an error like _SDK location not found_, please follow the steps described here: https://stackoverflow.com/a/48155800
+
+If you encounter an error like _Keystore file '/Users/dragosbilaniuc/Desktop/misc/aroundy/android/app/debug.keystore' not found for signing config 'debug'_, run this command: 
+```
+cd android/app && keytool -genkey -v -keystore debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000
+```
+
+If you encounter an error like _/bin/sh: adb: command not found_, follow this issue: https://github.com/facebook/react-native/issues/11413#issuecomment-267078022
 
 ## Functionalities
 
