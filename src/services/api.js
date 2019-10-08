@@ -3,7 +3,7 @@ import store from "../redux/store";
 import serverResponse from '../utils/serverResponse'
 
 export default class apiService {
-  static _baseUrl = "https://aroundy-03.democlient.info";
+  static _baseUrl = "https://aroundy.democlient.info/api";
 
   static sendRequest = async (
     method = "GET",
